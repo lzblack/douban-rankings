@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-18T23:34:36.983Z",
+  "generatedAt": "2026-04-18T23:36:48.897Z",
   "overall": "degraded",
   "sources": [
     {
@@ -8,7 +8,7 @@
       "itemCountDelta": 0,
       "message": null,
       "status": "ok",
-      "lastSuccessAt": "2026-04-18T23:34:12.208Z",
+      "lastSuccessAt": "2026-04-18T23:36:25.378Z",
       "lastFailureAt": null,
       "consecutiveFailures": 0
     },
@@ -19,8 +19,8 @@
       "message": "criterion: HTTP 403",
       "status": "failed",
       "lastSuccessAt": null,
-      "lastFailureAt": "2026-04-18T23:34:36.947Z",
-      "consecutiveFailures": 1
+      "lastFailureAt": "2026-04-18T23:36:48.793Z",
+      "consecutiveFailures": 2
     }
   ]
 }
