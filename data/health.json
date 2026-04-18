@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-04-18T23:36:48.897Z",
-  "overall": "degraded",
+  "generatedAt": "2026-04-18T23:48:25.768Z",
+  "overall": "ok",
   "sources": [
     {
       "id": "imdb-top250",
@@ -8,19 +8,19 @@
       "itemCountDelta": 0,
       "message": null,
       "status": "ok",
-      "lastSuccessAt": "2026-04-18T23:36:25.378Z",
+      "lastSuccessAt": "2026-04-18T23:48:00.299Z",
       "lastFailureAt": null,
       "consecutiveFailures": 0
     },
     {
       "id": "criterion",
-      "itemCount": 0,
-      "itemCountDelta": 0,
-      "message": "criterion: HTTP 403",
-      "status": "failed",
-      "lastSuccessAt": null,
+      "itemCount": 1130,
+      "itemCountDelta": 1130,
+      "message": null,
+      "status": "ok",
+      "lastSuccessAt": "2026-04-18T23:48:24.598Z",
       "lastFailureAt": "2026-04-18T23:36:48.793Z",
-      "consecutiveFailures": 2
+      "consecutiveFailures": 0
     }
   ]
 }
