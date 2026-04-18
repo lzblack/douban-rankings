@@ -1,0 +1,48 @@
+name: Update rankings
+
+on:
+  schedule:
+    - cron: '0 3 * * 0'  # Sundays at 03:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write   # auto-commit data/
+  issues: write     # read by the health-alert workflow downstream
+
+concurrency:
+  group: update-rankings
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Enable corepack + pnpm
+        run: corepack enable
+
+      - name: Install deps
+        run: pnpm install --frozen-lockfile
+
+      - name: Run pipeline
+        run: pnpm run update
+
+      - name: Commit data changes
+        run: |
+          if git diff --quiet data/; then
+            echo "No data changes."
+            exit 0
+          fi
+          git config user.name "rankings-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add data/
+          # Commit message carries the summary; pipeline already printed
+          # details in job logs. A structured format is a v2 concern.
+          git commit -m "data: scheduled update"
+          git push
