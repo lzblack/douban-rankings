@@ -34,16 +34,20 @@ function loadDefaultMapping() {
  *   1. manual-mapping.yaml `titles` section, key = "normalized-title|year"
  *   2. IMDB datasets title index → tt → PtGen map → douban subject id
  *   3. search.douban.com with the title; parse window.__DATA__ JSON;
- *      pick the item whose title's year in parens matches (±1 tolerance)
+ *      pick the item whose title's year in parens matches (±1 tolerance).
+ *      Skipped when `options.skipSearchFallback` is true — used by
+ *      Criterion where the ~15-20% miss rate is better resolved via
+ *      patient manual-mapping curation than by stressing Douban search.
  *
- * Returns null when no layer resolves — caller (pipeline) logs it as
- * unresolved for manual curation into config/manual-mapping.yaml.
+ * Returns null when no active layer resolves — caller (pipeline) logs
+ * it as unresolved for manual curation into config/manual-mapping.yaml.
  *
  * @param {{ title: string, year: string | number }} query
  * @param {{ fetch: Function }} http
  * @param {{
  *   manualMapping?: { titles?: Record<string, string | number> },
  *   ptgenMap?: Map<string, string> | null,
+ *   skipSearchFallback?: boolean,
  * }} [options]
  * @returns {Promise<string | null>}
  */
@@ -73,6 +77,7 @@ export async function matchTitleYearToDouban(query, http, options = {}) {
     }
 
     // Layer 3: Douban search by title, match year from result title
+    if (options.skipSearchFallback) return null;
     return await searchDoubanByTitle(title, year, http);
 }
 

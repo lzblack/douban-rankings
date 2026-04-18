@@ -191,6 +191,28 @@ test('returns null on empty search results', async () => {
     assert.equal(id, null);
 });
 
+test('skipSearchFallback short-circuits after Layer 2 miss', async () => {
+    let searchCalled = false;
+    const http = mockHttp(async url => {
+        if (url === BASICS_URL) {
+            return new Response(gzipSync(Buffer.from('tconst\ttitleType\n')), {
+                status: 200,
+            });
+        }
+        if (url.includes('search.douban.com')) {
+            searchCalled = true;
+        }
+        return new Response('', { status: 200 });
+    });
+    const id = await matchTitleYearToDouban(
+        { title: 'Unknown', year: '2000' },
+        http,
+        { manualMapping: {}, ...NO_PTGEN, skipSearchFallback: true },
+    );
+    assert.equal(id, null);
+    assert.equal(searchCalled, false);
+});
+
 test('returns null when missing title', async () => {
     const http = mockHttp(() => {
         throw new Error('unused');
