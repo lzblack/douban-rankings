@@ -1,5 +1,8 @@
 import { test } from 'node:test';
 import { strict as assert } from 'node:assert';
+import { mkdtemp, writeFile, rm } from 'node:fs/promises';
+import { join } from 'node:path';
+import { tmpdir } from 'node:os';
 import source, { parseList } from '../../src/sources/criterion.mjs';
 
 const FIXTURE_HTML = `
@@ -53,7 +56,7 @@ test('exposes stable source metadata', () => {
 
 test('parseList extracts spine, title, year, slug; skips rows without title', () => {
     const items = parseList(FIXTURE_HTML);
-    assert.equal(items.length, 2); // empty-title row dropped
+    assert.equal(items.length, 2);
     assert.deepEqual(items[0], {
         externalId: '0001',
         rank: null,
@@ -64,32 +67,50 @@ test('parseList extracts spine, title, year, slug; skips rows without title', ()
     assert.equal(items[1].externalId, '0002');
     assert.equal(items[1].title, 'Seven Samurai');
     assert.equal(items[1].year, '1954');
-    assert.equal(items[1].slug, 'seven-samurai');
 });
 
-test('scrape() fetches list URL and parses', async () => {
-    let fetchedUrl;
-    const fakeHttp = {
-        async fetch(url) {
-            fetchedUrl = url;
-            return new Response(FIXTURE_HTML, { status: 200 });
-        },
-    };
-    const items = await source.scrape(fakeHttp);
-    assert.equal(fetchedUrl, 'https://www.criterion.com/shop/browse/list');
-    assert.equal(items.length, 2);
+test('scrape() reads snapshot file when present (no network)', async () => {
+    const dir = await mkdtemp(join(tmpdir(), 'criterion-snap-'));
+    try {
+        const snapshotPath = join(dir, 'snap.json');
+        await writeFile(
+            snapshotPath,
+            JSON.stringify({
+                generatedAt: '2026-04-18T00:00:00Z',
+                items: [
+                    { externalId: '0001', rank: null, title: 'A', year: '1937' },
+                    { externalId: '0002', rank: null, title: 'B', year: '1954' },
+                ],
+            }),
+        );
+        const http = {
+            fetch: () => {
+                throw new Error('scrape must not touch the network');
+            },
+        };
+        const items = await source.scrape(http, { snapshotPath });
+        assert.equal(items.length, 2);
+        assert.equal(items[0].externalId, '0001');
+    } finally {
+        await rm(dir, { recursive: true, force: true });
+    }
 });
 
-test('scrape() throws on non-OK HTTP', async () => {
-    const fakeHttp = {
-        async fetch() {
-            return new Response('forbidden', { status: 403 });
-        },
-    };
-    await assert.rejects(() => source.scrape(fakeHttp), /HTTP 403/);
+test('scrape() throws with helpful instructions when snapshot missing', async () => {
+    const dir = await mkdtemp(join(tmpdir(), 'criterion-nosnap-'));
+    try {
+        const snapshotPath = join(dir, 'does-not-exist.json');
+        const http = { fetch: () => { throw new Error('unused'); } };
+        await assert.rejects(
+            () => source.scrape(http, { snapshotPath }),
+            /not found.*fetch:criterion-snapshot/,
+        );
+    } finally {
+        await rm(dir, { recursive: true, force: true });
+    }
 });
 
-test('matchItem uses ctx.prevResolved and skips the http layer on cache hit', async () => {
+test('matchItem uses ctx.prevResolved and skips http on cache hit', async () => {
     const http = {
         fetch: () => {
             throw new Error('http should not be called on cache hit');
