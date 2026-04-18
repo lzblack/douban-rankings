@@ -2,6 +2,7 @@ import { readFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parse as parseYaml } from 'yaml';
+import { loadPtgenMap } from '../util/ptgen.mjs';
 
 const DEFAULT_MAPPING_PATH = join(
     dirname(fileURLToPath(import.meta.url)),
@@ -10,9 +11,6 @@ const DEFAULT_MAPPING_PATH = join(
     'config',
     'manual-mapping.yaml',
 );
-
-const PTGEN_MAP_URL =
-    'https://ourbits.github.io/PtGen/internal_map/douban_imdb_map.json';
 
 let _cached;
 
@@ -25,49 +23,6 @@ function loadDefaultMapping() {
         else throw err;
     }
     return _cached;
-}
-
-/** @type {Map<string,string> | null | undefined} null = load failed; undefined = not loaded yet */
-let _ptgenCache;
-
-/**
- * One-shot fetch of the PtGen IMDB↔Douban mapping (static JSON export
- * from the PtGen database, ~35 MB). Cached for the lifetime of the
- * process. Returns null if the fetch fails — callers fall through to
- * the search endpoint.
- *
- * Credit: PtGen archive at https://ourbits.github.io/PtGen/
- * (R酱 Rhilip et al., OurBits community).
- */
-async function loadPtgenMap(http) {
-    if (_ptgenCache !== undefined) return _ptgenCache;
-    try {
-        const res = await http.fetch(PTGEN_MAP_URL);
-        if (!res.ok) {
-            console.warn(`[matcher] PtGen map fetch failed: HTTP ${res.status}`);
-            _ptgenCache = null;
-            return null;
-        }
-        const data = await res.json();
-        const map = new Map();
-        for (const row of data) {
-            if (row?.imdbid && row?.dbid != null) {
-                map.set(row.imdbid, String(row.dbid));
-            }
-        }
-        console.log(`[matcher] PtGen map loaded: ${map.size} entries`);
-        _ptgenCache = map;
-        return map;
-    } catch (err) {
-        console.warn(`[matcher] PtGen map load error: ${err.message}`);
-        _ptgenCache = null;
-        return null;
-    }
-}
-
-/** Exported for tests that want a clean state. */
-export function _resetPtgenCache() {
-    _ptgenCache = undefined;
 }
 
 /**
