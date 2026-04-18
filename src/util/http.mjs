@@ -21,6 +21,7 @@ const DEFAULT_USER_AGENT =
  * @property {number} [maxRetries]
  * @property {number} [backoffBase]  ms — first retry sleeps this long, doubles thereafter
  * @property {number} [backoffMax]   ms — cap on retry sleep
+ * @property {number} [jitter]       0..1 fraction; applies ±jitter to each wait to blur regular patterns. Default 0 (deterministic).
  *
  * @typedef {Object} HttpClient
  * @property {(url: string, init?: RequestInit) => Promise<Response>} fetch
@@ -37,6 +38,10 @@ export function createHttpClient(options = {}) {
     const maxRetries = options.maxRetries ?? 2;
     const backoffBase = options.backoffBase ?? 5000;
     const backoffMax = options.backoffMax ?? 60000;
+    // Jitter as a fraction: 0.2 means ±20% of the waited duration. Default 0
+    // keeps deterministic timing for existing tests; production callers
+    // (pipeline) opt into jitter to blur regular request patterns.
+    const jitter = options.jitter ?? 0;
 
     /** @type {Map<string, number>} hostname → timestamp of last dispatch */
     const lastRequestAt = new Map();
@@ -45,7 +50,13 @@ export function createHttpClient(options = {}) {
         const minDelay = rateLimits[hostname]?.minDelay ?? defaultMinDelay;
         const last = lastRequestAt.get(hostname) ?? 0;
         const wait = last + minDelay - Date.now();
-        if (wait > 0) await sleep(wait);
+        if (wait > 0) {
+            const jittered =
+                jitter > 0
+                    ? wait * (1 + (Math.random() * 2 - 1) * jitter)
+                    : wait;
+            await sleep(Math.max(0, jittered));
+        }
         lastRequestAt.set(hostname, Date.now());
     }
 

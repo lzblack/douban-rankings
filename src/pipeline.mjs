@@ -142,7 +142,12 @@ export function groupByCategory(results) {
 
 /** Main CLI entry. */
 async function main() {
-    const http = createHttpClient({ rateLimits: DEFAULT_RATE_LIMITS });
+    const http = createHttpClient({
+        rateLimits: DEFAULT_RATE_LIMITS,
+        // ±20% jitter on wait times so our request cadence looks less
+        // bot-regular to anti-scrape heuristics.
+        jitter: 0.2,
+    });
     const results = await runAll(DEFAULT_SOURCES, http);
     const now = new Date();
 
