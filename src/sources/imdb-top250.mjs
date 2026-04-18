@@ -12,6 +12,7 @@ export default {
     subCategory: 'movie',
     kind: 'permanent',
     priority: 1,
+    externalIdKind: 'imdb',
     meta: {
         title: 'IMDb Top 250',
         titleZh: 'IMDb 250 佳片',

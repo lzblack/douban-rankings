@@ -1,0 +1,112 @@
+import { test } from 'node:test';
+import { strict as assert } from 'node:assert';
+import {
+    runSource,
+    runAll,
+    groupByCategory,
+} from '../src/pipeline.mjs';
+
+const fakeHttp = { fetch: async () => new Response('') };
+
+function makeSource({
+    id = 's',
+    category = 'movie',
+    externalIdKind = 'imdb',
+    scraped = [],
+    shouldThrow = false,
+} = {}) {
+    return {
+        id,
+        category,
+        subCategory: 'movie',
+        kind: 'permanent',
+        priority: 1,
+        externalIdKind,
+        meta: { title: id, titleZh: id, url: `https://${id}.example/` },
+        async scrape() {
+            if (shouldThrow) throw new Error('scrape failed');
+            return scraped;
+        },
+    };
+}
+
+test('runSource invokes matcher keyed by externalIdKind', async () => {
+    const source = makeSource({
+        scraped: [
+            { externalId: 'tt1', rank: 1, title: 'A' },
+            { externalId: 'tt2', rank: 2, title: 'B' },
+        ],
+    });
+    const matcher = async id => (id === 'tt1' ? '101' : '202');
+    const result = await runSource(source, fakeHttp, {
+        matchers: { imdb: matcher },
+    });
+    assert.equal(result.status, 'ok');
+    assert.equal(result.itemCount, 2);
+    assert.equal(result.scrapedCount, 2);
+    assert.deepEqual(result.items[0], {
+        doubanId: '101',
+        rank: 1,
+        externalId: 'tt1',
+    });
+});
+
+test('runSource drops items whose matcher returns null', async () => {
+    const source = makeSource({
+        scraped: [
+            { externalId: 'tt1', rank: 1, title: 'A' },
+            { externalId: 'tt2', rank: 2, title: 'B' },
+        ],
+    });
+    const matcher = async id => (id === 'tt1' ? '101' : null);
+    const result = await runSource(source, fakeHttp, {
+        matchers: { imdb: matcher },
+    });
+    assert.equal(result.itemCount, 1);
+    assert.equal(result.scrapedCount, 2);
+    assert.equal(result.items[0].externalId, 'tt1');
+});
+
+test('runSource captures scrape errors as failed, never throws', async () => {
+    const source = makeSource({ shouldThrow: true });
+    const result = await runSource(source, fakeHttp, {
+        matchers: { imdb: async () => '1' },
+    });
+    assert.equal(result.status, 'failed');
+    assert.match(result.message, /scrape failed/);
+    assert.equal(result.items.length, 0);
+});
+
+test('runSource fails when externalIdKind has no registered matcher', async () => {
+    const source = makeSource({ externalIdKind: 'unknown' });
+    const result = await runSource(source, fakeHttp, {
+        matchers: { imdb: async () => '1' },
+    });
+    assert.equal(result.status, 'failed');
+    assert.match(result.message, /no matcher registered/);
+});
+
+test('runAll isolates per-source failures (one failing does not stop others)', async () => {
+    const ok = makeSource({
+        id: 'ok',
+        scraped: [{ externalId: 'tt1', rank: 1 }],
+    });
+    const bad = makeSource({ id: 'bad', shouldThrow: true });
+    const results = await runAll([ok, bad], fakeHttp, {
+        matchers: { imdb: async () => '1' },
+    });
+    assert.equal(results.length, 2);
+    assert.equal(results[0].status, 'ok');
+    assert.equal(results[1].status, 'failed');
+});
+
+test('groupByCategory includes only ok sources and buckets them', () => {
+    const grouped = groupByCategory([
+        { status: 'ok', sourceDef: { category: 'movie' } },
+        { status: 'failed', sourceDef: { category: 'movie' } },
+        { status: 'ok', sourceDef: { category: 'book' } },
+    ]);
+    assert.equal(grouped.movie.length, 1);
+    assert.equal(grouped.book.length, 1);
+    assert.equal(grouped.failed, undefined);
+});
