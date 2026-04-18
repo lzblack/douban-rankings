@@ -1,7 +1,10 @@
-import { test } from 'node:test';
+import { test, beforeEach } from 'node:test';
 import { strict as assert } from 'node:assert';
 import { gzipSync } from 'node:zlib';
 import source, { computeTop250 } from '../../src/sources/imdb-top250.mjs';
+import { _resetDatasetsCache } from '../../src/util/imdb-datasets.mjs';
+
+beforeEach(() => _resetDatasetsCache());
 
 test('exposes stable source metadata', () => {
     assert.equal(source.id, 'imdb-top250');
