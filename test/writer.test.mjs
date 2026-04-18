@@ -51,7 +51,7 @@ test('buildCategoryPayload shapes source metadata and aggregates items', () => {
         itemCount: 2,
     });
     assert.deepEqual(payload.categories.movie.items['1292052'], [
-        { source: 'imdb-top250', rank: 1 },
+        { source: 'imdb-top250', rank: 1, externalId: 'tt0111161' },
     ]);
 });
 
@@ -86,10 +86,15 @@ test('buildCategoryPayload merges same doubanId across sources, preserving spine
     const payload = buildCategoryPayload('movie', sourceResults, { now: NOW });
     const entries = payload.categories.movie.items['1292052'];
     assert.equal(entries.length, 2);
-    assert.deepEqual(entries[0], { source: 'imdb-top250', rank: 1 });
+    assert.deepEqual(entries[0], {
+        source: 'imdb-top250',
+        rank: 1,
+        externalId: 'tt0111161',
+    });
     assert.deepEqual(entries[1], {
         source: 'criterion',
         rank: null,
+        externalId: 'tt0111161',
         spineNumber: '1056',
     });
 });

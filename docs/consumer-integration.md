@@ -58,11 +58,11 @@ v1 只有 `movie.json`；未来会有 `book.json` / `tv.json` / `music.json` 等
       },
       "items": {
         "1292052": [
-          { "source": "imdb-top250", "rank": 1 }
+          { "source": "imdb-top250", "rank": 1, "externalId": "tt0111161" }
         ],
         "1291561": [
-          { "source": "imdb-top250", "rank": 7 },
-          { "source": "criterion", "rank": null, "spineNumber": "1056" }  // 未来示例
+          { "source": "imdb-top250", "rank": 7, "externalId": "tt0110912" },
+          { "source": "criterion", "rank": null, "externalId": "1056", "spineNumber": "1056" }  // 未来示例
         ]
       }
     }
@@ -80,6 +80,7 @@ v1 只有 `movie.json`；未来会有 `book.json` / `tv.json` / `music.json` 等
 | `categories.<cat>.sources.<id>.priority` | UI 多榜单显示时的排序权重，数字小的靠前（1 最高优先级） |
 | `categories.<cat>.items[subjectId]` | **数组**，同一条目可能出现在多个榜单 |
 | `items[].rank` | 榜单排名。`null` 表示"只收录不排名"（如 Criterion Collection） |
+| `items[].externalId` | 原始榜单 id（IMDb tt id、Criterion spine 号等），消费方可安全忽略；主要给 pipeline 增量 resolve 用 |
 | `items[].spineNumber` | 可选辅助标识（如 Criterion 的 spine 编号） |
 
 ---

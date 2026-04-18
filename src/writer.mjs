@@ -62,7 +62,15 @@ function aggregateItems(sourceResults) {
     const items = {};
     for (const r of sourceResults) {
         for (const item of r.items) {
-            const entry = { source: r.sourceDef.id, rank: item.rank };
+            const entry = {
+                source: r.sourceDef.id,
+                rank: item.rank,
+                // externalId is retained so the next pipeline run can
+                // restore (source, externalId → doubanId) from previous
+                // output and skip remote lookups for already-resolved
+                // items. Consumers MAY ignore this field (additive).
+                externalId: item.externalId,
+            };
             if (item.spineNumber != null) entry.spineNumber = item.spineNumber;
             (items[item.doubanId] ??= []).push(entry);
         }
