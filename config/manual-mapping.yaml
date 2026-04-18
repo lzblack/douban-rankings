@@ -1,0 +1,13 @@
+# Human-curated fallback for external IDs that automated matchers
+# could not resolve to a Douban subject id.
+#
+# Workflow: after a scrape run, look at the health report for
+# "unresolved" external ids. For each, open the title's Douban page
+# manually and record its subject id below.
+
+# IMDB title id -> Douban subject id (strings).
+imdb: {}
+
+# Title+year overrides consumed by src/matchers/title-year-to-douban.mjs (v2+).
+# Key format: "<title>|<year>", value: "<doubanSubjectId>".
+titles: {}
