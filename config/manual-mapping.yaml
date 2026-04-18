@@ -8,6 +8,15 @@
 # IMDB title id -> Douban subject id (strings).
 imdb: {}
 
-# Title+year overrides consumed by src/matchers/title-year-to-douban.mjs (v2+).
-# Key format: "<title>|<year>", value: "<doubanSubjectId>".
+# Title + year overrides, consumed by src/matchers/title-year-to-douban.mjs.
+# Key format: "<normalized-title>|<year>".
+#   - <normalized-title> is produced by normalizeTitle() in
+#     src/util/imdb-datasets.mjs: lowercase, strip common punctuation,
+#     & → "and", collapse whitespace. Use manualMappingKey() from the
+#     matcher module to compute the exact key for a new override.
+#   - <year> is the 4-digit release year as a string.
+# Example:
+#   titles:
+#     "grand illusion|1937": "1294808"
+#     "seven samurai|1954": "1295399"
 titles: {}

@@ -1,5 +1,6 @@
 import { dirname, join } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
+import { readFile } from 'node:fs/promises';
 import { createHttpClient } from './util/http.mjs';
 import {
     buildCategoryPayload,
@@ -9,6 +10,7 @@ import {
 import { buildHealthReport, readPrevHealth } from './health.mjs';
 import { matchImdbToDouban } from './matchers/imdb-to-douban.mjs';
 import imdbTop250 from './sources/imdb-top250.mjs';
+import criterion from './sources/criterion.mjs';
 
 const PROJECT_ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const DATA_DIR = join(PROJECT_ROOT, 'data');
@@ -17,11 +19,11 @@ const DEFAULT_MATCHERS = {
     imdb: matchImdbToDouban,
 };
 
-const DEFAULT_SOURCES = [imdbTop250];
+const DEFAULT_SOURCES = [imdbTop250, criterion];
 
-// Per PRD §7: Douban redirect is the binding constraint at 5s/req.
-// Raising any of these numbers without coordinating with anti-scrape
-// strategy risks getting the whole run blocked.
+// Per PRD §7: Douban endpoints are the binding constraint. Raising any
+// of these numbers without coordinating with anti-scrape strategy risks
+// getting the whole run blocked.
 const DEFAULT_RATE_LIMITS = {
     'search.douban.com': { minDelay: 5000 },
     'movie.douban.com': { minDelay: 5000 },
@@ -35,20 +37,29 @@ const DEFAULT_RATE_LIMITS = {
  * Never throws — returns a result object with status=failed on error,
  * so callers can isolate one source's failure from others.
  *
+ * Matching is resolved per item:
+ *   1. If source.matchItem is defined, pipeline calls it — the source
+ *      owns the full logic (lookup, fallback, prev-resolved cache, etc.)
+ *   2. Otherwise pipeline routes via deps.matchers[source.externalIdKind]
+ *      with just raw.externalId — the simple "registry" path
+ *
  * @param {Object} source
  * @param {{ fetch: Function }} http
- * @param {{ matchers?: Record<string, Function> }} [deps]
+ * @param {{ matchers?: Record<string, Function>, ctx?: Object }} [deps]
  */
 export async function runSource(source, http, deps = {}) {
     const matchers = deps.matchers ?? DEFAULT_MATCHERS;
-    const matcher = matchers[source.externalIdKind];
+    const ctx = deps.ctx ?? {};
     const updatedAt = new Date();
 
-    if (!matcher) {
+    const useSourceMatcher = typeof source.matchItem === 'function';
+    const registryMatcher = matchers[source.externalIdKind];
+
+    if (!useSourceMatcher && !registryMatcher) {
         return failedResult(
             source,
             updatedAt,
-            `no matcher registered for externalIdKind="${source.externalIdKind}"`,
+            `no matcher registered for externalIdKind="${source.externalIdKind}" and source has no matchItem()`,
         );
     }
 
@@ -57,7 +68,9 @@ export async function runSource(source, http, deps = {}) {
         const items = [];
         const unresolved = [];
         for (const raw of scraped) {
-            const doubanId = await matcher(raw.externalId, http);
+            const doubanId = useSourceMatcher
+                ? await source.matchItem(raw, http, ctx)
+                : await registryMatcher(raw.externalId, http);
             if (doubanId) {
                 items.push({
                     doubanId,
@@ -69,18 +82,20 @@ export async function runSource(source, http, deps = {}) {
                     externalId: raw.externalId,
                     rank: raw.rank,
                     title: raw.title,
+                    year: raw.year,
                 });
             }
         }
         if (unresolved.length > 0) {
-            // Surface the exact unresolved list so maintainers can extend
-            // config/manual-mapping.yaml without having to re-run the
-            // pipeline locally. Appears in GitHub Actions logs.
             console.warn(
                 `[${source.id}] ${unresolved.length} unresolved — add to config/manual-mapping.yaml if needed:`,
             );
             for (const u of unresolved) {
-                console.warn(`  ${u.externalId}  (rank ${u.rank})  ${u.title ?? ''}`);
+                const yearStr = u.year ? ` (${u.year})` : '';
+                const rankStr = u.rank != null ? ` rank ${u.rank}` : '';
+                console.warn(
+                    `  ${u.externalId}${rankStr}  ${u.title ?? ''}${yearStr}`,
+                );
             }
         }
         return {
@@ -140,15 +155,54 @@ export function groupByCategory(results) {
     return byCat;
 }
 
+/**
+ * Read previous <category>.json files and build a lookup of already-
+ * resolved (source, externalId) → doubanId pairs. Lets sources skip
+ * remote matcher calls for items we resolved on a prior run.
+ *
+ * @returns {Promise<Map<string, Map<string, string>>>} sourceId → (externalId → doubanId)
+ */
+export async function loadPrevResolved(dataDir = DATA_DIR) {
+    const byCategorySource = new Map();
+    let manifest;
+    try {
+        const raw = await readFile(join(dataDir, 'manifest.json'), 'utf-8');
+        manifest = JSON.parse(raw);
+    } catch {
+        return byCategorySource; // no prior run
+    }
+    for (const cat of manifest?.categories ?? []) {
+        let payload;
+        try {
+            const raw = await readFile(join(dataDir, `${cat}.json`), 'utf-8');
+            payload = JSON.parse(raw);
+        } catch {
+            continue;
+        }
+        if (payload?.schemaVersion !== 1) continue; // unknown shape, skip
+        const items = payload?.categories?.[cat]?.items ?? {};
+        for (const [doubanId, entries] of Object.entries(items)) {
+            for (const e of entries) {
+                if (!e?.source || !e?.externalId) continue;
+                if (!byCategorySource.has(e.source)) {
+                    byCategorySource.set(e.source, new Map());
+                }
+                byCategorySource.get(e.source).set(e.externalId, doubanId);
+            }
+        }
+    }
+    return byCategorySource;
+}
+
 /** Main CLI entry. */
 async function main() {
     const http = createHttpClient({
         rateLimits: DEFAULT_RATE_LIMITS,
-        // ±20% jitter on wait times so our request cadence looks less
-        // bot-regular to anti-scrape heuristics.
         jitter: 0.2,
     });
-    const results = await runAll(DEFAULT_SOURCES, http);
+    const prevResolved = await loadPrevResolved();
+    const ctx = { prevResolved };
+    const results = await runAll(DEFAULT_SOURCES, http, { ctx });
     const now = new Date();
 
     const byCat = groupByCategory(results);
@@ -178,8 +232,6 @@ async function main() {
 
     printSummary(results, health);
 
-    // Exit non-zero when every source failed so the Actions run shows red
-    // and the health-alert workflow fires.
     if (health.overall === 'failed') process.exit(1);
 }
 
@@ -197,8 +249,6 @@ function printSummary(results, health) {
     console.log(`overall: ${health.overall}`);
 }
 
-// CLI entry — runs when this module is invoked directly (e.g. `pnpm run update`)
-// but not when imported by tests.
 if (import.meta.url === pathToFileURL(process.argv[1] ?? '').href) {
     main().catch(err => {
         console.error('pipeline failed:', err);
