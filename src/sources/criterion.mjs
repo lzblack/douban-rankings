@@ -46,7 +46,21 @@ export default {
      * @returns {Promise<ScrapedItem[]>}
      */
     async scrape(http) {
-        const res = await http.fetch(LIST_URL);
+        // criterion.com blocks cloud-provider IPs at the edge (403 from
+        // GitHub Actions runners, 200 from residential IPs). Sending a
+        // fuller browser signature header set is a cheap mitigation
+        // before resorting to snapshot-via-local-fetch.
+        const res = await http.fetch(LIST_URL, {
+            headers: {
+                Accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+                'Accept-Language': 'en-US,en;q=0.9',
+                'Accept-Encoding': 'gzip, deflate, br',
+                'Sec-Fetch-Dest': 'document',
+                'Sec-Fetch-Mode': 'navigate',
+                'Sec-Fetch-Site': 'none',
+                'Upgrade-Insecure-Requests': '1',
+            },
+        });
         if (!res.ok) throw new Error(`criterion: HTTP ${res.status}`);
         return parseList(await res.text());
     },
