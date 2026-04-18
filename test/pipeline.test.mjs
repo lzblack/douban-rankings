@@ -1,9 +1,13 @@
 import { test } from 'node:test';
 import { strict as assert } from 'node:assert';
+import { mkdtemp, writeFile, rm, mkdir } from 'node:fs/promises';
+import { join } from 'node:path';
+import { tmpdir } from 'node:os';
 import {
     runSource,
     runAll,
     groupByCategory,
+    loadPrevResolved,
 } from '../src/pipeline.mjs';
 
 const fakeHttp = { fetch: async () => new Response('') };
@@ -109,4 +113,91 @@ test('groupByCategory includes only ok sources and buckets them', () => {
     assert.equal(grouped.movie.length, 1);
     assert.equal(grouped.book.length, 1);
     assert.equal(grouped.failed, undefined);
+});
+
+test('runSource prefers source.matchItem over externalIdKind registry', async () => {
+    const source = {
+        id: 's',
+        category: 'movie',
+        subCategory: 'movie',
+        kind: 'permanent',
+        priority: 1,
+        externalIdKind: 'title-year',
+        meta: { title: 's', titleZh: 's', url: 'https://example/' },
+        scrape: async () => [
+            { externalId: '0001', rank: null, title: 'A', year: '1937' },
+        ],
+        matchItem: async (raw, _http, ctx) => {
+            assert.equal(raw.externalId, '0001');
+            assert.ok(ctx);
+            return 'douban-' + raw.externalId;
+        },
+    };
+    const result = await runSource(source, fakeHttp, {
+        matchers: {},  // empty registry; matchItem should be used
+        ctx: { some: 'context' },
+    });
+    assert.equal(result.status, 'ok');
+    assert.equal(result.itemCount, 1);
+    assert.equal(result.items[0].doubanId, 'douban-0001');
+});
+
+test('runSource fails when source has neither matchItem nor registered matcher', async () => {
+    const source = {
+        id: 's',
+        category: 'movie',
+        subCategory: 'movie',
+        kind: 'permanent',
+        priority: 1,
+        externalIdKind: 'unknown-kind',
+        meta: { title: 's', titleZh: 's', url: 'https://example/' },
+        scrape: async () => [],
+    };
+    const result = await runSource(source, fakeHttp, { matchers: {} });
+    assert.equal(result.status, 'failed');
+    assert.match(result.message, /no matcher registered.*and source has no matchItem/);
+});
+
+test('loadPrevResolved builds sourceId → (externalId → doubanId) from prior data dir', async () => {
+    const dir = await mkdtemp(join(tmpdir(), 'pipeline-prev-'));
+    try {
+        await writeFile(
+            join(dir, 'manifest.json'),
+            JSON.stringify({ schemaVersion: 1, categories: ['movie'] }),
+        );
+        await writeFile(
+            join(dir, 'movie.json'),
+            JSON.stringify({
+                schemaVersion: 1,
+                categories: {
+                    movie: {
+                        sources: {},
+                        items: {
+                            '1292052': [
+                                { source: 'imdb-top250', rank: 1, externalId: 'tt0111161' },
+                            ],
+                            '1294808': [
+                                { source: 'criterion', rank: null, externalId: '0001' },
+                            ],
+                        },
+                    },
+                },
+            }),
+        );
+        const map = await loadPrevResolved(dir);
+        assert.equal(map.get('imdb-top250').get('tt0111161'), '1292052');
+        assert.equal(map.get('criterion').get('0001'), '1294808');
+    } finally {
+        await rm(dir, { recursive: true, force: true });
+    }
+});
+
+test('loadPrevResolved returns empty map when no prior files', async () => {
+    const dir = await mkdtemp(join(tmpdir(), 'pipeline-empty-'));
+    try {
+        const map = await loadPrevResolved(dir);
+        assert.equal(map.size, 0);
+    } finally {
+        await rm(dir, { recursive: true, force: true });
+    }
 });
