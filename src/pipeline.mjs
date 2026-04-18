@@ -55,6 +55,7 @@ export async function runSource(source, http, deps = {}) {
     try {
         const scraped = await source.scrape(http);
         const items = [];
+        const unresolved = [];
         for (const raw of scraped) {
             const doubanId = await matcher(raw.externalId, http);
             if (doubanId) {
@@ -63,6 +64,23 @@ export async function runSource(source, http, deps = {}) {
                     rank: raw.rank,
                     externalId: raw.externalId,
                 });
+            } else {
+                unresolved.push({
+                    externalId: raw.externalId,
+                    rank: raw.rank,
+                    title: raw.title,
+                });
+            }
+        }
+        if (unresolved.length > 0) {
+            // Surface the exact unresolved list so maintainers can extend
+            // config/manual-mapping.yaml without having to re-run the
+            // pipeline locally. Appears in GitHub Actions logs.
+            console.warn(
+                `[${source.id}] ${unresolved.length} unresolved — add to config/manual-mapping.yaml if needed:`,
+            );
+            for (const u of unresolved) {
+                console.warn(`  ${u.externalId}  (rank ${u.rank})  ${u.title ?? ''}`);
             }
         }
         return {
