@@ -16,6 +16,7 @@ test('exposes stable source metadata', () => {
     assert.equal(source.category, 'movie');
     assert.equal(source.kind, 'permanent');
     assert.equal(source.priority, 1);
+    assert.equal(source.externalIdKind, 'imdb');
     assert.ok(source.meta.title);
     assert.ok(source.meta.url.startsWith('https://'));
 });
