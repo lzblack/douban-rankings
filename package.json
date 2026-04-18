@@ -8,7 +8,8 @@
         "update": "node src/pipeline.mjs",
         "test": "node --test test/**/*.test.mjs",
         "health": "node src/health.mjs --report",
-        "format": "prettier --write \"src/**/*.mjs\""
+        "format": "prettier --write \"src/**/*.mjs\"",
+        "fetch:criterion-snapshot": "node scripts/fetch-criterion-snapshot.mjs"
     },
     "dependencies": {
         "cheerio": "^1.0.0",

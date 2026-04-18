@@ -183,6 +183,7 @@ const DEFAULT_SOURCES = [imdbTop250, yourSource];
 ## 常见坑
 
 - **目标站点上了 AWS WAF / Cloudflare challenge**：纯 HTTP fetch 会被挡。检查是否有官方 dataset（如 IMDb）或 social / API 替代。最后才考虑 Playwright（重，维护成本高）。
+- **目标站点纯 IP filter 禁云 IP**（例：criterion.com 对 Azure/AWS runner 403，residential 200）：改为"**snapshot-first**"模式——维护者本地跑 `scripts/fetch-<source>-snapshot.mjs` 把列表写入 `config/<source>-snapshot.json`，source 的 `scrape()` 只读这个文件。参考 `src/sources/criterion.mjs` 和 `scripts/fetch-criterion-snapshot.mjs` 的结构。
 - **scrape 返回 `rank: undefined`**：pipeline 会 log 但保留条目，最终 JSON 里 `rank: null`。若榜单确实无顺序（如 "Criterion Collection membership"），显式返回 `null` 并依赖 `spineNumber` 等辅助字段。
 - **externalId 大小写**：IMDb tt id 一律小写 `tt0111161`。PtGen map 也是小写 key。
 - **重复抓取**：pipeline 对每个 source 只调 `scrape` 一次，pipeline 内存里 dedupe 不需要你做。

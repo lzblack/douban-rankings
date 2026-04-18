@@ -1,30 +1,46 @@
+import { readFile } from 'node:fs/promises';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import * as cheerio from 'cheerio';
 import { matchTitleYearToDouban } from '../matchers/title-year-to-douban.mjs';
 
 /**
  * Source: The Criterion Collection.
  *
- * Criterion's browse/list page server-renders the entire Collection
- * (~1800 titles) in one HTML response. Each row has the spine number,
- * title, director, country, and release year — but NOT the IMDB id,
- * so we can't use the imdb matcher directly.
+ * criterion.com serves a full server-rendered list at /shop/browse/list
+ * from residential IPs but edge-filters cloud-provider IPs to HTTP 403
+ * (Azure, AWS, etc. — GitHub Actions runners all fail). Instead of
+ * piping through a proxy or giving up, we treat the list as a
+ * maintainer-refreshed snapshot:
  *
- * Matching is done by `matchTitleYearToDouban` with
- * `skipSearchFallback: true` — two layers only:
- *   manual-mapping.titles → IMDB datasets title+year → PtGen → douban
+ *   1. Maintainer runs `pnpm run fetch:criterion-snapshot` on a
+ *      residential IP, which fetches, parses, and writes to
+ *      `config/criterion-snapshot.json`.
+ *   2. That file is committed to the repo.
+ *   3. Pipeline's scrape() reads the snapshot file — no network at run
+ *      time, deterministic, works fine in CI.
  *
- * We deliberately skip the Douban search fallback because Criterion is
- * ~1800 entries, and 15-20% miss rate would have meant hundreds of
- * rate-limited search hits on every cold start. Instead those misses
- * go straight to the unresolved log for patient manual-mapping
- * curation. Monthly cron stays seconds-fast; coverage converges over
- * time as maintainers triage unresolved entries.
+ * Snapshot cadence: ad-hoc. Criterion adds ~5-10 spines per month;
+ * refreshing the snapshot quarterly is plenty.
  *
- * ctx.prevResolved lets us skip even the PtGen lookup on entries we
- * resolved in a prior run — only new spines incur work.
+ * Matching is still via `matchTitleYearToDouban` with
+ * `skipSearchFallback: true` (layers: manual-mapping → IMDB datasets
+ * title-year → PtGen). Unresolved entries go to the log for manual
+ * triage into config/manual-mapping.yaml.
+ *
+ * ctx.prevResolved lets us skip even the PtGen lookup for entries
+ * resolved in a prior run.
  */
 
 const LIST_URL = 'https://www.criterion.com/shop/browse/list';
+
+const DEFAULT_SNAPSHOT_PATH = join(
+    dirname(fileURLToPath(import.meta.url)),
+    '..',
+    '..',
+    'config',
+    'criterion-snapshot.json',
+);
 
 /** @typedef {{ externalId: string, rank: null, title: string, year: string, slug?: string }} ScrapedItem */
 
@@ -42,33 +58,34 @@ export default {
     },
 
     /**
-     * @param {{ fetch: Function }} http
+     * Read the maintainer-curated snapshot. The `http` param is
+     * accepted for contract consistency but unused — no network at
+     * scrape time.
+     *
+     * @param {{ fetch: Function }} _http
+     * @param {{ snapshotPath?: string }} [opts]
      * @returns {Promise<ScrapedItem[]>}
      */
-    async scrape(http) {
-        // criterion.com blocks cloud-provider IPs at the edge (403 from
-        // GitHub Actions runners, 200 from residential IPs). Sending a
-        // fuller browser signature header set is a cheap mitigation
-        // before resorting to snapshot-via-local-fetch.
-        const res = await http.fetch(LIST_URL, {
-            headers: {
-                Accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-                'Accept-Language': 'en-US,en;q=0.9',
-                'Accept-Encoding': 'gzip, deflate, br',
-                'Sec-Fetch-Dest': 'document',
-                'Sec-Fetch-Mode': 'navigate',
-                'Sec-Fetch-Site': 'none',
-                'Upgrade-Insecure-Requests': '1',
-            },
-        });
-        if (!res.ok) throw new Error(`criterion: HTTP ${res.status}`);
-        return parseList(await res.text());
+    async scrape(_http, opts = {}) {
+        const snapshotPath = opts.snapshotPath ?? DEFAULT_SNAPSHOT_PATH;
+        let raw;
+        try {
+            raw = await readFile(snapshotPath, 'utf-8');
+        } catch (err) {
+            if (err.code === 'ENOENT') {
+                throw new Error(
+                    'criterion: ' +
+                        snapshotPath +
+                        ' not found. criterion.com blocks cloud IPs, so the pipeline cannot fetch directly. Run `pnpm run fetch:criterion-snapshot` from a residential IP and commit the generated file.',
+                );
+            }
+            throw err;
+        }
+        const data = JSON.parse(raw);
+        return Array.isArray(data?.items) ? data.items : [];
     },
 
     /**
-     * Item-level matcher that respects ctx.prevResolved so monthly
-     * runs don't re-query Douban for entries we already know.
-     *
      * @param {ScrapedItem} raw
      * @param {{ fetch: Function }} http
      * @param {{ prevResolved?: Map<string, Map<string, string>> }} [ctx]
@@ -85,9 +102,8 @@ export default {
 };
 
 /**
- * Parse the browse/list HTML into ScrapedItem[]. Exported for tests.
- * Uses `<tr class="gridFilm">` rows (one per film), falling back
- * gracefully when a cell is missing.
+ * Parse the browse/list HTML into ScrapedItem[]. Exported for tests
+ * and used by `scripts/fetch-criterion-snapshot.mjs`.
  *
  * @param {string} html
  * @returns {ScrapedItem[]}
@@ -99,15 +115,16 @@ export function parseList(html) {
     for (const tr of rows) {
         const $tr = $(tr);
         const spine = $tr.find('.g-spine').text().trim();
-        const title = $tr.find('.g-title span').text().trim()
-            || $tr.find('.g-title').text().trim();
+        const title =
+            $tr.find('.g-title span').text().trim() ||
+            $tr.find('.g-title').text().trim();
         const year = $tr.find('.g-year').text().trim();
         if (!spine || !title) continue;
         const href = $tr.attr('data-href') ?? '';
         const slugMatch = href.match(/\/films\/\d+-([^/?#]+)/);
         items.push({
-            externalId: spine,      // spine number uniquely identifies a CC entry
-            rank: null,             // Criterion isn't ranked
+            externalId: spine,
+            rank: null,
             title,
             year,
             slug: slugMatch?.[1],
@@ -115,3 +132,5 @@ export function parseList(html) {
     }
     return items;
 }
+
+export { LIST_URL as CRITERION_LIST_URL };
