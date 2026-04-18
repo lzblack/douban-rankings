@@ -1,0 +1,10 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-04-18T22:41:14.284Z",
+  "categories": [
+    "movie"
+  ],
+  "urls": {
+    "movie": "https://rank.douban.zhili.dev/movie.json"
+  }
+}
