@@ -28,10 +28,17 @@ function loadDefaultMapping() {
  * Resolve an IMDB title id to a Douban subject id.
  *
  * Strategy:
- *   1. manual-mapping.yaml override (or `options.manualMapping` for tests)
- *   2. GET movie.douban.com/imdb/{ttID}/ with redirect: manual;
- *      Douban returns 302 Location → /subject/<id>/
- *   3. null if neither resolves
+ *   1. manual-mapping.yaml override (or `options.manualMapping` for tests).
+ *   2. GET search.douban.com/movie/subject_search?search_text={ttID}.
+ *      Douban's movie search treats a bare IMDB id as a query and the
+ *      matching subject's /subject/<id>/ URL shows up in the first card.
+ *      We pick the first /subject/\d+/ found in the HTML.
+ *   3. null if neither resolves.
+ *
+ * Historical note: an older path movie.douban.com/imdb/{ttID}/ used to
+ * 302 straight to /subject/<id>/ and was our first implementation. That
+ * endpoint now 404s for every IMDB id, so we fell back to the search
+ * endpoint which still works.
  *
  * @param {string} imdbId  e.g. 'tt0110912'
  * @param {{ fetch: (url: string, init?: RequestInit) => Promise<Response> }} http
@@ -43,12 +50,10 @@ export async function matchImdbToDouban(imdbId, http, options = {}) {
     const manual = mapping?.imdb?.[imdbId];
     if (manual != null) return String(manual);
 
-    const res = await http.fetch(`https://movie.douban.com/imdb/${imdbId}/`, {
-        redirect: 'manual',
-    });
-    if (res.status !== 301 && res.status !== 302) return null;
-    const location = res.headers.get('location');
-    if (!location) return null;
-    const m = location.match(/\/subject\/(\d+)/);
+    const url = `https://search.douban.com/movie/subject_search?search_text=${encodeURIComponent(imdbId)}`;
+    const res = await http.fetch(url);
+    if (!res.ok) return null;
+    const html = await res.text();
+    const m = html.match(/\/subject\/(\d+)/);
     return m ? m[1] : null;
 }

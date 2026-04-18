@@ -37,13 +37,15 @@ jobs:
 
       - name: Commit data changes
         run: |
-          if git diff --quiet data/; then
-            echo "No data changes."
-            exit 0
-          fi
           git config user.name "rankings-bot"
           git config user.email "bot@users.noreply.github.com"
           git add data/
+          # `git diff --cached` sees staged changes including new files;
+          # `git diff data/` would miss untracked new files (first run case).
+          if git diff --cached --quiet; then
+            echo "No data changes."
+            exit 0
+          fi
           # Commit message carries the summary; pipeline already printed
           # details in job logs. A structured format is a v2 concern.
           git commit -m "data: scheduled update"
