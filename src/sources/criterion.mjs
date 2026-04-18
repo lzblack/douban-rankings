@@ -9,14 +9,19 @@ import { matchTitleYearToDouban } from '../matchers/title-year-to-douban.mjs';
  * title, director, country, and release year — but NOT the IMDB id,
  * so we can't use the imdb matcher directly.
  *
- * Matching is done by `matchTitleYearToDouban`, which goes:
+ * Matching is done by `matchTitleYearToDouban` with
+ * `skipSearchFallback: true` — two layers only:
  *   manual-mapping.titles → IMDB datasets title+year → PtGen → douban
- *   search with year verification.
  *
- * Because the first cold-start run has to resolve ~1800 entries (many
- * of which hit Douban search @ 5s/req), we use ctx.prevResolved to
- * skip already-resolved items on subsequent runs. Monthly cron then
- * only does remote lookups for the small number of new spines.
+ * We deliberately skip the Douban search fallback because Criterion is
+ * ~1800 entries, and 15-20% miss rate would have meant hundreds of
+ * rate-limited search hits on every cold start. Instead those misses
+ * go straight to the unresolved log for patient manual-mapping
+ * curation. Monthly cron stays seconds-fast; coverage converges over
+ * time as maintainers triage unresolved entries.
+ *
+ * ctx.prevResolved lets us skip even the PtGen lookup on entries we
+ * resolved in a prior run — only new spines incur work.
  */
 
 const LIST_URL = 'https://www.criterion.com/shop/browse/list';
@@ -60,6 +65,7 @@ export default {
         return matchTitleYearToDouban(
             { title: raw.title, year: raw.year },
             http,
+            { skipSearchFallback: true },
         );
     },
 };
