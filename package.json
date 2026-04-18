@@ -1,0 +1,20 @@
+{
+    "name": "douban-rankings",
+    "version": "0.1.0",
+    "type": "module",
+    "engines": { "node": ">=20" },
+    "scripts": {
+        "update": "node src/pipeline.mjs",
+        "test": "node --test test/**/*.test.mjs",
+        "health": "node src/health.mjs --report",
+        "format": "prettier --write \"src/**/*.mjs\""
+    },
+    "dependencies": {
+        "cheerio": "^1.0.0",
+        "yaml": "^2.4.0"
+    },
+    "devDependencies": {
+        "@types/node": "^20.0.0",
+        "prettier": "^3.0.0"
+    }
+}
