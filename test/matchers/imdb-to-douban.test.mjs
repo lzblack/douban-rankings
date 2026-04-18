@@ -26,54 +26,46 @@ test('coerces numeric manual mapping value to string', async () => {
     assert.equal(id, '42');
 });
 
-test('extracts subject id from Douban 302 redirect', async () => {
-    const http = mockHttp(async (url, init) => {
-        assert.equal(url, 'https://movie.douban.com/imdb/tt0110912/');
-        assert.equal(init?.redirect, 'manual');
-        return new Response(null, {
-            status: 302,
-            headers: { location: 'https://movie.douban.com/subject/1291561/' },
-        });
+test('hits search endpoint with the tt id as search_text', async () => {
+    const http = mockHttp(async url => {
+        assert.equal(
+            url,
+            'https://search.douban.com/movie/subject_search?search_text=tt0111161',
+        );
+        return new Response(
+            '<div><a href="https://movie.douban.com/subject/1292052/">Shawshank</a></div>',
+            { status: 200 },
+        );
     });
-    const id = await matchImdbToDouban('tt0110912', http, { manualMapping: {} });
-    assert.equal(id, '1291561');
+    const id = await matchImdbToDouban('tt0111161', http, { manualMapping: {} });
+    assert.equal(id, '1292052');
 });
 
-test('also accepts 301 redirect', async () => {
+test('picks the first /subject/ link in the HTML', async () => {
+    const html = `
+        <html><body>
+          <a href="/something/else">Unrelated</a>
+          <a href="https://movie.douban.com/subject/9999/">First match</a>
+          <a href="https://movie.douban.com/subject/1111/">Later match</a>
+        </body></html>`;
+    const http = mockHttp(async () => new Response(html, { status: 200 }));
+    const id = await matchImdbToDouban('tt1', http, { manualMapping: {} });
+    assert.equal(id, '9999');
+});
+
+test('returns null when no /subject/ link is in the HTML', async () => {
     const http = mockHttp(
         async () =>
-            new Response(null, {
-                status: 301,
-                headers: { location: 'https://movie.douban.com/subject/999/' },
+            new Response('<html><body>no results</body></html>', {
+                status: 200,
             }),
     );
-    const id = await matchImdbToDouban('tt1', http, { manualMapping: {} });
-    assert.equal(id, '999');
-});
-
-test('returns null on non-redirect status', async () => {
-    const http = mockHttp(async () => new Response(null, { status: 404 }));
     const id = await matchImdbToDouban('tt9999999', http, { manualMapping: {} });
     assert.equal(id, null);
 });
 
-test('returns null when Location header missing', async () => {
-    const http = mockHttp(
-        async () =>
-            new Response(null, { status: 302 /* no Location header */ }),
-    );
-    const id = await matchImdbToDouban('tt1', http, { manualMapping: {} });
-    assert.equal(id, null);
-});
-
-test('returns null when Location does not point at /subject/', async () => {
-    const http = mockHttp(
-        async () =>
-            new Response(null, {
-                status: 302,
-                headers: { location: 'https://movie.douban.com/' },
-            }),
-    );
+test('returns null on non-OK HTTP status', async () => {
+    const http = mockHttp(async () => new Response('forbidden', { status: 403 }));
     const id = await matchImdbToDouban('tt1', http, { manualMapping: {} });
     assert.equal(id, null);
 });

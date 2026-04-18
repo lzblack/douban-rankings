@@ -23,6 +23,7 @@ const DEFAULT_SOURCES = [imdbTop250];
 // Raising any of these numbers without coordinating with anti-scrape
 // strategy risks getting the whole run blocked.
 const DEFAULT_RATE_LIMITS = {
+    'search.douban.com': { minDelay: 5000 },
     'movie.douban.com': { minDelay: 5000 },
     'www.douban.com': { minDelay: 8000 },
     'www.imdb.com': { minDelay: 2000 },
