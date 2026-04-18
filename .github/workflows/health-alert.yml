@@ -1,0 +1,77 @@
+name: Health alert
+
+on:
+  workflow_run:
+    workflows: ['Update rankings']
+    types: [completed]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  alert:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Ensure health-alert label exists
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh label create health-alert \
+            --description "Automated alert: scraper health" \
+            --color "d73a4a" \
+            --force
+
+      - name: Open issues for sources failing 3+ times in a row
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if [ ! -f data/health.json ]; then
+            echo "No data/health.json yet — nothing to alert on."
+            exit 0
+          fi
+
+          # Pull the ids of every source that has hit the failure threshold.
+          failing_ids=$(jq -r '
+            .sources[]?
+            | select((.consecutiveFailures // 0) >= 3)
+            | .id
+          ' data/health.json)
+
+          if [ -z "$failing_ids" ]; then
+            echo "All sources healthy."
+            exit 0
+          fi
+
+          echo "$failing_ids" | while IFS= read -r id; do
+            [ -z "$id" ] && continue
+            title="[health] ${id} failed 3+ runs in a row"
+
+            # Dedupe: skip if an open issue with the exact title exists.
+            existing=$(gh issue list \
+              --label health-alert \
+              --state open \
+              --search "\"$title\" in:title" \
+              --json title \
+              --jq '.[] | .title' \
+              | head -1)
+
+            if [ -n "$existing" ]; then
+              echo "Open issue already exists for $id, skipping."
+              continue
+            fi
+
+            body=$(jq -r --arg id "$id" '
+              .sources[]? | select(.id == $id)
+              | "Source `\($id)` has failed \(.consecutiveFailures) runs in a row.\n\nLast success: \(.lastSuccessAt // "never")\nLast failure: \(.lastFailureAt // "unknown")\nLast message: \(.message // "(none)")\n\nSee `data/health.json` on `main` for the current report."
+            ' data/health.json)
+
+            gh issue create \
+              --title "$title" \
+              --label health-alert \
+              --body "$body"
+            echo "Opened issue for $id"
+          done
