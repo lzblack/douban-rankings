@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-04-18T22:41:14.284Z",
+  "generatedAt": "2026-04-18T22:56:06.432Z",
   "overall": "ok",
   "sources": [
     {
       "id": "imdb-top250",
       "itemCount": 249,
-      "itemCountDelta": 249,
+      "itemCountDelta": 0,
       "message": null,
       "status": "ok",
-      "lastSuccessAt": "2026-04-18T22:40:51.561Z",
+      "lastSuccessAt": "2026-04-18T22:55:43.394Z",
       "lastFailureAt": null,
       "consecutiveFailures": 0
     }
