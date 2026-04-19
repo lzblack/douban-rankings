@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-04-19T02:41:16.354Z",
+  "generatedAt": "2026-04-19T05:22:48.313Z",
   "categories": {
     "movie": {
       "sources": {
@@ -11,7 +11,7 @@
           "kind": "permanent",
           "subCategory": "movie",
           "priority": 1,
-          "updatedAt": "2026-04-19T02:27:54.483Z",
+          "updatedAt": "2026-04-19T05:20:12.895Z",
           "itemCount": 249
         },
         "imdb-top250-tv": {
@@ -21,8 +21,8 @@
           "kind": "permanent",
           "subCategory": "tv",
           "priority": 8,
-          "updatedAt": "2026-04-19T02:28:19.756Z",
-          "itemCount": 237
+          "updatedAt": "2026-04-19T05:20:40.080Z",
+          "itemCount": 241
         },
         "criterion": {
           "title": "The Criterion Collection",
@@ -31,7 +31,7 @@
           "kind": "permanent",
           "subCategory": "movie",
           "priority": 2,
-          "updatedAt": "2026-04-19T02:29:44.088Z",
+          "updatedAt": "2026-04-19T05:21:43.595Z",
           "itemCount": 1130
         },
         "afi-top100": {
@@ -41,7 +41,7 @@
           "kind": "permanent",
           "subCategory": "movie",
           "priority": 3,
-          "updatedAt": "2026-04-19T02:29:45.250Z",
+          "updatedAt": "2026-04-19T05:21:44.860Z",
           "itemCount": 100
         },
         "bfi-ss-2022": {
@@ -51,7 +51,7 @@
           "kind": "permanent",
           "subCategory": "movie",
           "priority": 4,
-          "updatedAt": "2026-04-19T02:29:45.496Z",
+          "updatedAt": "2026-04-19T05:21:44.991Z",
           "itemCount": 99
         },
         "letterboxd-top250": {
@@ -61,7 +61,7 @@
           "kind": "permanent",
           "subCategory": "movie",
           "priority": 5,
-          "updatedAt": "2026-04-19T02:29:49.689Z",
+          "updatedAt": "2026-04-19T05:21:48.013Z",
           "itemCount": 249
         },
         "tspdt-1000": {
@@ -71,7 +71,7 @@
           "kind": "yearly",
           "subCategory": "movie",
           "priority": 6,
-          "updatedAt": "2026-04-19T02:29:54.181Z",
+          "updatedAt": "2026-04-19T05:21:52.130Z",
           "itemCount": 989
         },
         "bangumi-top250": {
@@ -81,7 +81,7 @@
           "kind": "yearly",
           "subCategory": "anime",
           "priority": 7,
-          "updatedAt": "2026-04-19T02:30:58.162Z",
+          "updatedAt": "2026-04-19T05:22:48.306Z",
           "itemCount": 13
         }
       },
@@ -19810,6 +19810,13 @@
             "spineNumber": "1038"
           }
         ],
+        "27204931": [
+          {
+            "source": "imdb-top250-tv",
+            "rank": 103,
+            "externalId": "tt7450814"
+          }
+        ],
         "27602137": [
           {
             "source": "imdb-top250-tv",
@@ -20701,6 +20708,13 @@
             "externalId": "tt7466810"
           }
         ],
+        "35927538": [
+          {
+            "source": "imdb-top250-tv",
+            "rank": 63,
+            "externalId": "tt13675832"
+          }
+        ],
         "35932858": [
           {
             "source": "imdb-top250-tv",
@@ -20743,6 +20757,13 @@
             "source": "imdb-top250-tv",
             "rank": 61,
             "externalId": "tt26471411"
+          }
+        ],
+        "36067361": [
+          {
+            "source": "imdb-top250-tv",
+            "rank": 79,
+            "externalId": "tt21279678"
           }
         ],
         "36091107": [
@@ -20801,6 +20822,13 @@
             "source": "imdb-top250-tv",
             "rank": 10,
             "externalId": "tt38268282"
+          }
+        ],
+        "36477398": [
+          {
+            "source": "imdb-top250-tv",
+            "rank": 41,
+            "externalId": "tt28227737"
           }
         ],
         "36524559": [
