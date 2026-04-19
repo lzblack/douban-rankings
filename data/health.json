@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-04-19T00:45:15.154Z",
+  "generatedAt": "2026-04-19T00:51:22.349Z",
   "overall": "ok",
   "sources": [
     {
       "id": "imdb-top250",
-      "itemCount": 249,
-      "itemCountDelta": 0,
+      "itemCount": 248,
+      "itemCountDelta": -1,
       "message": null,
       "status": "ok",
-      "lastSuccessAt": "2026-04-19T00:44:45.297Z",
+      "lastSuccessAt": "2026-04-19T00:50:52.584Z",
       "lastFailureAt": null,
       "consecutiveFailures": 0
     },
@@ -18,17 +18,27 @@
       "itemCountDelta": 0,
       "message": null,
       "status": "ok",
-      "lastSuccessAt": "2026-04-19T00:45:09.426Z",
+      "lastSuccessAt": "2026-04-19T00:51:17.863Z",
       "lastFailureAt": "2026-04-18T23:36:48.793Z",
       "consecutiveFailures": 0
     },
     {
       "id": "afi-top100",
       "itemCount": 100,
-      "itemCountDelta": 100,
+      "itemCountDelta": 0,
       "message": null,
       "status": "ok",
-      "lastSuccessAt": "2026-04-19T00:45:10.517Z",
+      "lastSuccessAt": "2026-04-19T00:51:19.077Z",
+      "lastFailureAt": null,
+      "consecutiveFailures": 0
+    },
+    {
+      "id": "bfi-ss-2022",
+      "itemCount": 99,
+      "itemCountDelta": 99,
+      "message": null,
+      "status": "ok",
+      "lastSuccessAt": "2026-04-19T00:51:19.196Z",
       "lastFailureAt": null,
       "consecutiveFailures": 0
     }
