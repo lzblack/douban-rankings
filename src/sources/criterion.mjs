@@ -82,7 +82,14 @@ export default {
             throw err;
         }
         const data = JSON.parse(raw);
-        return Array.isArray(data?.items) ? data.items : [];
+        const items = Array.isArray(data?.items) ? data.items : [];
+        // Back-compat: older snapshot files wrote only externalId. Infer
+        // spineNumber from externalId so downstream entries carry the
+        // CC-semantic field without requiring a snapshot regen.
+        return items.map(it => ({
+            ...it,
+            spineNumber: it.spineNumber ?? it.externalId,
+        }));
     },
 
     /**
@@ -125,6 +132,11 @@ export function parseList(html) {
         items.push({
             externalId: spine,
             rank: null,
+            // spineNumber is the CC-semantic duplicate of externalId per
+            // docs/consumer-integration.md contract: consumer code can
+            // read .spineNumber without caring whether the source uses
+            // tt id / spine / ISBN as externalId.
+            spineNumber: spine,
             title,
             year,
             slug: slugMatch?.[1],

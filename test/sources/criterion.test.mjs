@@ -60,6 +60,7 @@ test('parseList extracts spine, title, year, slug; skips rows without title', ()
     assert.deepEqual(items[0], {
         externalId: '0001',
         rank: null,
+        spineNumber: '0001',
         title: 'Grand Illusion',
         year: '1937',
         slug: 'grand-illusion',
