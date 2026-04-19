@@ -12,6 +12,7 @@ import { matchImdbToDouban } from './matchers/imdb-to-douban.mjs';
 import imdbTop250 from './sources/imdb-top250.mjs';
 import criterion from './sources/criterion.mjs';
 import afiTop100 from './sources/afi-top100.mjs';
+import bfiSs2022 from './sources/bfi-ss-2022.mjs';
 
 const PROJECT_ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const DATA_DIR = join(PROJECT_ROOT, 'data');
@@ -20,7 +21,7 @@ const DEFAULT_MATCHERS = {
     imdb: matchImdbToDouban,
 };
 
-const DEFAULT_SOURCES = [imdbTop250, criterion, afiTop100];
+const DEFAULT_SOURCES = [imdbTop250, criterion, afiTop100, bfiSs2022];
 
 // Per PRD §7: Douban endpoints are the binding constraint. Raising any
 // of these numbers without coordinating with anti-scrape strategy risks
