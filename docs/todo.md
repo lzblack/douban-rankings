@@ -22,6 +22,22 @@ these when Criterion coverage becomes a user-visible pain point:
 wholesale import. Each mapping-file entry is our own curation decision
 after visual verification — bimzcy's CSV stays out of the repo.
 
+## Bangumi Top 250 retry
+
+First fetch (`pnpm run fetch:bangumi-top250-snapshot`) resolved only
+13/250 anime via `search.douban.com` before Douban's anti-scrape
+kicked in. Remaining 237 return "搜索访问太频繁".
+
+Re-run the fetcher after the rate-limit resets (typically ≥24 h, or
+after using Douban normally in a browser for a bit). Script has
+resume support: already-resolved dbids are reused, only the 237
+unresolved entries will re-query.
+
+Command: `node scripts/fetch-bangumi-top250-snapshot.mjs`
+
+Repeat until `resolvedCount` approaches 250. Could take multiple
+sessions across several days to avoid re-tripping the limit.
+
 ## Consumer feedback backlog
 
 When `douban-rating-hub` users report "opened film X, expected a label, got
