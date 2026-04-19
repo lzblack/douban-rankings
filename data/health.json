@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-19T00:08:17.651Z",
+  "generatedAt": "2026-04-19T00:45:15.154Z",
   "overall": "ok",
   "sources": [
     {
@@ -8,7 +8,7 @@
       "itemCountDelta": 0,
       "message": null,
       "status": "ok",
-      "lastSuccessAt": "2026-04-19T00:07:52.033Z",
+      "lastSuccessAt": "2026-04-19T00:44:45.297Z",
       "lastFailureAt": null,
       "consecutiveFailures": 0
     },
@@ -18,8 +18,18 @@
       "itemCountDelta": 0,
       "message": null,
       "status": "ok",
-      "lastSuccessAt": "2026-04-19T00:08:16.530Z",
+      "lastSuccessAt": "2026-04-19T00:45:09.426Z",
       "lastFailureAt": "2026-04-18T23:36:48.793Z",
+      "consecutiveFailures": 0
+    },
+    {
+      "id": "afi-top100",
+      "itemCount": 100,
+      "itemCountDelta": 100,
+      "message": null,
+      "status": "ok",
+      "lastSuccessAt": "2026-04-19T00:45:10.517Z",
+      "lastFailureAt": null,
       "consecutiveFailures": 0
     }
   ]

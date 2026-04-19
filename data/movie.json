@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-04-19T00:08:17.651Z",
+  "generatedAt": "2026-04-19T00:45:15.154Z",
   "categories": {
     "movie": {
       "sources": {
@@ -11,7 +11,7 @@
           "kind": "permanent",
           "subCategory": "movie",
           "priority": 1,
-          "updatedAt": "2026-04-19T00:07:52.033Z",
+          "updatedAt": "2026-04-19T00:44:45.297Z",
           "itemCount": 249
         },
         "criterion": {
@@ -21,8 +21,18 @@
           "kind": "permanent",
           "subCategory": "movie",
           "priority": 2,
-          "updatedAt": "2026-04-19T00:08:16.530Z",
+          "updatedAt": "2026-04-19T00:45:09.426Z",
           "itemCount": 1130
+        },
+        "afi-top100": {
+          "title": "AFI's 100 Years…100 Movies",
+          "titleZh": "AFI 百年百大电影",
+          "url": "https://www.afi.com/afis-100-years-100-movies-10th-anniversary-edition/",
+          "kind": "permanent",
+          "subCategory": "movie",
+          "priority": 3,
+          "updatedAt": "2026-04-19T00:45:10.517Z",
+          "itemCount": 100
         }
       },
       "items": {
@@ -83,6 +93,11 @@
             "source": "imdb-top250",
             "rank": 8,
             "externalId": "tt0120737"
+          },
+          {
+            "source": "afi-top100",
+            "rank": 50,
+            "externalId": "afi-50"
           }
         ],
         "1291572": [
@@ -97,6 +112,11 @@
             "source": "imdb-top250",
             "rank": 84,
             "externalId": "tt0114709"
+          },
+          {
+            "source": "afi-top100",
+            "rank": 99,
+            "externalId": "afi-99"
           }
         ],
         "1291579": [
@@ -147,6 +167,11 @@
             "source": "imdb-top250",
             "rank": 12,
             "externalId": "tt0110912"
+          },
+          {
+            "source": "afi-top100",
+            "rank": 94,
+            "externalId": "afi-94"
           }
         ],
         "1291839": [
@@ -154,6 +179,11 @@
             "source": "imdb-top250",
             "rank": 183,
             "externalId": "tt0083658"
+          },
+          {
+            "source": "afi-top100",
+            "rank": 97,
+            "externalId": "afi-97"
           }
         ],
         "1291841": [
@@ -161,6 +191,11 @@
             "source": "imdb-top250",
             "rank": 2,
             "externalId": "tt0068646"
+          },
+          {
+            "source": "afi-top100",
+            "rank": 2,
+            "externalId": "afi-2"
           }
         ],
         "1291843": [
@@ -306,6 +341,11 @@
             "source": "imdb-top250",
             "rank": 1,
             "externalId": "tt0111161"
+          },
+          {
+            "source": "afi-top100",
+            "rank": 72,
+            "externalId": "afi-72"
           }
         ],
         "1292060": [
@@ -401,6 +441,11 @@
             "source": "imdb-top250",
             "rank": 121,
             "externalId": "tt0075314"
+          },
+          {
+            "source": "afi-top100",
+            "rank": 52,
+            "externalId": "afi-52"
           }
         ],
         "1292223": [
@@ -415,6 +460,11 @@
             "source": "imdb-top250",
             "rank": 25,
             "externalId": "tt0073486"
+          },
+          {
+            "source": "afi-top100",
+            "rank": 33,
+            "externalId": "afi-33"
           }
         ],
         "1292225": [
@@ -429,6 +479,11 @@
             "source": "imdb-top250",
             "rank": 93,
             "externalId": "tt0062622"
+          },
+          {
+            "source": "afi-top100",
+            "rank": 15,
+            "externalId": "afi-15"
           }
         ],
         "1292233": [
@@ -436,6 +491,11 @@
             "source": "imdb-top250",
             "rank": 124,
             "externalId": "tt0066921"
+          },
+          {
+            "source": "afi-top100",
+            "rank": 70,
+            "externalId": "afi-70"
           }
         ],
         "1292260": [
@@ -443,6 +503,11 @@
             "source": "imdb-top250",
             "rank": 68,
             "externalId": "tt0078788"
+          },
+          {
+            "source": "afi-top100",
+            "rank": 30,
+            "externalId": "afi-30"
           }
         ],
         "1292262": [
@@ -457,6 +522,11 @@
             "source": "imdb-top250",
             "rank": 18,
             "externalId": "tt0099685"
+          },
+          {
+            "source": "afi-top100",
+            "rank": 92,
+            "externalId": "afi-92"
           }
         ],
         "1292269": [
@@ -479,6 +549,11 @@
             "rank": null,
             "externalId": "800",
             "spineNumber": "800"
+          },
+          {
+            "source": "afi-top100",
+            "rank": 17,
+            "externalId": "afi-17"
           }
         ],
         "1292278": [
@@ -508,6 +583,11 @@
             "rank": null,
             "externalId": "1104",
             "spineNumber": "1104"
+          },
+          {
+            "source": "afi-top100",
+            "rank": 1,
+            "externalId": "afi-1"
           }
         ],
         "1292321": [
@@ -554,6 +634,11 @@
             "source": "imdb-top250",
             "rank": 103,
             "externalId": "tt0056172"
+          },
+          {
+            "source": "afi-top100",
+            "rank": 7,
+            "externalId": "afi-7"
           }
         ],
         "1292403": [
@@ -561,6 +646,11 @@
             "source": "imdb-top250",
             "rank": 216,
             "externalId": "tt0077416"
+          },
+          {
+            "source": "afi-top100",
+            "rank": 53,
+            "externalId": "afi-53"
           }
         ],
         "1292434": [
@@ -593,6 +683,13 @@
             "rank": null,
             "externalId": "916",
             "spineNumber": "916"
+          }
+        ],
+        "1292465": [
+          {
+            "source": "afi-top100",
+            "rank": 23,
+            "externalId": "afi-23"
           }
         ],
         "1292468": [
@@ -658,6 +755,11 @@
             "source": "imdb-top250",
             "rank": 225,
             "externalId": "tt0040897"
+          },
+          {
+            "source": "afi-top100",
+            "rank": 38,
+            "externalId": "afi-38"
           }
         ],
         "1292521": [
@@ -666,6 +768,11 @@
             "rank": null,
             "externalId": "647",
             "spineNumber": "647"
+          },
+          {
+            "source": "afi-top100",
+            "rank": 19,
+            "externalId": "afi-19"
           }
         ],
         "1292523": [
@@ -723,6 +830,11 @@
             "rank": null,
             "externalId": "950",
             "spineNumber": "950"
+          },
+          {
+            "source": "afi-top100",
+            "rank": 22,
+            "externalId": "afi-22"
           }
         ],
         "1292586": [
@@ -753,6 +865,11 @@
             "source": "imdb-top250",
             "rank": 210,
             "externalId": "tt0032138"
+          },
+          {
+            "source": "afi-top100",
+            "rank": 10,
+            "externalId": "afi-10"
           }
         ],
         "1292644": [
@@ -768,6 +885,13 @@
             "source": "imdb-top250",
             "rank": 63,
             "externalId": "tt0119217"
+          }
+        ],
+        "1292668": [
+          {
+            "source": "afi-top100",
+            "rank": 12,
+            "externalId": "afi-12"
           }
         ],
         "1292681": [
@@ -806,6 +930,11 @@
             "source": "imdb-top250",
             "rank": 11,
             "externalId": "tt0109830"
+          },
+          {
+            "source": "afi-top100",
+            "rank": 76,
+            "externalId": "afi-76"
           }
         ],
         "1292722": [
@@ -813,6 +942,11 @@
             "source": "imdb-top250",
             "rank": 244,
             "externalId": "tt0120338"
+          },
+          {
+            "source": "afi-top100",
+            "rank": 83,
+            "externalId": "afi-83"
           }
         ],
         "1292728": [
@@ -855,6 +989,20 @@
             "spineNumber": "192"
           }
         ],
+        "1292766": [
+          {
+            "source": "afi-top100",
+            "rank": 54,
+            "externalId": "afi-54"
+          }
+        ],
+        "1292767": [
+          {
+            "source": "afi-top100",
+            "rank": 45,
+            "externalId": "afi-45"
+          }
+        ],
         "1292768": [
           {
             "source": "criterion",
@@ -869,6 +1017,13 @@
             "rank": null,
             "externalId": "40",
             "spineNumber": "40"
+          }
+        ],
+        "1292778": [
+          {
+            "source": "afi-top100",
+            "rank": 18,
+            "externalId": "afi-18"
           }
         ],
         "1292781": [
@@ -933,6 +1088,11 @@
             "rank": null,
             "externalId": "901",
             "spineNumber": "901"
+          },
+          {
+            "source": "afi-top100",
+            "rank": 44,
+            "externalId": "afi-44"
           }
         ],
         "1292848": [
@@ -948,6 +1108,11 @@
             "source": "imdb-top250",
             "rank": 21,
             "externalId": "tt0120815"
+          },
+          {
+            "source": "afi-top100",
+            "rank": 71,
+            "externalId": "afi-71"
           }
         ],
         "1292865": [
@@ -1120,6 +1285,11 @@
             "rank": null,
             "externalId": "683",
             "spineNumber": "683"
+          },
+          {
+            "source": "afi-top100",
+            "rank": 59,
+            "externalId": "afi-59"
           }
         ],
         "1293057": [
@@ -1160,6 +1330,13 @@
             "rank": null,
             "externalId": "243",
             "spineNumber": "243"
+          }
+        ],
+        "1293077": [
+          {
+            "source": "afi-top100",
+            "rank": 91,
+            "externalId": "afi-91"
           }
         ],
         "1293095": [
@@ -1215,6 +1392,11 @@
             "source": "imdb-top250",
             "rank": 232,
             "externalId": "tt0052618"
+          },
+          {
+            "source": "afi-top100",
+            "rank": 100,
+            "externalId": "afi-100"
           }
         ],
         "1293151": [
@@ -1244,6 +1426,11 @@
             "rank": null,
             "externalId": "1134",
             "spineNumber": "1134"
+          },
+          {
+            "source": "afi-top100",
+            "rank": 4,
+            "externalId": "afi-4"
           }
         ],
         "1293156": [
@@ -1299,6 +1486,11 @@
             "source": "imdb-top250",
             "rank": 46,
             "externalId": "tt0054215"
+          },
+          {
+            "source": "afi-top100",
+            "rank": 14,
+            "externalId": "afi-14"
           }
         ],
         "1293182": [
@@ -1312,6 +1504,11 @@
             "rank": null,
             "externalId": "591",
             "spineNumber": "591"
+          },
+          {
+            "source": "afi-top100",
+            "rank": 87,
+            "externalId": "afi-87"
           }
         ],
         "1293190": [
@@ -1362,6 +1559,11 @@
             "rank": null,
             "externalId": "1126",
             "spineNumber": "1126"
+          },
+          {
+            "source": "afi-top100",
+            "rank": 29,
+            "externalId": "afi-29"
           }
         ],
         "1293230": [
@@ -1557,6 +1759,11 @@
             "source": "imdb-top250",
             "rank": 208,
             "externalId": "tt0091763"
+          },
+          {
+            "source": "afi-top100",
+            "rank": 86,
+            "externalId": "afi-86"
           }
         ],
         "1293399": [
@@ -1611,6 +1818,11 @@
             "source": "imdb-top250",
             "rank": 105,
             "externalId": "tt0045152"
+          },
+          {
+            "source": "afi-top100",
+            "rank": 5,
+            "externalId": "afi-5"
           }
         ],
         "1293471": [
@@ -1725,6 +1937,11 @@
             "rank": null,
             "externalId": "13",
             "spineNumber": "13"
+          },
+          {
+            "source": "afi-top100",
+            "rank": 74,
+            "externalId": "afi-74"
           }
         ],
         "1293566": [
@@ -1732,6 +1949,11 @@
             "source": "imdb-top250",
             "rank": 145,
             "externalId": "tt0105695"
+          },
+          {
+            "source": "afi-top100",
+            "rank": 68,
+            "externalId": "afi-68"
           }
         ],
         "1293582": [
@@ -1740,6 +1962,13 @@
             "rank": null,
             "externalId": "541",
             "spineNumber": "541"
+          }
+        ],
+        "1293590": [
+          {
+            "source": "afi-top100",
+            "rank": 47,
+            "externalId": "afi-47"
           }
         ],
         "1293592": [
@@ -1811,6 +2040,13 @@
             "spineNumber": "488"
           }
         ],
+        "1293715": [
+          {
+            "source": "afi-top100",
+            "rank": 77,
+            "externalId": "afi-77"
+          }
+        ],
         "1293745": [
           {
             "source": "criterion",
@@ -1824,6 +2060,11 @@
             "source": "imdb-top250",
             "rank": 29,
             "externalId": "tt0038650"
+          },
+          {
+            "source": "afi-top100",
+            "rank": 20,
+            "externalId": "afi-20"
           }
         ],
         "1293755": [
@@ -1925,6 +2166,11 @@
             "source": "imdb-top250",
             "rank": 22,
             "externalId": "tt0076759"
+          },
+          {
+            "source": "afi-top100",
+            "rank": 13,
+            "externalId": "afi-13"
           }
         ],
         "1293840": [
@@ -1992,6 +2238,11 @@
             "source": "imdb-top250",
             "rank": 217,
             "externalId": "tt0071315"
+          },
+          {
+            "source": "afi-top100",
+            "rank": 21,
+            "externalId": "afi-21"
           }
         ],
         "1293908": [
@@ -2005,6 +2256,11 @@
             "rank": null,
             "externalId": "680",
             "spineNumber": "680"
+          },
+          {
+            "source": "afi-top100",
+            "rank": 11,
+            "externalId": "afi-11"
           }
         ],
         "1293909": [
@@ -2052,6 +2308,11 @@
             "rank": null,
             "externalId": "97",
             "spineNumber": "97"
+          },
+          {
+            "source": "afi-top100",
+            "rank": 96,
+            "externalId": "afi-96"
           }
         ],
         "1293963": [
@@ -2132,6 +2393,13 @@
             "rank": null,
             "externalId": "1312",
             "spineNumber": "1312"
+          }
+        ],
+        "1294100": [
+          {
+            "source": "afi-top100",
+            "rank": 37,
+            "externalId": "afi-37"
           }
         ],
         "1294127": [
@@ -2217,6 +2485,11 @@
             "rank": null,
             "externalId": "543",
             "spineNumber": "543"
+          },
+          {
+            "source": "afi-top100",
+            "rank": 78,
+            "externalId": "afi-78"
           }
         ],
         "1294378": [
@@ -2256,6 +2529,11 @@
             "source": "imdb-top250",
             "rank": 230,
             "externalId": "tt0059742"
+          },
+          {
+            "source": "afi-top100",
+            "rank": 40,
+            "externalId": "afi-40"
           }
         ],
         "1294413": [
@@ -2322,6 +2600,13 @@
             "spineNumber": "945"
           }
         ],
+        "1294584": [
+          {
+            "source": "afi-top100",
+            "rank": 42,
+            "externalId": "afi-42"
+          }
+        ],
         "1294597": [
           {
             "source": "criterion",
@@ -2344,6 +2629,13 @@
             "rank": null,
             "externalId": "550",
             "spineNumber": "550"
+          }
+        ],
+        "1294638": [
+          {
+            "source": "afi-top100",
+            "rank": 24,
+            "externalId": "afi-24"
           }
         ],
         "1294639": [
@@ -2557,6 +2849,11 @@
             "source": "imdb-top250",
             "rank": 190,
             "externalId": "tt0073195"
+          },
+          {
+            "source": "afi-top100",
+            "rank": 56,
+            "externalId": "afi-56"
           }
         ],
         "1294947": [
@@ -2577,6 +2874,11 @@
             "source": "imdb-top250",
             "rank": 235,
             "externalId": "tt0050212"
+          },
+          {
+            "source": "afi-top100",
+            "rank": 36,
+            "externalId": "afi-36"
           }
         ],
         "1294978": [
@@ -2601,6 +2903,13 @@
             "rank": null,
             "externalId": "935",
             "spineNumber": "935"
+          }
+        ],
+        "1295014": [
+          {
+            "source": "afi-top100",
+            "rank": 98,
+            "externalId": "afi-98"
           }
         ],
         "1295037": [
@@ -2632,6 +2941,18 @@
             "source": "imdb-top250",
             "rank": 5,
             "externalId": "tt0108052"
+          },
+          {
+            "source": "afi-top100",
+            "rank": 8,
+            "externalId": "afi-8"
+          }
+        ],
+        "1295137": [
+          {
+            "source": "afi-top100",
+            "rank": 67,
+            "externalId": "afi-67"
           }
         ],
         "1295184": [
@@ -2648,6 +2969,13 @@
             "rank": null,
             "externalId": "57",
             "spineNumber": "57"
+          }
+        ],
+        "1295225": [
+          {
+            "source": "afi-top100",
+            "rank": 51,
+            "externalId": "afi-51"
           }
         ],
         "1295228": [
@@ -2672,6 +3000,13 @@
             "rank": null,
             "externalId": "248",
             "spineNumber": "248"
+          }
+        ],
+        "1295287": [
+          {
+            "source": "afi-top100",
+            "rank": 49,
+            "externalId": "afi-49"
           }
         ],
         "1295328": [
@@ -2741,6 +3076,11 @@
             "rank": null,
             "externalId": "959",
             "spineNumber": "959"
+          },
+          {
+            "source": "afi-top100",
+            "rank": 75,
+            "externalId": "afi-75"
           }
         ],
         "1295538": [
@@ -2832,6 +3172,11 @@
             "rank": null,
             "externalId": "736",
             "spineNumber": "736"
+          },
+          {
+            "source": "afi-top100",
+            "rank": 46,
+            "externalId": "afi-46"
           }
         ],
         "1295686": [
@@ -2870,6 +3215,18 @@
             "source": "imdb-top250",
             "rank": 192,
             "externalId": "tt0075148"
+          },
+          {
+            "source": "afi-top100",
+            "rank": 57,
+            "externalId": "afi-57"
+          }
+        ],
+        "1295753": [
+          {
+            "source": "afi-top100",
+            "rank": 82,
+            "externalId": "afi-82"
           }
         ],
         "1295769": [
@@ -2909,6 +3266,11 @@
             "source": "imdb-top250",
             "rank": 101,
             "externalId": "tt0053125"
+          },
+          {
+            "source": "afi-top100",
+            "rank": 55,
+            "externalId": "afi-55"
           }
         ],
         "1295873": [
@@ -3102,6 +3464,13 @@
             "rank": null,
             "externalId": "429",
             "spineNumber": "429"
+          }
+        ],
+        "1296282": [
+          {
+            "source": "afi-top100",
+            "rank": 63,
+            "externalId": "afi-63"
           }
         ],
         "1296283": [
@@ -3337,6 +3706,11 @@
             "source": "imdb-top250",
             "rank": 64,
             "externalId": "tt0082971"
+          },
+          {
+            "source": "afi-top100",
+            "rank": 66,
+            "externalId": "afi-66"
           }
         ],
         "1296718": [
@@ -3359,6 +3733,11 @@
             "source": "imdb-top250",
             "rank": 48,
             "externalId": "tt0034583"
+          },
+          {
+            "source": "afi-top100",
+            "rank": 3,
+            "externalId": "afi-3"
           }
         ],
         "1296757": [
@@ -3408,6 +3787,13 @@
             "spineNumber": "378"
           }
         ],
+        "1296879": [
+          {
+            "source": "afi-top100",
+            "rank": 85,
+            "externalId": "afi-85"
+          }
+        ],
         "1296949": [
           {
             "source": "criterion",
@@ -3430,6 +3816,20 @@
             "rank": null,
             "externalId": "657",
             "spineNumber": "657"
+          }
+        ],
+        "1296963": [
+          {
+            "source": "afi-top100",
+            "rank": 79,
+            "externalId": "afi-79"
+          }
+        ],
+        "1296987": [
+          {
+            "source": "afi-top100",
+            "rank": 35,
+            "externalId": "afi-35"
           }
         ],
         "1297009": [
@@ -3461,6 +3861,13 @@
             "rank": null,
             "externalId": "928",
             "spineNumber": "928"
+          }
+        ],
+        "1297127": [
+          {
+            "source": "afi-top100",
+            "rank": 26,
+            "externalId": "afi-26"
           }
         ],
         "1297130": [
@@ -3547,6 +3954,11 @@
             "source": "imdb-top250",
             "rank": 146,
             "externalId": "tt0052357"
+          },
+          {
+            "source": "afi-top100",
+            "rank": 9,
+            "externalId": "afi-9"
           }
         ],
         "1297313": [
@@ -3650,6 +4062,11 @@
             "rank": null,
             "externalId": "1300",
             "spineNumber": "1300"
+          },
+          {
+            "source": "afi-top100",
+            "rank": 64,
+            "externalId": "afi-64"
           }
         ],
         "1297549": [
@@ -3676,6 +4093,13 @@
             "spineNumber": "319"
           }
         ],
+        "1297602": [
+          {
+            "source": "afi-top100",
+            "rank": 73,
+            "externalId": "afi-73"
+          }
+        ],
         "1297606": [
           {
             "source": "criterion",
@@ -3690,6 +4114,11 @@
             "rank": null,
             "externalId": "925",
             "spineNumber": "925"
+          },
+          {
+            "source": "afi-top100",
+            "rank": 43,
+            "externalId": "afi-43"
           }
         ],
         "1297630": [
@@ -3697,6 +4126,11 @@
             "source": "imdb-top250",
             "rank": 117,
             "externalId": "tt0167404"
+          },
+          {
+            "source": "afi-top100",
+            "rank": 89,
+            "externalId": "afi-89"
           }
         ],
         "1297646": [
@@ -3705,6 +4139,11 @@
             "rank": null,
             "externalId": "545",
             "spineNumber": "545"
+          },
+          {
+            "source": "afi-top100",
+            "rank": 84,
+            "externalId": "afi-84"
           }
         ],
         "1297648": [
@@ -3721,6 +4160,11 @@
             "rank": null,
             "externalId": "1085",
             "spineNumber": "1085"
+          },
+          {
+            "source": "afi-top100",
+            "rank": 88,
+            "externalId": "afi-88"
           }
         ],
         "1297682": [
@@ -3745,6 +4189,18 @@
             "rank": null,
             "externalId": "738",
             "spineNumber": "738"
+          },
+          {
+            "source": "afi-top100",
+            "rank": 69,
+            "externalId": "afi-69"
+          }
+        ],
+        "1297756": [
+          {
+            "source": "afi-top100",
+            "rank": 34,
+            "externalId": "afi-34"
           }
         ],
         "1297768": [
@@ -3787,6 +4243,13 @@
             "spineNumber": "417"
           }
         ],
+        "1297874": [
+          {
+            "source": "afi-top100",
+            "rank": 31,
+            "externalId": "afi-31"
+          }
+        ],
         "1297894": [
           {
             "source": "criterion",
@@ -3816,6 +4279,11 @@
             "source": "imdb-top250",
             "rank": 150,
             "externalId": "tt0056592"
+          },
+          {
+            "source": "afi-top100",
+            "rank": 25,
+            "externalId": "afi-25"
           }
         ],
         "1297996": [
@@ -3840,6 +4308,11 @@
             "rank": null,
             "externalId": "549",
             "spineNumber": "549"
+          },
+          {
+            "source": "afi-top100",
+            "rank": 95,
+            "externalId": "afi-95"
           }
         ],
         "1298027": [
@@ -3878,6 +4351,13 @@
             "source": "imdb-top250",
             "rank": 185,
             "externalId": "tt0017136"
+          }
+        ],
+        "1298113": [
+          {
+            "source": "afi-top100",
+            "rank": 60,
+            "externalId": "afi-60"
           }
         ],
         "1298134": [
@@ -3964,6 +4444,11 @@
             "rank": null,
             "externalId": "105",
             "spineNumber": "105"
+          },
+          {
+            "source": "afi-top100",
+            "rank": 81,
+            "externalId": "afi-81"
           }
         ],
         "1298370": [
@@ -4014,6 +4499,13 @@
             "spineNumber": "237"
           }
         ],
+        "1298521": [
+          {
+            "source": "afi-top100",
+            "rank": 27,
+            "externalId": "afi-27"
+          }
+        ],
         "1298539": [
           {
             "source": "criterion",
@@ -4028,6 +4520,13 @@
             "rank": null,
             "externalId": "711",
             "spineNumber": "711"
+          }
+        ],
+        "1298593": [
+          {
+            "source": "afi-top100",
+            "rank": 41,
+            "externalId": "afi-41"
           }
         ],
         "1298596": [
@@ -4075,6 +4574,11 @@
             "source": "imdb-top250",
             "rank": 78,
             "externalId": "tt0043014"
+          },
+          {
+            "source": "afi-top100",
+            "rank": 16,
+            "externalId": "afi-16"
           }
         ],
         "1298734": [
@@ -4091,6 +4595,13 @@
             "rank": null,
             "externalId": "356",
             "spineNumber": "356"
+          }
+        ],
+        "1298817": [
+          {
+            "source": "afi-top100",
+            "rank": 58,
+            "externalId": "afi-58"
           }
         ],
         "1298835": [
@@ -4218,6 +4729,11 @@
             "source": "imdb-top250",
             "rank": 50,
             "externalId": "tt0047396"
+          },
+          {
+            "source": "afi-top100",
+            "rank": 48,
+            "externalId": "afi-48"
           }
         ],
         "1299131": [
@@ -4225,6 +4741,11 @@
             "source": "imdb-top250",
             "rank": 6,
             "externalId": "tt0071562"
+          },
+          {
+            "source": "afi-top100",
+            "rank": 32,
+            "externalId": "afi-32"
           }
         ],
         "1299204": [
@@ -4599,6 +5120,13 @@
             "spineNumber": "188"
           }
         ],
+        "1300106": [
+          {
+            "source": "afi-top100",
+            "rank": 62,
+            "externalId": "afi-62"
+          }
+        ],
         "1300179": [
           {
             "source": "criterion",
@@ -4636,6 +5164,11 @@
             "source": "imdb-top250",
             "rank": 149,
             "externalId": "tt0031381"
+          },
+          {
+            "source": "afi-top100",
+            "rank": 6,
+            "externalId": "afi-6"
           }
         ],
         "1300275": [
@@ -5658,6 +6191,11 @@
             "rank": null,
             "externalId": "118",
             "spineNumber": "118"
+          },
+          {
+            "source": "afi-top100",
+            "rank": 61,
+            "externalId": "afi-61"
           }
         ],
         "1303417": [
@@ -6593,6 +7131,11 @@
             "rank": null,
             "externalId": "979",
             "spineNumber": "979"
+          },
+          {
+            "source": "afi-top100",
+            "rank": 90,
+            "externalId": "afi-90"
           }
         ],
         "1306730": [
@@ -6918,6 +7461,11 @@
             "rank": null,
             "externalId": "821",
             "spineNumber": "821"
+          },
+          {
+            "source": "afi-top100",
+            "rank": 39,
+            "externalId": "afi-39"
           }
         ],
         "1353745": [
@@ -6965,6 +7513,11 @@
             "source": "imdb-top250",
             "rank": 126,
             "externalId": "tt0053604"
+          },
+          {
+            "source": "afi-top100",
+            "rank": 80,
+            "externalId": "afi-80"
           }
         ],
         "1394342": [
@@ -7065,6 +7618,11 @@
             "rank": null,
             "externalId": "1003",
             "spineNumber": "1003"
+          },
+          {
+            "source": "afi-top100",
+            "rank": 28,
+            "externalId": "afi-28"
           }
         ],
         "1401512": [
@@ -7305,6 +7863,13 @@
             "rank": null,
             "externalId": "163",
             "spineNumber": "163"
+          }
+        ],
+        "1418997": [
+          {
+            "source": "afi-top100",
+            "rank": 65,
+            "externalId": "afi-65"
           }
         ],
         "1419005": [
@@ -9213,6 +9778,13 @@
             "source": "imdb-top250",
             "rank": 174,
             "externalId": "tt1201607"
+          }
+        ],
+        "3013046": [
+          {
+            "source": "afi-top100",
+            "rank": 93,
+            "externalId": "afi-93"
           }
         ],
         "3026357": [
