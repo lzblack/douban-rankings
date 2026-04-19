@@ -57,11 +57,17 @@ export async function matchTitleYearToDouban(query, http, options = {}) {
     const { title, year } = query;
     if (!title) return [];
 
-    // Layer 1: manual mapping
+    // Layer 1: manual mapping. Value may be a single dbid or an array
+    // of dbids to cover multi-version Douban subjects (legacy +
+    // restoration) that PtGen deduped to a single entry.
     const mapping = options.manualMapping ?? loadDefaultMapping();
     const manualKey = manualMappingKey(title, year);
     const manual = mapping?.titles?.[manualKey];
-    if (manual != null) return [String(manual)];
+    if (manual != null) {
+        return Array.isArray(manual)
+            ? manual.map(String)
+            : [String(manual)];
+    }
 
     // Layer 2: IMDB title index → tt → PtGen reverse (all dbids)
     if (year) {

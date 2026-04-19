@@ -40,6 +40,23 @@ test('manual mapping wins over every remote lookup', async () => {
     assert.deepEqual(ids, ['1294808']);
 });
 
+test('manual mapping accepts array value for multi-version Douban subjects', async () => {
+    const http = mockHttp(() => {
+        throw new Error('http should not be called when manual hits');
+    });
+    const ids = await matchTitleYearToDouban(
+        { title: 'The Godfather', year: '1972' },
+        http,
+        {
+            manualMapping: {
+                titles: { 'the godfather|1972': ['1291841', '34447553'] },
+            },
+            ...NO_PTGEN,
+        },
+    );
+    assert.deepEqual(ids, ['1291841', '34447553']);
+});
+
 test('IMDB title index → PtGen reverse returns all dbids for the tt', async () => {
     const basicsTsv =
         [
