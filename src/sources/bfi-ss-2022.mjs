@@ -45,7 +45,7 @@ export default {
     externalIdKind: 'imdb',
     meta: {
         title: 'Sight & Sound Greatest Films of All Time (2022)',
-        titleZh: '视与听 影史百大（2022）',
+        titleZh: 'BFI 影史百大（2022）',
         url: 'https://www.bfi.org.uk/sight-and-sound/greatest-films-all-time',
     },
 
