@@ -1,10 +1,14 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-04-19T01:54:37.698Z",
+  "generatedAt": "2026-04-19T02:41:16.354Z",
   "categories": [
-    "movie"
+    "book",
+    "movie",
+    "music"
   ],
   "urls": {
-    "movie": "https://rank.douban.zhili.dev/movie.json"
+    "book": "https://rank.douban.zhili.dev/book.json",
+    "movie": "https://rank.douban.zhili.dev/movie.json",
+    "music": "https://rank.douban.zhili.dev/music.json"
   }
 }

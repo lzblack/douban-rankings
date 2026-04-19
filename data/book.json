@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-04-19T02:41:16.354Z",
+  "categories": {
+    "book": {
+      "sources": {
+        "booker-prize": {
+          "title": "The Booker Prize — Winners",
+          "titleZh": "布克奖历届得主",
+          "url": "https://thebookerprizes.com/the-booker-library",
+          "kind": "yearly",
+          "subCategory": "book",
+          "priority": 1,
+          "updatedAt": "2026-04-19T02:30:58.168Z",
+          "itemCount": 0
+        }
+      },
+      "items": {}
+    }
+  }
+}
