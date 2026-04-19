@@ -142,3 +142,8 @@ vite.config.ts.timestamp-*
 docs/*-prd.md
 docs/*-brainstorm*.md
 docs/*-design.md
+
+# Local-only maintainer utilities (validators, one-off scripts). The
+# committed scripts under scripts/ are the public tools; anything under
+# scripts/_local/ stays local.
+scripts/_local/
