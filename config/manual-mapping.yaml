@@ -5,7 +5,17 @@
 # "unresolved" external ids. For each, open the title's Douban page
 # manually and record its subject id below.
 
-# IMDB title id -> Douban subject id (strings).
+# IMDB title id -> Douban subject id.
+#
+# Value can be a single string or an array:
+#   imdb:
+#     "tt0110912": "1291561"                          # single dbid
+#     "tt0068646": ["1291841", "34447553"]            # legacy + restoration
+#
+# Use the array form when one IMDB tt corresponds to multiple Douban
+# subject pages (original release + 4K restoration + regional cut).
+# PtGen dedupes to one dbid per tt, so array overrides are how we
+# cover multi-version Douban subjects that the automated layers miss.
 imdb: {}
 
 # Title + year overrides, consumed by src/matchers/title-year-to-douban.mjs.
@@ -15,8 +25,10 @@ imdb: {}
 #     & → "and", collapse whitespace. Use manualMappingKey() from the
 #     matcher module to compute the exact key for a new override.
 #   - <year> is the 4-digit release year as a string.
-# Example:
+#   - Value is a single dbid string, or an array of dbids for multi-
+#     version Douban subjects.
+# Examples:
 #   titles:
 #     "grand illusion|1937": "1294808"
-#     "seven samurai|1954": "1295399"
+#     "the godfather|1972": ["1291841", "34447553"]  # legacy + 4K restoration
 titles: {}

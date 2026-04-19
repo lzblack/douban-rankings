@@ -49,10 +49,17 @@ function loadDefaultMapping() {
  * @returns {Promise<string[]>}  Douban subject ids (empty when unmatched)
  */
 export async function matchImdbToDouban(imdbId, http, options = {}) {
-    // Layer 1: manual mapping (single authoritative value)
+    // Layer 1: manual mapping. Value may be a single dbid (string/number)
+    // or an array of dbids — the array form is how maintainers ship
+    // multi-version coverage (legacy + restoration + regional cut)
+    // when PtGen only knows one of them.
     const mapping = options.manualMapping ?? loadDefaultMapping();
     const manual = mapping?.imdb?.[imdbId];
-    if (manual != null) return [String(manual)];
+    if (manual != null) {
+        return Array.isArray(manual)
+            ? manual.map(String)
+            : [String(manual)];
+    }
 
     // Layer 2: PtGen reverse map — return every version
     const ptgen =

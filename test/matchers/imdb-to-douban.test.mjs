@@ -19,6 +19,17 @@ test('manual mapping wins over PtGen and search', async () => {
     assert.deepEqual(ids, ['1291561']);
 });
 
+test('manual mapping accepts array value for multi-version coverage', async () => {
+    const http = mockHttp(() => {
+        throw new Error('http should not be called when manual hits');
+    });
+    const ids = await matchImdbToDouban('tt0068646', http, {
+        manualMapping: { imdb: { tt0068646: ['1291841', '34447553'] } },
+        ...NO_PTGEN,
+    });
+    assert.deepEqual(ids, ['1291841', '34447553']);
+});
+
 test('coerces numeric manual mapping value to string', async () => {
     const http = mockHttp(() => {
         throw new Error('unused');
