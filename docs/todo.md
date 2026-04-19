@@ -22,21 +22,25 @@ these when Criterion coverage becomes a user-visible pain point:
 wholesale import. Each mapping-file entry is our own curation decision
 after visual verification — bimzcy's CSV stays out of the repo.
 
-## Bangumi Top 250 retry
+## Douban search–backed snapshots need retry until resolved
 
-First fetch (`pnpm run fetch:bangumi-top250-snapshot`) resolved only
-13/250 anime via `search.douban.com` before Douban's anti-scrape
-kicked in. Remaining 237 return "搜索访问太频繁".
+Three sources rely on search.douban.com for per-entry dbid resolution
+during their local fetch scripts. Douban limits residential IPs after
+a burst of searches; the first run of each typically gets partial
+coverage. All fetchers have resume support — re-running reuses
+previously-resolved dbids and only retries the remaining.
 
-Re-run the fetcher after the rate-limit resets (typically ≥24 h, or
-after using Douban normally in a browser for a bit). Script has
-resume support: already-resolved dbids are reused, only the 237
-unresolved entries will re-query.
+Current state (as of 2026-04-19):
+| Source       | Resolved / Total | Fetcher                                    |
+|--------------|------------------|--------------------------------------------|
+| bangumi-top250 | 13 / 250       | `pnpm run fetch:bangumi-top250-snapshot`   |
+| booker-prize   | 6 / 57         | `pnpm run fetch:booker-prize-snapshot`     |
+| grammy-aoty    | ? / ~65        | `pnpm run fetch:grammy-aoty-snapshot`      |
 
-Command: `node scripts/fetch-bangumi-top250-snapshot.mjs`
-
-Repeat until `resolvedCount` approaches 250. Could take multiple
-sessions across several days to avoid re-tripping the limit.
+Cooldown: wait ≥24 h between bursts (or browse Douban normally for a
+bit to reset the residential-IP counter). Expect multiple sessions
+across several days to converge. Each run: commit the updated
+snapshot + push.
 
 ## Consumer feedback backlog
 
