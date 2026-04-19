@@ -112,7 +112,11 @@ export function parseList(html) {
         const titleJpMatch = body.match(/<small[^>]*class="grey"[^>]*>([^<]+)<\/small>/);
         const title = (titleCnMatch?.[1] || titleJpMatch?.[1] || '').trim();
 
-        const rankMatch = body.match(/class="rank"[^>]*>\s*Rank\s*<b>(\d+)<\/b>/);
+        // Rank markup varies: `<span class="rank">Rank <b>N</b></span>` in
+        // older pages, `<span class="rank"><small>Rank </small>N</span>`
+        // in newer; take the first integer that follows the "rank" class
+        // opening to cover both.
+        const rankMatch = body.match(/class="rank"[^>]*>[\s\S]*?(\d+)/);
         if (!rankMatch) continue;
         const rank = Number(rankMatch[1]);
 
