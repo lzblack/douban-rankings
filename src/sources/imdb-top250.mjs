@@ -50,7 +50,7 @@ export default {
         const qualifying = [];
         for (const b of basics) {
             const r = ratings.get(b.tconst);
-            if (!r) continue;
+            if (!r || r.votes < MIN_VOTES_DEFAULT) continue;
             qualifying.push({
                 tconst: b.tconst,
                 title: b.primaryTitle,

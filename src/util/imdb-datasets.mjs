@@ -28,26 +28,32 @@ export const MEAN_VOTE_DEFAULT = 7.0;
 /** @type {Map<string, { rating: number, votes: number }> | undefined} */
 let _ratingsCache;
 
-/** @type {Array<{ tconst: string, primaryTitle: string, originalTitle: string, year: string }> | undefined} */
-let _movieBasicsCache;
+/** @type {Map<string, Array<{ tconst: string, primaryTitle: string, originalTitle: string, year: string }>> | undefined} */
+let _basicsByType;
 
 /** @type {Map<string, string> | undefined} */
 let _titleIndexCache;
 
+// Titles we actually care about cached during the basics stream. Keeps
+// memory bounded compared to the full 11M-row basics dump. Callers
+// (sources) can still apply tighter rating / vote filters in-memory.
+const KEPT_TYPES = new Set(['movie', 'tvSeries', 'tvMiniSeries']);
+
 /**
- * Load ratings filtered by a minimum-votes threshold.
- * Cached across calls within the same process.
+ * Load all ratings (no vote threshold). Source-level filtering (e.g.
+ * movies want ≥25 000 votes, TV shows ≥5 000) happens in memory
+ * after this returns; hard-coding a threshold here would prevent
+ * multi-source scenarios from sharing the cache.
  *
  * @param {{ fetch: Function }} http
- * @param {{ minVotes?: number }} [opts]
  * @returns {Promise<Map<string, { rating: number, votes: number }>>}
  */
-export async function loadRatings(http, { minVotes = MIN_VOTES_DEFAULT } = {}) {
+export async function loadRatings(http) {
     if (_ratingsCache) return _ratingsCache;
     const map = new Map();
     await streamTsvRows(http, RATINGS_URL, cols => {
         const votes = Number(cols[2]);
-        if (votes >= minVotes) {
+        if (votes > 0) {
             map.set(cols[0], { rating: Number(cols[1]), votes });
         }
     });
@@ -56,27 +62,52 @@ export async function loadRatings(http, { minVotes = MIN_VOTES_DEFAULT } = {}) {
 }
 
 /**
- * Stream title.basics, keep only `titleType === 'movie'` rows.
- * Cached across calls. Array scale ~700K rows (~70 MB memory).
+ * Stream title.basics once; bucket into per-type arrays (movie /
+ * tvSeries / tvMiniSeries). Other types (short / video / tvEpisode)
+ * are dropped early to keep memory bounded — we don't rank them.
  *
  * @param {{ fetch: Function }} http
- * @returns {Promise<Array<{ tconst: string, primaryTitle: string, originalTitle: string, year: string }>>}
+ * @returns {Promise<Map<string, Array<{ tconst: string, primaryTitle: string, originalTitle: string, year: string }>>>}
  */
-export async function loadMovieBasics(http) {
-    if (_movieBasicsCache) return _movieBasicsCache;
-    const rows = [];
+export async function loadBasicsByType(http) {
+    if (_basicsByType) return _basicsByType;
+    const map = new Map();
+    for (const t of KEPT_TYPES) map.set(t, []);
     await streamTsvRows(http, BASICS_URL, cols => {
-        if (cols[1] !== 'movie') return;
+        const type = cols[1];
+        if (!KEPT_TYPES.has(type)) return;
         const year = cols[5];
-        rows.push({
+        map.get(type).push({
             tconst: cols[0],
             primaryTitle: cols[2],
             originalTitle: cols[3],
             year: year === '\\N' ? '' : year,
         });
     });
-    _movieBasicsCache = rows;
-    return rows;
+    _basicsByType = map;
+    return map;
+}
+
+/** Back-compat thin wrapper. Prefer `loadBasicsByType` for new sources. */
+export async function loadMovieBasics(http) {
+    const byType = await loadBasicsByType(http);
+    return byType.get('movie') ?? [];
+}
+
+/**
+ * TV series + mini-series together. Callers that only want one kind
+ * can further filter; the pair is almost always treated together for
+ * ranking purposes (IMDb's own Top 250 TV list mixes them).
+ *
+ * @param {{ fetch: Function }} http
+ * @returns {Promise<Array<{ tconst: string, primaryTitle: string, originalTitle: string, year: string }>>}
+ */
+export async function loadTvBasics(http) {
+    const byType = await loadBasicsByType(http);
+    return [
+        ...(byType.get('tvSeries') ?? []),
+        ...(byType.get('tvMiniSeries') ?? []),
+    ];
 }
 
 /**
@@ -150,7 +181,7 @@ export function computeWeightedRanking(
 /** Exported for tests that want a clean state. */
 export function _resetDatasetsCache() {
     _ratingsCache = undefined;
-    _movieBasicsCache = undefined;
+    _basicsByType = undefined;
     _titleIndexCache = undefined;
 }
 

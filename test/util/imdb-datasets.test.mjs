@@ -39,13 +39,15 @@ const MIN_BASICS_TSV =
         'tt-noyear\tmovie\tNo Year Film\tNo Year Film\t0\t\\N\t\\N\t90\tDrama',
     ].join('\n') + '\n';
 
-test('loadRatings filters below-threshold votes and caches', async () => {
+test('loadRatings returns all positive-vote ratings and caches', async () => {
     const http = fakeHttpFromTsv({ ratingsTsv: MIN_RATINGS_TSV });
     const r1 = await loadRatings(http);
-    assert.equal(r1.size, 1);
+    // Source-level vote filtering is each source's responsibility; this
+    // loader returns everything with votes > 0 so multiple sources can
+    // share the cache with different thresholds.
+    assert.equal(r1.size, 2);
     assert.deepEqual(r1.get('tt1'), { rating: 9.0, votes: 100000 });
-    assert.equal(r1.get('tt2'), undefined);
-    // Second call returns the exact same Map (cached)
+    assert.deepEqual(r1.get('tt2'), { rating: 8.0, votes: 10 });
     const r2 = await loadRatings(http);
     assert.equal(r1, r2);
 });
