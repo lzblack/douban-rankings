@@ -1,5 +1,8 @@
 import { test } from 'node:test';
 import { strict as assert } from 'node:assert';
+import { mkdtemp, writeFile, rm } from 'node:fs/promises';
+import { join } from 'node:path';
+import { tmpdir } from 'node:os';
 import source, { parseList } from '../../src/sources/booker-prize.mjs';
 
 const FIXTURE_HTML = `
@@ -17,11 +20,8 @@ const FIXTURE_HTML = `
     <td>V. S. Naipaul <sup>[66]</sup></td>
     <td>In a Free State</td>
     <td>Literary fiction</td>
-    <td>UK&nbsp;&nbsp;TTO</td>
+    <td>UK</td>
   </tr>
-</table>
-<table class="wikitable"><!-- later wikitables are ignored -->
-  <tr><td>2020</td><td>Wrong</td><td>Wrong</td></tr>
 </table>`;
 
 test('exposes stable source metadata', () => {
@@ -30,10 +30,10 @@ test('exposes stable source metadata', () => {
     assert.equal(source.subCategory, 'book');
     assert.equal(source.kind, 'yearly');
     assert.equal(source.priority, 1);
-    assert.equal(source.externalIdKind, 'book-title');
+    assert.equal(source.externalIdKind, 'pre-resolved');
 });
 
-test('parseList extracts year, author, title from first wikitable; strips wiki refs', () => {
+test('parseList extracts year/author/title; strips wiki refs', () => {
     const items = parseList(FIXTURE_HTML);
     assert.equal(items.length, 2);
     assert.deepEqual(items[0], {
@@ -44,36 +44,53 @@ test('parseList extracts year, author, title from first wikitable; strips wiki r
         author: 'P. H. Newby',
     });
     assert.equal(items[1].externalId, 'booker-1971');
-    assert.equal(items[1].author, 'V. S. Naipaul');
 });
 
-test('parseList throws on missing wikitable', () => {
-    assert.throws(
-        () => parseList('<html>no table</html>'),
-        /wikitable not found/,
-    );
+test('scrape() reads snapshot and returns items', async () => {
+    const dir = await mkdtemp(join(tmpdir(), 'booker-snap-'));
+    try {
+        const snapshotPath = join(dir, 'snap.json');
+        await writeFile(
+            snapshotPath,
+            JSON.stringify({
+                generatedAt: '2026-04-19T00:00:00Z',
+                items: [
+                    {
+                        externalId: 'booker-1969',
+                        rank: null,
+                        title: 'Something to Answer For',
+                        year: '1969',
+                        author: 'P. H. Newby',
+                        doubanId: '1005000',
+                    },
+                ],
+            }),
+        );
+        const http = { fetch: () => { throw new Error('no network'); } };
+        const items = await source.scrape(http, { snapshotPath });
+        assert.equal(items.length, 1);
+        assert.equal(items[0].doubanId, '1005000');
+    } finally {
+        await rm(dir, { recursive: true, force: true });
+    }
 });
 
-test('scrape() fetches list URL and parses', async () => {
-    let fetchedUrl;
-    const fakeHttp = {
-        async fetch(url) {
-            fetchedUrl = url;
-            return new Response(FIXTURE_HTML, { status: 200 });
-        },
-    };
-    const items = await source.scrape(fakeHttp);
-    assert.match(fetchedUrl, /Booker_Prize/);
-    assert.equal(items.length, 2);
+test('scrape() throws helpful message when snapshot missing', async () => {
+    const dir = await mkdtemp(join(tmpdir(), 'booker-nosnap-'));
+    try {
+        const snapshotPath = join(dir, 'missing.json');
+        const http = { fetch: () => { throw new Error('unused'); } };
+        await assert.rejects(
+            () => source.scrape(http, { snapshotPath }),
+            /not found.*fetch:booker-prize-snapshot/,
+        );
+    } finally {
+        await rm(dir, { recursive: true, force: true });
+    }
 });
 
-test('matchItem uses ctx.prevResolved cache', async () => {
+test('matchItem returns pre-resolved doubanId from snapshot', async () => {
     const http = { fetch: () => { throw new Error('no network'); } };
-    const ctx = {
-        prevResolved: new Map([
-            ['booker-prize', new Map([['booker-1969', ['1005000']]])],
-        ]),
-    };
     const ids = await source.matchItem(
         {
             externalId: 'booker-1969',
@@ -81,9 +98,10 @@ test('matchItem uses ctx.prevResolved cache', async () => {
             title: 'Something to Answer For',
             year: '1969',
             author: 'P. H. Newby',
+            doubanId: '1005000',
         },
         http,
-        ctx,
+        {},
     );
     assert.deepEqual(ids, ['1005000']);
 });

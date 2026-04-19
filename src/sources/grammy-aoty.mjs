@@ -1,20 +1,33 @@
+import { readFile } from 'node:fs/promises';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import * as cheerio from 'cheerio';
-import { matchMusicToDouban } from '../matchers/music-to-douban.mjs';
 
 /**
  * Source: Grammy Award for Album of the Year — winners (1959–).
  *
- * The most prominent American music prize; ~65 annual winners, stable
- * once awarded. Wikipedia lists them across per-decade wikitables
- * (1950s / 1960s / 1970s / 1980s / ...); the "winner" row of each
- * ceremony year has the year in the first cell, followed by nominee
- * rows that omit the year. We keep only the year-bearing rows.
+ * Pre-resolved snapshot model, same reasoning as Bangumi / Booker:
+ * Douban music search rate-limits Actions runner IPs within minutes,
+ * so the maintainer resolves dbids locally via a fetch script, and
+ * the pipeline just reads `config/grammy-aoty-snapshot.json`.
+ *
+ * Wikipedia's Grammy AOTY page spreads winners across per-decade
+ * wikitables. The first row of each ceremony year carries the year;
+ * nominee rows omit it. parseList keeps only year-bearing rows.
  */
 
 const LIST_URL =
     'https://en.wikipedia.org/wiki/Grammy_Award_for_Album_of_the_Year';
 
-/** @typedef {{ externalId: string, rank: null, title: string, year: string, artist: string }} ScrapedItem */
+const DEFAULT_SNAPSHOT_PATH = join(
+    dirname(fileURLToPath(import.meta.url)),
+    '..',
+    '..',
+    'config',
+    'grammy-aoty-snapshot.json',
+);
+
+/** @typedef {{ externalId: string, rank: null, title: string, year: string, artist: string, doubanId?: string }} ScrapedItem */
 
 export default {
     id: 'grammy-aoty',
@@ -22,7 +35,7 @@ export default {
     subCategory: 'album',
     kind: 'yearly',
     priority: 1,
-    externalIdKind: 'music-title',
+    externalIdKind: 'pre-resolved',
     meta: {
         title: 'Grammy Album of the Year — Winners',
         titleZh: '格莱美年度专辑',
@@ -30,37 +43,49 @@ export default {
     },
 
     /**
-     * @param {{ fetch: Function }} http
+     * @param {{ fetch: Function }} _http
+     * @param {{ snapshotPath?: string }} [opts]
      * @returns {Promise<ScrapedItem[]>}
      */
-    async scrape(http) {
-        const res = await http.fetch(LIST_URL);
-        if (!res.ok) throw new Error(`grammy-aoty: HTTP ${res.status}`);
-        return parseList(await res.text());
+    async scrape(_http, opts = {}) {
+        const snapshotPath = opts.snapshotPath ?? DEFAULT_SNAPSHOT_PATH;
+        let raw;
+        try {
+            raw = await readFile(snapshotPath, 'utf-8');
+        } catch (err) {
+            if (err.code === 'ENOENT') {
+                throw new Error(
+                    'grammy-aoty: ' +
+                        snapshotPath +
+                        ' not found. Run `pnpm run fetch:grammy-aoty-snapshot` from a residential IP and commit the generated file.',
+                );
+            }
+            throw err;
+        }
+        const data = JSON.parse(raw);
+        return Array.isArray(data?.items) ? data.items : [];
     },
 
     /**
      * @param {ScrapedItem} raw
-     * @param {{ fetch: Function }} http
+     * @param {{ fetch: Function }} _http
      * @param {{ prevResolved?: Map<string, Map<string, string[]>> }} [ctx]
      */
-    async matchItem(raw, http, ctx = {}) {
+    async matchItem(raw, _http, ctx = {}) {
+        if (raw.doubanId) return [String(raw.doubanId)];
         const cached = ctx.prevResolved?.get('grammy-aoty')?.get(raw.externalId);
         if (Array.isArray(cached) && cached.length) return cached;
-        return matchMusicToDouban(
-            { title: raw.title, artist: raw.artist },
-            http,
-        );
+        return [];
     },
 };
 
 /**
- * Parse every `<table class="wikitable">` on the page, keeping only
- * rows whose first cell starts with a 4-digit year (winner row per
- * ceremony). Exported for tests.
+ * Parse the Wikipedia Grammy AOTY page. Walks every wikitable;
+ * keeps only rows whose first cell starts with a 4-digit year
+ * (= the ceremony's winning album row). Exported for the fetch script.
  *
  * @param {string} html
- * @returns {ScrapedItem[]}
+ * @returns {Array<{ externalId: string, rank: null, title: string, year: string, artist: string }>}
  */
 export function parseList(html) {
     const $ = cheerio.load(html);
@@ -99,3 +124,5 @@ function cleanCell(t) {
         .replace(/\s+/g, ' ')
         .trim();
 }
+
+export { LIST_URL as GRAMMY_AOTY_LIST_URL };
