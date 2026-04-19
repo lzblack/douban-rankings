@@ -54,6 +54,13 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ```
 src/sources/<id>.mjs          每个外部榜单一个模块：scrape(http) → 原始条目
+  imdb-top250                 IMDb Top 250（IMDb datasets + WR 公式）
+  criterion                   Criterion Collection（snapshot 模式）
+  afi-top100                  AFI 100 Years...100 Movies（Wikipedia table）
+  bfi-ss-2022                 BFI Sight & Sound 2022 Critics' Poll（snapshot）
+  letterboxd-top250           Letterboxd Top 250 Most Fans（snapshot）
+  tspdt-1000                  TSPDT 1000 Greatest Films（snapshot）
+  bangumi-top250              Bangumi 动画 Top 250（pre-resolved snapshot）
       ↓
 src/matchers/                 外部 ID 反查豆瓣 subject id
   imdb-to-douban.mjs          三层：manual-mapping → PtGen archive → search.douban.com
