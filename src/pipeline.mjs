@@ -14,6 +14,7 @@ import criterion from './sources/criterion.mjs';
 import afiTop100 from './sources/afi-top100.mjs';
 import bfiSs2022 from './sources/bfi-ss-2022.mjs';
 import letterboxdTop250 from './sources/letterboxd-top250.mjs';
+import tspdt1000 from './sources/tspdt-1000.mjs';
 
 const PROJECT_ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const DATA_DIR = join(PROJECT_ROOT, 'data');
@@ -28,6 +29,7 @@ const DEFAULT_SOURCES = [
     afiTop100,
     bfiSs2022,
     letterboxdTop250,
+    tspdt1000,
 ];
 
 // Per PRD §7: Douban endpoints are the binding constraint. Raising any
