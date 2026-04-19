@@ -15,6 +15,7 @@ import afiTop100 from './sources/afi-top100.mjs';
 import bfiSs2022 from './sources/bfi-ss-2022.mjs';
 import letterboxdTop250 from './sources/letterboxd-top250.mjs';
 import tspdt1000 from './sources/tspdt-1000.mjs';
+import bangumiTop250 from './sources/bangumi-top250.mjs';
 
 const PROJECT_ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const DATA_DIR = join(PROJECT_ROOT, 'data');
@@ -30,6 +31,7 @@ const DEFAULT_SOURCES = [
     bfiSs2022,
     letterboxdTop250,
     tspdt1000,
+    bangumiTop250,
 ];
 
 // Per PRD §7: Douban endpoints are the binding constraint. Raising any
@@ -42,6 +44,7 @@ const DEFAULT_RATE_LIMITS = {
     'www.imdb.com': { minDelay: 2000 },
     'www.criterion.com': { minDelay: 2000 },
     'en.wikipedia.org': { minDelay: 1000 },
+    'bgm.tv': { minDelay: 2000 },
 };
 
 /**
