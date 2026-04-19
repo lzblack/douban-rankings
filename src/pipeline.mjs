@@ -17,6 +17,7 @@ import bfiSs2022 from './sources/bfi-ss-2022.mjs';
 import letterboxdTop250 from './sources/letterboxd-top250.mjs';
 import tspdt1000 from './sources/tspdt-1000.mjs';
 import bangumiTop250 from './sources/bangumi-top250.mjs';
+import bookerPrize from './sources/booker-prize.mjs';
 
 const PROJECT_ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const DATA_DIR = join(PROJECT_ROOT, 'data');
@@ -34,6 +35,7 @@ const DEFAULT_SOURCES = [
     letterboxdTop250,
     tspdt1000,
     bangumiTop250,
+    bookerPrize,
 ];
 
 // Per PRD §7: Douban endpoints are the binding constraint. Raising any

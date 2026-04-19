@@ -32,3 +32,13 @@ imdb: {}
 #     "grand illusion|1937": "1294808"
 #     "the godfather|1972": ["1291841", "34447553"]  # legacy + 4K restoration
 titles: {}
+
+# Book overrides consumed by src/matchers/book-to-douban.mjs.
+# Key format: "<normalized-title>|<normalized-author>" (use empty author
+# for title-only fallback). Value is a single dbid or an array of dbids
+# (different translations / editions are often distinct Douban subjects).
+# Example:
+#   books:
+#     "beloved|toni morrison": "1007200"
+#     "the great gatsby|": ["1040000", "2040000"]  # multiple editions
+books: {}
