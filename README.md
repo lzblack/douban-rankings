@@ -2,7 +2,19 @@
 
 爬取多个外部电影/剧/书/音乐等榜单，建立 **"豆瓣 subject ID → 所在榜单与排名"** 的反向索引，以静态 JSON 发布在 <https://rank.douban.zhili.dev>。
 
-供姐妹项目 `douban-rating-hub` userscript 消费，在豆瓣条目页上显示外部权威榜单标签（IMDb Top 250、Criterion Collection 等）。
+供姐妹项目 `douban-rating-hub` userscript 消费，在豆瓣条目页上显示外部权威榜单标签。
+
+## 当前榜单
+
+| Source | 来源 | 规模 | 更新节奏 |
+|---|---|---|---|
+| `imdb-top250` | IMDb Top 250 Movies | 250 | 月度自动（IMDb Datasets）|
+| `criterion` | The Criterion Collection | ~1300 | 季度手工 snapshot |
+| `afi-top100` | AFI's 100 Years...100 Movies (10th ed.) | 100 | 冻结（2007 版）|
+| `bfi-ss-2022` | BFI Sight & Sound 2022 Critics' Poll | 100 | 冻结（2032 前）|
+| `letterboxd-top250` | Letterboxd Top 250 Films by Most Fans | 250 | 季度手工 snapshot |
+| `tspdt-1000` | They Shoot Pictures, Don't They? 1000 Greatest | 1000 | 年度手工 snapshot |
+| `bangumi-top250` | Bangumi 动画 Top 250 | 250 | 季度手工 snapshot |
 
 **本仓库不含 UI**。
 
