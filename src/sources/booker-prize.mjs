@@ -1,20 +1,42 @@
+import { readFile } from 'node:fs/promises';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import * as cheerio from 'cheerio';
-import { matchBookToDouban } from '../matchers/book-to-douban.mjs';
 
 /**
  * Source: The Booker Prize — winners (1969–).
  *
- * Annual award for the best English-language novel; the winner list
- * is one of the most stable literary canons we can ship. ~60 winners
- * as of 2025, Wikipedia has them in a single wikitable.
+ * Annual award for the best English-language novel; ~60 winners as of
+ * 2025. Wikipedia lists them in a single wikitable (columns: Year,
+ * Author, Title, Genre, Country).
  *
- * Category: `book`. Douban hosts books at `book.douban.com/subject/*`
- * (distinct URL pattern from movies), so output lives in `book.json`.
+ * Pre-resolved snapshot pattern (same as Bangumi Top 250):
+ *
+ *   - Pipeline's matchBookToDouban hits search.douban.com/book/
+ *     subject_search, which rate-limits Actions runner IPs quickly
+ *     (observed 0/57 matched on the first run).
+ *   - Fetcher `scripts/fetch-booker-prize-snapshot.mjs` scrapes
+ *     Wikipedia + resolves each winner's Douban book subject id
+ *     locally on a residential IP at polite pacing, then writes
+ *     `config/booker-prize-snapshot.json`.
+ *   - Pipeline scrape() reads that snapshot; matchItem returns the
+ *     pre-resolved [doubanId] with zero remote calls.
+ *
+ * Cadence: annual (one new winner/year). Re-run the fetcher each
+ * November after the winner announcement.
  */
 
 const LIST_URL = 'https://en.wikipedia.org/wiki/Booker_Prize';
 
-/** @typedef {{ externalId: string, rank: null, title: string, year: string, author: string }} ScrapedItem */
+const DEFAULT_SNAPSHOT_PATH = join(
+    dirname(fileURLToPath(import.meta.url)),
+    '..',
+    '..',
+    'config',
+    'booker-prize-snapshot.json',
+);
+
+/** @typedef {{ externalId: string, rank: null, title: string, year: string, author: string, doubanId?: string }} ScrapedItem */
 
 export default {
     id: 'booker-prize',
@@ -22,7 +44,7 @@ export default {
     subCategory: 'book',
     kind: 'yearly',
     priority: 1,
-    externalIdKind: 'book-title',
+    externalIdKind: 'pre-resolved',
     meta: {
         title: 'The Booker Prize — Winners',
         titleZh: '布克奖历届得主',
@@ -30,36 +52,51 @@ export default {
     },
 
     /**
-     * @param {{ fetch: Function }} http
+     * @param {{ fetch: Function }} _http
+     * @param {{ snapshotPath?: string }} [opts]
      * @returns {Promise<ScrapedItem[]>}
      */
-    async scrape(http) {
-        const res = await http.fetch(LIST_URL);
-        if (!res.ok) throw new Error(`booker-prize: HTTP ${res.status}`);
-        return parseList(await res.text());
+    async scrape(_http, opts = {}) {
+        const snapshotPath = opts.snapshotPath ?? DEFAULT_SNAPSHOT_PATH;
+        let raw;
+        try {
+            raw = await readFile(snapshotPath, 'utf-8');
+        } catch (err) {
+            if (err.code === 'ENOENT') {
+                throw new Error(
+                    'booker-prize: ' +
+                        snapshotPath +
+                        ' not found. Run `pnpm run fetch:booker-prize-snapshot` from a residential IP and commit the generated file.',
+                );
+            }
+            throw err;
+        }
+        const data = JSON.parse(raw);
+        return Array.isArray(data?.items) ? data.items : [];
     },
 
     /**
+     * Snapshot pre-resolves doubanId; matchItem just returns it.
+     * prevResolved cache honored as a secondary fallback.
+     *
      * @param {ScrapedItem} raw
-     * @param {{ fetch: Function }} http
+     * @param {{ fetch: Function }} _http
      * @param {{ prevResolved?: Map<string, Map<string, string[]>> }} [ctx]
      */
-    async matchItem(raw, http, ctx = {}) {
+    async matchItem(raw, _http, ctx = {}) {
+        if (raw.doubanId) return [String(raw.doubanId)];
         const cached = ctx.prevResolved?.get('booker-prize')?.get(raw.externalId);
         if (Array.isArray(cached) && cached.length) return cached;
-        return matchBookToDouban(
-            { title: raw.title, author: raw.author, year: raw.year },
-            http,
-        );
+        return [];
     },
 };
 
 /**
- * Parse the Booker Prize Wikipedia page's first wikitable into winners.
- * Columns: Year | Author | Title | Genre(s) | Country. Exported for tests.
+ * Parse the Booker Prize Wikipedia page's first wikitable into
+ * winners. Exported for the fetch script.
  *
  * @param {string} html
- * @returns {ScrapedItem[]}
+ * @returns {Array<{ externalId: string, rank: null, title: string, year: string, author: string }>}
  */
 export function parseList(html) {
     const $ = cheerio.load(html);
@@ -69,10 +106,8 @@ export function parseList(html) {
     }
     const items = [];
     table.find('tr').each((_, tr) => {
-        const cells = $(tr).find('td').toArray();
-        if (cells.length < 3) return; // header or malformed
-        // Year cell may wrap in <th> sometimes; re-query cells to include th
         const allCells = $(tr).find('th,td').toArray();
+        if (allCells.length < 3) return;
         const yearText = $(allCells[0]).text().trim();
         const yearMatch = yearText.match(/(\d{4})/);
         if (!yearMatch) return;
@@ -81,8 +116,6 @@ export function parseList(html) {
         const title = cleanCell($(allCells[2]).text());
         if (!title || !author) return;
         items.push({
-            // Year is unique per winner (at most one winner per year);
-            // compound externalId is stable and human-inspectable.
             externalId: `booker-${year}`,
             rank: null,
             title,
@@ -98,7 +131,9 @@ export function parseList(html) {
 
 function cleanCell(t) {
     return String(t)
-        .replace(/\[[^\]]*\]/g, '') // strip wiki footnote markers like [64]
+        .replace(/\[[^\]]*\]/g, '')
         .replace(/\s+/g, ' ')
         .trim();
 }
+
+export { LIST_URL as BOOKER_LIST_URL };

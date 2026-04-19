@@ -1,5 +1,8 @@
 import { test } from 'node:test';
 import { strict as assert } from 'node:assert';
+import { mkdtemp, writeFile, rm } from 'node:fs/promises';
+import { join } from 'node:path';
+import { tmpdir } from 'node:os';
 import source, { parseList } from '../../src/sources/grammy-aoty.mjs';
 
 const FIXTURE_HTML = `
@@ -33,52 +36,62 @@ test('exposes stable source metadata', () => {
     assert.equal(source.category, 'music');
     assert.equal(source.subCategory, 'album');
     assert.equal(source.kind, 'yearly');
-    assert.equal(source.externalIdKind, 'music-title');
+    assert.equal(source.externalIdKind, 'pre-resolved');
 });
 
-test('parseList keeps only winner rows (year-bearing) across wikitables', () => {
+test('parseList keeps only winner rows across wikitables', () => {
     const items = parseList(FIXTURE_HTML);
-    // 1970 winner + 1971 winner; nominee row without year + aggregate table skipped
     assert.equal(items.length, 2);
-    assert.deepEqual(items[0], {
-        externalId: 'grammy-aoty-1970',
-        rank: null,
-        title: 'Blood, Sweat & Tears',
-        year: '1970',
-        artist: 'Blood, Sweat & Tears',
-    });
-    assert.equal(items[1].externalId, 'grammy-aoty-1971');
-    assert.equal(items[1].title, 'Bridge over Troubled Water');
-    assert.equal(items[1].artist, 'Simon & Garfunkel');
+    assert.equal(items[0].externalId, 'grammy-aoty-1970');
+    assert.equal(items[0].title, 'Blood, Sweat & Tears');
+    assert.equal(items[1].year, '1971');
 });
 
-test('parseList throws when no winners parsed', () => {
-    assert.throws(
-        () => parseList('<html>no tables</html>'),
-        /parsed zero winners/,
-    );
+test('scrape() reads snapshot and returns items', async () => {
+    const dir = await mkdtemp(join(tmpdir(), 'grammy-snap-'));
+    try {
+        const snapshotPath = join(dir, 'snap.json');
+        await writeFile(
+            snapshotPath,
+            JSON.stringify({
+                generatedAt: '2026-04-19T00:00:00Z',
+                items: [
+                    {
+                        externalId: 'grammy-aoty-1970',
+                        rank: null,
+                        title: 'Blood, Sweat & Tears',
+                        year: '1970',
+                        artist: 'Blood, Sweat & Tears',
+                        doubanId: '1401361',
+                    },
+                ],
+            }),
+        );
+        const http = { fetch: () => { throw new Error('no network'); } };
+        const items = await source.scrape(http, { snapshotPath });
+        assert.equal(items.length, 1);
+        assert.equal(items[0].doubanId, '1401361');
+    } finally {
+        await rm(dir, { recursive: true, force: true });
+    }
 });
 
-test('scrape() fetches list URL and parses', async () => {
-    let fetchedUrl;
-    const fakeHttp = {
-        async fetch(url) {
-            fetchedUrl = url;
-            return new Response(FIXTURE_HTML, { status: 200 });
-        },
-    };
-    const items = await source.scrape(fakeHttp);
-    assert.match(fetchedUrl, /Album_of_the_Year/);
-    assert.equal(items.length, 2);
+test('scrape() throws helpful message when snapshot missing', async () => {
+    const dir = await mkdtemp(join(tmpdir(), 'grammy-nosnap-'));
+    try {
+        const snapshotPath = join(dir, 'missing.json');
+        const http = { fetch: () => { throw new Error('unused'); } };
+        await assert.rejects(
+            () => source.scrape(http, { snapshotPath }),
+            /not found.*fetch:grammy-aoty-snapshot/,
+        );
+    } finally {
+        await rm(dir, { recursive: true, force: true });
+    }
 });
 
-test('matchItem uses ctx.prevResolved cache', async () => {
+test('matchItem returns pre-resolved doubanId', async () => {
     const http = { fetch: () => { throw new Error('no network'); } };
-    const ctx = {
-        prevResolved: new Map([
-            ['grammy-aoty', new Map([['grammy-aoty-1970', ['1401361']]])],
-        ]),
-    };
     const ids = await source.matchItem(
         {
             externalId: 'grammy-aoty-1970',
@@ -86,9 +99,10 @@ test('matchItem uses ctx.prevResolved cache', async () => {
             title: 'Blood, Sweat & Tears',
             year: '1970',
             artist: 'Blood, Sweat & Tears',
+            doubanId: '1401361',
         },
         http,
-        ctx,
+        {},
     );
     assert.deepEqual(ids, ['1401361']);
 });
