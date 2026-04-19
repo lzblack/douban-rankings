@@ -72,11 +72,13 @@ export async function runSource(source, http, deps = {}) {
                 ? await source.matchItem(raw, http, ctx)
                 : await registryMatcher(raw.externalId, http);
             if (doubanId) {
-                items.push({
+                const entry = {
                     doubanId,
                     rank: raw.rank,
                     externalId: raw.externalId,
-                });
+                };
+                if (raw.spineNumber != null) entry.spineNumber = raw.spineNumber;
+                items.push(entry);
             } else {
                 unresolved.push({
                     externalId: raw.externalId,
