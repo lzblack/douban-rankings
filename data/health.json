@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-04-19T01:02:19.581Z",
-  "overall": "ok",
+  "generatedAt": "2026-04-19T01:20:56.085Z",
+  "overall": "degraded",
   "sources": [
     {
       "id": "imdb-top250",
-      "itemCount": 248,
-      "itemCountDelta": 0,
+      "itemCount": 249,
+      "itemCountDelta": 1,
       "message": null,
       "status": "ok",
-      "lastSuccessAt": "2026-04-19T01:01:46.471Z",
+      "lastSuccessAt": "2026-04-19T01:20:22.252Z",
       "lastFailureAt": null,
       "consecutiveFailures": 0
     },
@@ -18,7 +18,7 @@
       "itemCountDelta": 0,
       "message": null,
       "status": "ok",
-      "lastSuccessAt": "2026-04-19T01:02:10.055Z",
+      "lastSuccessAt": "2026-04-19T01:20:45.877Z",
       "lastFailureAt": "2026-04-18T23:36:48.793Z",
       "consecutiveFailures": 0
     },
@@ -28,7 +28,7 @@
       "itemCountDelta": 0,
       "message": null,
       "status": "ok",
-      "lastSuccessAt": "2026-04-19T01:02:11.134Z",
+      "lastSuccessAt": "2026-04-19T01:20:47.007Z",
       "lastFailureAt": null,
       "consecutiveFailures": 0
     },
@@ -38,19 +38,39 @@
       "itemCountDelta": 0,
       "message": null,
       "status": "ok",
-      "lastSuccessAt": "2026-04-19T01:02:11.330Z",
+      "lastSuccessAt": "2026-04-19T01:20:47.170Z",
       "lastFailureAt": null,
       "consecutiveFailures": 0
     },
     {
       "id": "letterboxd-top250",
       "itemCount": 249,
-      "itemCountDelta": 249,
+      "itemCountDelta": 0,
       "message": null,
       "status": "ok",
-      "lastSuccessAt": "2026-04-19T01:02:14.442Z",
+      "lastSuccessAt": "2026-04-19T01:20:51.462Z",
       "lastFailureAt": null,
       "consecutiveFailures": 0
+    },
+    {
+      "id": "tspdt-1000",
+      "itemCount": 0,
+      "itemCountDelta": 0,
+      "message": "tspdt-1000: /home/runner/work/douban-rankings/douban-rankings/config/tspdt-1000-snapshot.json not found. Run `pnpm run fetch:tspdt-1000-snapshot` from a residential IP and commit the generated file.",
+      "status": "failed",
+      "lastSuccessAt": null,
+      "lastFailureAt": "2026-04-19T01:20:56.085Z",
+      "consecutiveFailures": 1
+    },
+    {
+      "id": "bangumi-top250",
+      "itemCount": 0,
+      "itemCountDelta": 0,
+      "message": "bangumi-top250: /home/runner/work/douban-rankings/douban-rankings/config/bangumi-top250-snapshot.json not found. Run `pnpm run fetch:bangumi-top250-snapshot` from a residential IP and commit the generated file.",
+      "status": "failed",
+      "lastSuccessAt": null,
+      "lastFailureAt": "2026-04-19T01:20:56.085Z",
+      "consecutiveFailures": 1
     }
   ]
 }
