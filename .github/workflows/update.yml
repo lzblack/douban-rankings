@@ -24,7 +24,7 @@ jobs:
       - uses: actions/checkout@v5
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@v6
         # Reads `packageManager` from package.json for version pinning.
 
       - uses: actions/setup-node@v5
