@@ -99,7 +99,7 @@ export default {
      */
     async matchItem(raw, http, ctx = {}) {
         const cached = ctx.prevResolved?.get('criterion')?.get(raw.externalId);
-        if (cached) return cached;
+        if (Array.isArray(cached) && cached.length) return cached;
         return matchTitleYearToDouban(
             { title: raw.title, year: raw.year },
             http,

@@ -115,6 +115,40 @@ test('groupByCategory includes only ok sources and buckets them', () => {
     assert.equal(grouped.failed, undefined);
 });
 
+test('runSource expands a raw item into one entry per dbid when matcher returns string[]', async () => {
+    const source = makeSource({
+        scraped: [{ externalId: 'tt0068646', rank: 2, title: 'The Godfather' }],
+    });
+    const matcher = async () => ['1291841', '34447553']; // two dbids for one tt
+    const result = await runSource(source, fakeHttp, {
+        matchers: { imdb: matcher },
+    });
+    assert.equal(result.status, 'ok');
+    // itemCount is unique externalIds, not expanded entries
+    assert.equal(result.itemCount, 1);
+    assert.equal(result.scrapedCount, 1);
+    // items array has one entry per dbid, both sharing the externalId
+    assert.equal(result.items.length, 2);
+    const ids = result.items.map(i => i.doubanId).sort();
+    assert.deepEqual(ids, ['1291841', '34447553']);
+    for (const i of result.items) {
+        assert.equal(i.externalId, 'tt0068646');
+        assert.equal(i.rank, 2);
+    }
+});
+
+test('runSource treats empty array return as unresolved', async () => {
+    const source = makeSource({
+        scraped: [{ externalId: 'tt-unknown', rank: 1, title: 'Nothing' }],
+    });
+    const matcher = async () => []; // matcher found nothing
+    const result = await runSource(source, fakeHttp, {
+        matchers: { imdb: matcher },
+    });
+    assert.equal(result.itemCount, 0);
+    assert.equal(result.items.length, 0);
+});
+
 test('runSource prefers source.matchItem over externalIdKind registry', async () => {
     const source = {
         id: 's',
@@ -158,7 +192,7 @@ test('runSource fails when source has neither matchItem nor registered matcher',
     assert.match(result.message, /no matcher registered.*and source has no matchItem/);
 });
 
-test('loadPrevResolved builds sourceId → (externalId → doubanId) from prior data dir', async () => {
+test('loadPrevResolved builds sourceId → (externalId → doubanId[]) arrays, merging multi-version', async () => {
     const dir = await mkdtemp(join(tmpdir(), 'pipeline-prev-'));
     try {
         await writeFile(
@@ -176,6 +210,13 @@ test('loadPrevResolved builds sourceId → (externalId → doubanId) from prior 
                             '1292052': [
                                 { source: 'imdb-top250', rank: 1, externalId: 'tt0111161' },
                             ],
+                            // Same tt maps to two doubanIds (original + restoration).
+                            '1291841': [
+                                { source: 'imdb-top250', rank: 2, externalId: 'tt0068646' },
+                            ],
+                            '34447553': [
+                                { source: 'imdb-top250', rank: 2, externalId: 'tt0068646' },
+                            ],
                             '1294808': [
                                 { source: 'criterion', rank: null, externalId: '0001' },
                             ],
@@ -185,8 +226,12 @@ test('loadPrevResolved builds sourceId → (externalId → doubanId) from prior 
             }),
         );
         const map = await loadPrevResolved(dir);
-        assert.equal(map.get('imdb-top250').get('tt0111161'), '1292052');
-        assert.equal(map.get('criterion').get('0001'), '1294808');
+        assert.deepEqual(map.get('imdb-top250').get('tt0111161'), ['1292052']);
+        assert.deepEqual(
+            map.get('imdb-top250').get('tt0068646').sort(),
+            ['1291841', '34447553'].sort(),
+        );
+        assert.deepEqual(map.get('criterion').get('0001'), ['1294808']);
     } finally {
         await rm(dir, { recursive: true, force: true });
     }

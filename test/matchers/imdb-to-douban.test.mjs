@@ -12,34 +12,34 @@ test('manual mapping wins over PtGen and search', async () => {
     const http = mockHttp(() => {
         throw new Error('http should not be called when manual override hits');
     });
-    const id = await matchImdbToDouban('tt0110912', http, {
+    const ids = await matchImdbToDouban('tt0110912', http, {
         manualMapping: { imdb: { tt0110912: '1291561' } },
-        ptgenMap: new Map([['tt0110912', 'ptgen-value']]), // still ignored
+        ptgenMap: new Map([['tt0110912', ['ptgen-value']]]),
     });
-    assert.equal(id, '1291561');
+    assert.deepEqual(ids, ['1291561']);
 });
 
 test('coerces numeric manual mapping value to string', async () => {
     const http = mockHttp(() => {
         throw new Error('unused');
     });
-    const id = await matchImdbToDouban('tt1', http, {
+    const ids = await matchImdbToDouban('tt1', http, {
         manualMapping: { imdb: { tt1: 42 } },
         ...NO_PTGEN,
     });
-    assert.equal(id, '42');
+    assert.deepEqual(ids, ['42']);
 });
 
-test('PtGen hit returns directly without touching the search endpoint', async () => {
+test('PtGen hit returns all dbids (multi-version) without touching search', async () => {
     const http = mockHttp(() => {
         throw new Error('http should not be called when PtGen hits');
     });
-    const ptgenMap = new Map([['tt0111161', '1292052']]);
-    const id = await matchImdbToDouban('tt0111161', http, {
+    const ptgenMap = new Map([['tt0068646', ['1291841', '34447553']]]);
+    const ids = await matchImdbToDouban('tt0068646', http, {
         manualMapping: {},
         ptgenMap,
     });
-    assert.equal(id, '1292052');
+    assert.deepEqual(ids, ['1291841', '34447553']);
 });
 
 test('PtGen miss falls through to search endpoint', async () => {
@@ -53,11 +53,11 @@ test('PtGen miss falls through to search endpoint', async () => {
             { status: 200 },
         );
     });
-    const id = await matchImdbToDouban('tt0111161', http, {
+    const ids = await matchImdbToDouban('tt0111161', http, {
         manualMapping: {},
-        ptgenMap: new Map(), // empty map, forces fallback
+        ptgenMap: new Map(),
     });
-    assert.equal(id, '1292052');
+    assert.deepEqual(ids, ['1292052']);
 });
 
 test('null ptgenMap option also falls through to search', async () => {
@@ -69,11 +69,11 @@ test('null ptgenMap option also falls through to search', async () => {
             { status: 200 },
         );
     });
-    const id = await matchImdbToDouban('tt1', http, {
+    const ids = await matchImdbToDouban('tt1', http, {
         manualMapping: {},
         ...NO_PTGEN,
     });
-    assert.equal(id, '9');
+    assert.deepEqual(ids, ['9']);
     assert.equal(called, true);
 });
 
@@ -83,29 +83,29 @@ test('picks the first /subject/ link in the search HTML', async () => {
         <a href="https://movie.douban.com/subject/9999/">First match</a>
         <a href="https://movie.douban.com/subject/1111/">Later match</a>`;
     const http = mockHttp(async () => new Response(html, { status: 200 }));
-    const id = await matchImdbToDouban('tt1', http, {
+    const ids = await matchImdbToDouban('tt1', http, {
         manualMapping: {},
         ...NO_PTGEN,
     });
-    assert.equal(id, '9999');
+    assert.deepEqual(ids, ['9999']);
 });
 
-test('returns null when search HTML has no /subject/ link', async () => {
+test('returns [] when no /subject/ link is in the HTML', async () => {
     const http = mockHttp(
         async () => new Response('<body>no results</body>', { status: 200 }),
     );
-    const id = await matchImdbToDouban('tt9999999', http, {
+    const ids = await matchImdbToDouban('tt9999999', http, {
         manualMapping: {},
         ...NO_PTGEN,
     });
-    assert.equal(id, null);
+    assert.deepEqual(ids, []);
 });
 
-test('returns null on non-OK search response', async () => {
+test('returns [] on non-OK search response', async () => {
     const http = mockHttp(async () => new Response('forbidden', { status: 403 }));
-    const id = await matchImdbToDouban('tt1', http, {
+    const ids = await matchImdbToDouban('tt1', http, {
         manualMapping: {},
         ...NO_PTGEN,
     });
-    assert.equal(id, null);
+    assert.deepEqual(ids, []);
 });

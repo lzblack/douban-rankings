@@ -66,19 +66,30 @@ export async function runSource(source, http, deps = {}) {
     try {
         const scraped = await source.scrape(http);
         const items = [];
+        const resolvedExternalIds = new Set();
         const unresolved = [];
         for (const raw of scraped) {
-            const doubanId = useSourceMatcher
+            // Matchers return string[] (possibly multiple dbids per
+            // externalId — same film, different Douban subject pages
+            // per release/restoration). Older single-value return is
+            // normalized to one-item array for back-compat.
+            const raw_result = useSourceMatcher
                 ? await source.matchItem(raw, http, ctx)
                 : await registryMatcher(raw.externalId, http);
-            if (doubanId) {
-                const entry = {
-                    doubanId,
-                    rank: raw.rank,
-                    externalId: raw.externalId,
-                };
-                if (raw.spineNumber != null) entry.spineNumber = raw.spineNumber;
-                items.push(entry);
+            const doubanIds = normalizeMatchResult(raw_result);
+            if (doubanIds.length > 0) {
+                resolvedExternalIds.add(raw.externalId);
+                for (const doubanId of doubanIds) {
+                    const entry = {
+                        doubanId,
+                        rank: raw.rank,
+                        externalId: raw.externalId,
+                    };
+                    if (raw.spineNumber != null) {
+                        entry.spineNumber = raw.spineNumber;
+                    }
+                    items.push(entry);
+                }
             } else {
                 unresolved.push({
                     externalId: raw.externalId,
@@ -104,7 +115,10 @@ export async function runSource(source, http, deps = {}) {
             id: source.id,
             sourceDef: source,
             status: 'ok',
-            itemCount: items.length,
+            // itemCount = unique externalIds matched (source coverage),
+            // NOT the total expanded entries — expansion into multiple
+            // dbids per tt shouldn't inflate the stats.
+            itemCount: resolvedExternalIds.size,
             scrapedCount: scraped.length,
             items,
             updatedAt,
@@ -113,6 +127,17 @@ export async function runSource(source, http, deps = {}) {
     } catch (err) {
         return failedResult(source, updatedAt, err.message ?? String(err));
     }
+}
+
+/**
+ * Normalize a matcher's return shape: accepts string[], single string,
+ * or null/undefined. Used during the migration to array returns so
+ * older matchers (or test fakes) still work.
+ */
+function normalizeMatchResult(r) {
+    if (Array.isArray(r)) return r.filter(Boolean).map(String);
+    if (r == null) return [];
+    return [String(r)];
 }
 
 function failedResult(source, updatedAt, message) {
@@ -189,7 +214,19 @@ export async function loadPrevResolved(dataDir = DATA_DIR) {
                 if (!byCategorySource.has(e.source)) {
                     byCategorySource.set(e.source, new Map());
                 }
-                byCategorySource.get(e.source).set(e.externalId, doubanId);
+                // Same (source, externalId) can appear under multiple
+                // doubanIds (multi-version expansion). Collect them all
+                // so the matcher's cache short-circuit returns every
+                // version, not just the first one seen.
+                const bySrc = byCategorySource.get(e.source);
+                const existing = bySrc.get(e.externalId);
+                if (Array.isArray(existing)) {
+                    if (!existing.includes(String(doubanId))) {
+                        existing.push(String(doubanId));
+                    }
+                } else {
+                    bySrc.set(e.externalId, [String(doubanId)]);
+                }
             }
         }
     }
