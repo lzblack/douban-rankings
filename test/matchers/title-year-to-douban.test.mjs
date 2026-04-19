@@ -29,39 +29,38 @@ test('manual mapping wins over every remote lookup', async () => {
     const http = mockHttp(() => {
         throw new Error('http should not be called');
     });
-    const id = await matchTitleYearToDouban(
+    const ids = await matchTitleYearToDouban(
         { title: 'Grand Illusion', year: '1937' },
         http,
         {
             manualMapping: { titles: { 'grand illusion|1937': '1294808' } },
-            ...NO_PTGEN,
+            ptgenMap: new Map([['tt0028950', ['ignored']]]),
         },
     );
-    assert.equal(id, '1294808');
+    assert.deepEqual(ids, ['1294808']);
 });
 
-test('IMDB title index → PtGen layer resolves when both have the title', async () => {
+test('IMDB title index → PtGen reverse returns all dbids for the tt', async () => {
     const basicsTsv =
         [
             'tconst\ttitleType\tprimaryTitle\toriginalTitle\tisAdult\tstartYear\tendYear\truntimeMinutes\tgenres',
-            'tt0028950\tmovie\tGrand Illusion\tLa Grande illusion\t0\t1937\t\\N\t113\tDrama',
+            'tt0068646\tmovie\tThe Godfather\tThe Godfather\t0\t1972\t\\N\t175\tCrime,Drama',
         ].join('\n') + '\n';
     const http = mockHttp(async url => {
         if (url === BASICS_URL) {
             return new Response(gzipSync(Buffer.from(basicsTsv)), { status: 200 });
         }
-        // Fallback: any other url should not be called for this happy path
         throw new Error(`unexpected fetch: ${url}`);
     });
-    const id = await matchTitleYearToDouban(
-        { title: 'Grand Illusion', year: '1937' },
+    const ids = await matchTitleYearToDouban(
+        { title: 'The Godfather', year: '1972' },
         http,
         {
             manualMapping: {},
-            ptgenMap: new Map([['tt0028950', '1294808']]),
+            ptgenMap: new Map([['tt0068646', ['1291841', '34447553']]]),
         },
     );
-    assert.equal(id, '1294808');
+    assert.deepEqual(ids, ['1291841', '34447553']);
 });
 
 test('falls through to Douban search when PtGen has no tt', async () => {
@@ -71,33 +70,27 @@ test('falls through to Douban search when PtGen has no tt', async () => {
             'tt0028950\tmovie\tGrand Illusion\tLa Grande illusion\t0\t1937\t\\N\t113\tDrama',
         ].join('\n') + '\n';
     const searchHtml = `<html><script>window.__DATA__ = ${JSON.stringify({
-        items: [
-            { id: 1294808, title: '大幻影 La grande illusion (1937)' },
-            { id: 5048507, title: 'Suuri illusioni (1985)' },
-        ],
+        items: [{ id: 1294808, title: '大幻影 La grande illusion (1937)' }],
     })};</script></html>`;
 
-    let searchCalled = false;
     const http = mockHttp(async url => {
         if (url === BASICS_URL) {
             return new Response(gzipSync(Buffer.from(basicsTsv)), { status: 200 });
         }
         if (url.includes('search.douban.com')) {
-            searchCalled = true;
             return new Response(searchHtml, { status: 200 });
         }
         throw new Error(`unexpected fetch: ${url}`);
     });
-    const id = await matchTitleYearToDouban(
+    const ids = await matchTitleYearToDouban(
         { title: 'Grand Illusion', year: '1937' },
         http,
         {
             manualMapping: {},
-            ptgenMap: new Map(), // empty — tt is in index but not in PtGen
+            ptgenMap: new Map(),
         },
     );
-    assert.equal(id, '1294808');
-    assert.ok(searchCalled);
+    assert.deepEqual(ids, ['1294808']);
 });
 
 test('Douban search prefers exact year match, returns first matching item', async () => {
@@ -109,7 +102,6 @@ test('Douban search prefers exact year match, returns first matching item', asyn
         ],
     })};</script></html>`;
     const http = mockHttp(async url => {
-        // No basics.tsv.gz served → loadTitleIndex returns empty index
         if (url === BASICS_URL) {
             return new Response(gzipSync(Buffer.from('tconst\ttitleType\n')), {
                 status: 200,
@@ -117,19 +109,19 @@ test('Douban search prefers exact year match, returns first matching item', asyn
         }
         return new Response(searchHtml, { status: 200 });
     });
-    const id = await matchTitleYearToDouban(
+    const ids = await matchTitleYearToDouban(
         { title: 'Grand Illusion', year: '1937' },
         http,
         { manualMapping: {}, ...NO_PTGEN },
     );
-    assert.equal(id, '222');
+    assert.deepEqual(ids, ['222']);
 });
 
 test('Douban search accepts ±1 year tolerance when no exact match', async () => {
     const searchHtml = `<html><script>window.__DATA__ = ${JSON.stringify({
         items: [
             { id: 111, title: 'Film A (1920)' },
-            { id: 222, title: 'Film B (1938)' }, // ±1 from 1937
+            { id: 222, title: 'Film B (1938)' },
         ],
     })};</script></html>`;
     const http = mockHttp(async url => {
@@ -140,15 +132,15 @@ test('Douban search accepts ±1 year tolerance when no exact match', async () =>
         }
         return new Response(searchHtml, { status: 200 });
     });
-    const id = await matchTitleYearToDouban(
+    const ids = await matchTitleYearToDouban(
         { title: 'Grand Illusion', year: '1937' },
         http,
         { manualMapping: {}, ...NO_PTGEN },
     );
-    assert.equal(id, '222');
+    assert.deepEqual(ids, ['222']);
 });
 
-test('Douban search returns null when no year match within tolerance', async () => {
+test('returns [] when no year match within tolerance', async () => {
     const searchHtml = `<html><script>window.__DATA__ = ${JSON.stringify({
         items: [
             { id: 111, title: 'Unrelated (2010)' },
@@ -163,15 +155,15 @@ test('Douban search returns null when no year match within tolerance', async () 
         }
         return new Response(searchHtml, { status: 200 });
     });
-    const id = await matchTitleYearToDouban(
+    const ids = await matchTitleYearToDouban(
         { title: 'Grand Illusion', year: '1937' },
         http,
         { manualMapping: {}, ...NO_PTGEN },
     );
-    assert.equal(id, null);
+    assert.deepEqual(ids, []);
 });
 
-test('returns null on empty search results', async () => {
+test('returns [] on empty search results', async () => {
     const searchHtml = `<html><script>window.__DATA__ = ${JSON.stringify({
         items: [],
     })};</script></html>`;
@@ -183,12 +175,12 @@ test('returns null on empty search results', async () => {
         }
         return new Response(searchHtml, { status: 200 });
     });
-    const id = await matchTitleYearToDouban(
+    const ids = await matchTitleYearToDouban(
         { title: 'No Such Film', year: '1900' },
         http,
         { manualMapping: {}, ...NO_PTGEN },
     );
-    assert.equal(id, null);
+    assert.deepEqual(ids, []);
 });
 
 test('skipSearchFallback short-circuits after Layer 2 miss', async () => {
@@ -204,22 +196,22 @@ test('skipSearchFallback short-circuits after Layer 2 miss', async () => {
         }
         return new Response('', { status: 200 });
     });
-    const id = await matchTitleYearToDouban(
+    const ids = await matchTitleYearToDouban(
         { title: 'Unknown', year: '2000' },
         http,
         { manualMapping: {}, ...NO_PTGEN, skipSearchFallback: true },
     );
-    assert.equal(id, null);
+    assert.deepEqual(ids, []);
     assert.equal(searchCalled, false);
 });
 
-test('returns null when missing title', async () => {
+test('returns [] when missing title', async () => {
     const http = mockHttp(() => {
         throw new Error('unused');
     });
-    const id = await matchTitleYearToDouban({ title: '', year: '1937' }, http, {
+    const ids = await matchTitleYearToDouban({ title: '', year: '1937' }, http, {
         manualMapping: {},
         ...NO_PTGEN,
     });
-    assert.equal(id, null);
+    assert.deepEqual(ids, []);
 });

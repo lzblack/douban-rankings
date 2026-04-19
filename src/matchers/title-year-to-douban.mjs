@@ -3,7 +3,7 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parse as parseYaml } from 'yaml';
 import { loadTitleIndex, normalizeTitle } from '../util/imdb-datasets.mjs';
-import { loadPtgenMap } from '../util/ptgen.mjs';
+import { loadPtgenReverseMap } from '../util/ptgen.mjs';
 
 const DEFAULT_MAPPING_PATH = join(
     dirname(fileURLToPath(import.meta.url)),
@@ -27,41 +27,43 @@ function loadDefaultMapping() {
 }
 
 /**
- * Resolve a (title, year) pair to a Douban subject id.
+ * Resolve a (title, year) pair to every known Douban subject id.
  *
- * Three-layer strategy, mirrors imdb-to-douban but indirect through
- * IMDB datasets:
+ * Returns an **array** (possibly multiple dbids) for the same
+ * multi-version reason as imdb-to-douban — one CC spine can correspond
+ * to distinct Douban subjects for the original release and the
+ * restoration we actually matched via IMDB title index.
+ *
+ * Three-layer strategy:
  *   1. manual-mapping.yaml `titles` section, key = "normalized-title|year"
- *   2. IMDB datasets title index → tt → PtGen map → douban subject id
- *   3. search.douban.com with the title; parse window.__DATA__ JSON;
- *      pick the item whose title's year in parens matches (±1 tolerance).
- *      Skipped when `options.skipSearchFallback` is true — used by
- *      Criterion where the ~15-20% miss rate is better resolved via
- *      patient manual-mapping curation than by stressing Douban search.
+ *      returns a single-dbid array
+ *   2. IMDB datasets title index → tt → PtGen reverse map → all dbids
+ *   3. search.douban.com with the title, year-filtered; single dbid.
+ *      Skipped when `options.skipSearchFallback` is true (Criterion opts out).
  *
- * Returns null when no active layer resolves — caller (pipeline) logs
- * it as unresolved for manual curation into config/manual-mapping.yaml.
+ * Returns [] when nothing resolved — caller logs unresolved for manual
+ * curation into config/manual-mapping.yaml.
  *
  * @param {{ title: string, year: string | number }} query
  * @param {{ fetch: Function }} http
  * @param {{
  *   manualMapping?: { titles?: Record<string, string | number> },
- *   ptgenMap?: Map<string, string> | null,
+ *   ptgenMap?: Map<string, string[]> | null,
  *   skipSearchFallback?: boolean,
  * }} [options]
- * @returns {Promise<string | null>}
+ * @returns {Promise<string[]>}
  */
 export async function matchTitleYearToDouban(query, http, options = {}) {
     const { title, year } = query;
-    if (!title) return null;
+    if (!title) return [];
 
-    // Layer 1: manual mapping, keyed by "normalized-title|year"
+    // Layer 1: manual mapping
     const mapping = options.manualMapping ?? loadDefaultMapping();
     const manualKey = manualMappingKey(title, year);
     const manual = mapping?.titles?.[manualKey];
-    if (manual != null) return String(manual);
+    if (manual != null) return [String(manual)];
 
-    // Layer 2: IMDB title index → tt → PtGen
+    // Layer 2: IMDB title index → tt → PtGen reverse (all dbids)
     if (year) {
         const titleIndex = await loadTitleIndex(http);
         const normKey = `${normalizeTitle(title)}|${year}`;
@@ -70,15 +72,16 @@ export async function matchTitleYearToDouban(query, http, options = {}) {
             const ptgen =
                 options.ptgenMap !== undefined
                     ? options.ptgenMap
-                    : await loadPtgenMap(http);
-            const dbid = ptgen?.get(tt);
-            if (dbid) return String(dbid);
+                    : await loadPtgenReverseMap(http);
+            const dbids = ptgen?.get(tt);
+            if (dbids?.length) return dbids.slice();
         }
     }
 
-    // Layer 3: Douban search by title, match year from result title
-    if (options.skipSearchFallback) return null;
-    return await searchDoubanByTitle(title, year, http);
+    // Layer 3: Douban search (best-effort, year-verified)
+    if (options.skipSearchFallback) return [];
+    const dbid = await searchDoubanByTitle(title, year, http);
+    return dbid ? [dbid] : [];
 }
 
 /**
@@ -96,9 +99,6 @@ async function searchDoubanByTitle(title, year, http) {
     if (!res.ok) return null;
     const html = await res.text();
 
-    // Douban embeds structured results in window.__DATA__. Parsing that is
-    // much more reliable than scraping DOM or matching /subject/\d+/ which
-    // could pick up any link on the page.
     const m = html.match(/window\.__DATA__\s*=\s*(\{[\s\S]*?\});/);
     if (!m) return null;
     let data;
@@ -112,20 +112,14 @@ async function searchDoubanByTitle(title, year, http) {
 
     const yearNum = year != null ? Number(year) : NaN;
     if (!Number.isNaN(yearNum)) {
-        // Prefer exact year match
         const exact = items.find(it => resultYear(it) === yearNum);
         if (exact?.id) return String(exact.id);
-        // Accept ±1 year tolerance (release-year ambiguity)
         const near = items.find(it => {
             const y = resultYear(it);
             return y != null && Math.abs(y - yearNum) <= 1;
         });
         if (near?.id) return String(near.id);
     }
-
-    // No year filter possible / matched — do NOT fall back to first item:
-    // that's how we used to get wrong matches. Return null and let the
-    // result go into the unresolved log for manual curation.
     return null;
 }
 

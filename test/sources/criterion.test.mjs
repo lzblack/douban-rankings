@@ -111,7 +111,7 @@ test('scrape() throws with helpful instructions when snapshot missing', async ()
     }
 });
 
-test('matchItem uses ctx.prevResolved and skips http on cache hit', async () => {
+test('matchItem returns cached array from ctx.prevResolved without touching http', async () => {
     const http = {
         fetch: () => {
             throw new Error('http should not be called on cache hit');
@@ -119,13 +119,13 @@ test('matchItem uses ctx.prevResolved and skips http on cache hit', async () => 
     };
     const ctx = {
         prevResolved: new Map([
-            ['criterion', new Map([['0001', '1294808']])],
+            ['criterion', new Map([['0001', ['1294808', '34447553']]])],
         ]),
     };
-    const id = await source.matchItem(
+    const ids = await source.matchItem(
         { externalId: '0001', rank: null, title: 'Grand Illusion', year: '1937' },
         http,
         ctx,
     );
-    assert.equal(id, '1294808');
+    assert.deepEqual(ids, ['1294808', '34447553']);
 });
