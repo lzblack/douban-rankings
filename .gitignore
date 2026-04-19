@@ -138,10 +138,13 @@ dist
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 
-# Internal design docs (PRDs, brainstorming, design notes) — kept local, not pushed
+# Internal design docs (PRDs, brainstorming, design notes, TODOs) —
+# kept local, not pushed. Public docs/ entries (adding-a-source.md,
+# consumer-integration.md) are the maintained contract and DO push.
 docs/*-prd.md
 docs/*-brainstorm*.md
 docs/*-design.md
+docs/todo.md
 
 # Local-only maintainer utilities (validators, one-off scripts). The
 # committed scripts under scripts/ are the public tools; anything under
