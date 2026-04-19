@@ -1,0 +1,707 @@
+{
+  "generatedAt": "2026-04-19T00:50:26.499Z",
+  "source": "https://letterboxd.com/bfi/list/sight-and-sounds-greatest-films-of-all-time/",
+  "count": 100,
+  "items": [
+    {
+      "rank": 1,
+      "tt": "tt0073198",
+      "title": "Jeanne Dielman, 23, quai du Commerce, 1080 Bruxelles",
+      "year": "1975",
+      "slug": "jeanne-dielman-23-quai-du-commerce-1080-bruxelles"
+    },
+    {
+      "rank": 2,
+      "tt": "tt0052357",
+      "title": "Vertigo",
+      "year": "1958",
+      "slug": "vertigo"
+    },
+    {
+      "rank": 3,
+      "tt": "tt0033467",
+      "title": "Citizen Kane",
+      "year": "1941",
+      "slug": "citizen-kane"
+    },
+    {
+      "rank": 4,
+      "tt": "tt0046438",
+      "title": "Tokyo Story",
+      "year": "1953",
+      "slug": "tokyo-story"
+    },
+    {
+      "rank": 5,
+      "tt": "tt0118694",
+      "title": "In the Mood for Love",
+      "year": "2000",
+      "slug": "in-the-mood-for-love"
+    },
+    {
+      "rank": 6,
+      "tt": "tt0062622",
+      "title": "2001: A Space Odyssey",
+      "year": "1968",
+      "slug": "2001-a-space-odyssey"
+    },
+    {
+      "rank": 7,
+      "tt": "tt0209933",
+      "title": "Beau Travail",
+      "year": "1999",
+      "slug": "beau-travail"
+    },
+    {
+      "rank": 8,
+      "tt": "tt0166924",
+      "title": "Mulholland Drive",
+      "year": "2001",
+      "slug": "mulholland-drive"
+    },
+    {
+      "rank": 9,
+      "tt": "tt0019760",
+      "title": "Man with a Movie Camera",
+      "year": "1929",
+      "slug": "man-with-a-movie-camera"
+    },
+    {
+      "rank": 10,
+      "tt": "tt0045152",
+      "title": "Singin&#039; in the Rain",
+      "year": "1952",
+      "slug": "singin-in-the-rain"
+    },
+    {
+      "rank": 11,
+      "tt": "tt0018455",
+      "title": "Sunrise: A Song of Two Humans",
+      "year": "1927",
+      "slug": "sunrise-a-song-of-two-humans"
+    },
+    {
+      "rank": 12,
+      "tt": "tt0068646",
+      "title": "The Godfather",
+      "year": "1972",
+      "slug": "the-godfather"
+    },
+    {
+      "rank": 13,
+      "tt": "tt0031885",
+      "title": "The Rules of the Game",
+      "year": "1939",
+      "slug": "the-rules-of-the-game"
+    },
+    {
+      "rank": 14,
+      "tt": "tt0055852",
+      "title": "Cléo from 5 to 7",
+      "year": "1962",
+      "slug": "cleo-from-5-to-7"
+    },
+    {
+      "rank": 15,
+      "tt": "tt0049730",
+      "title": "The Searchers",
+      "year": "1956",
+      "slug": "the-searchers"
+    },
+    {
+      "rank": 16,
+      "tt": "tt0036154",
+      "title": "Meshes of the Afternoon",
+      "year": "1943",
+      "slug": "meshes-of-the-afternoon"
+    },
+    {
+      "rank": 17,
+      "tt": "tt0100234",
+      "title": "Close-Up",
+      "year": "1990",
+      "slug": "close-up"
+    },
+    {
+      "rank": 18,
+      "tt": "tt0060827",
+      "title": "Persona",
+      "year": "1966",
+      "slug": "persona"
+    },
+    {
+      "rank": 19,
+      "tt": "tt0078788",
+      "title": "Apocalypse Now",
+      "year": "1979",
+      "slug": "apocalypse-now"
+    },
+    {
+      "rank": 20,
+      "tt": "tt0047478",
+      "title": "Seven Samurai",
+      "year": "1954",
+      "slug": "seven-samurai"
+    },
+    {
+      "rank": 21,
+      "tt": "tt0019254",
+      "title": "The Passion of Joan of Arc",
+      "year": "1928",
+      "slug": "the-passion-of-joan-of-arc"
+    },
+    {
+      "rank": 22,
+      "tt": "tt0041154",
+      "title": "Late Spring",
+      "year": "1949",
+      "slug": "late-spring"
+    },
+    {
+      "rank": 23,
+      "tt": "tt0062136",
+      "title": "PlayTime",
+      "year": "1967",
+      "slug": "playtime"
+    },
+    {
+      "rank": 24,
+      "tt": "tt0097216",
+      "title": "Do the Right Thing",
+      "year": "1989",
+      "slug": "do-the-right-thing"
+    },
+    {
+      "rank": 25,
+      "tt": "tt0060138",
+      "title": "Au Hasard Balthazar",
+      "year": "1966",
+      "slug": "au-hasard-balthazar"
+    },
+    {
+      "rank": 26,
+      "tt": "tt0048424",
+      "title": "The Night of the Hunter",
+      "year": "1955",
+      "slug": "the-night-of-the-hunter"
+    },
+    {
+      "rank": 27,
+      "tt": "tt0090015",
+      "title": "Shoah",
+      "year": "1985",
+      "slug": "shoah"
+    },
+    {
+      "rank": 28,
+      "tt": "tt0060959",
+      "title": "Daisies",
+      "year": "1966",
+      "slug": "daisies"
+    },
+    {
+      "rank": 29,
+      "tt": "tt0075314",
+      "title": "Taxi Driver",
+      "year": "1976",
+      "slug": "taxi-driver"
+    },
+    {
+      "rank": 30,
+      "tt": "tt8613070",
+      "title": "Portrait of a Lady on Fire",
+      "year": "2019",
+      "slug": "portrait-of-a-lady-on-fire"
+    },
+    {
+      "rank": 31,
+      "tt": "tt0072443",
+      "title": "Mirror",
+      "year": "1975",
+      "slug": "mirror"
+    },
+    {
+      "rank": 32,
+      "tt": "tt0056801",
+      "title": "8½",
+      "year": "1963",
+      "slug": "8-half"
+    },
+    {
+      "rank": 33,
+      "tt": "tt0054215",
+      "title": "Psycho",
+      "year": "1960",
+      "slug": "psycho"
+    },
+    {
+      "rank": 34,
+      "tt": "tt0024844",
+      "title": "L&#039;Atalante",
+      "year": "1934",
+      "slug": "latalante"
+    },
+    {
+      "rank": 35,
+      "tt": "tt0048473",
+      "title": "Pather Panchali",
+      "year": "1955",
+      "slug": "pather-panchali"
+    },
+    {
+      "rank": 36,
+      "tt": "tt0021749",
+      "title": "City Lights",
+      "year": "1931",
+      "slug": "city-lights"
+    },
+    {
+      "rank": 37,
+      "tt": "tt0022100",
+      "title": "M",
+      "year": "1931",
+      "slug": "m"
+    },
+    {
+      "rank": 38,
+      "tt": "tt0053472",
+      "title": "Breathless",
+      "year": "1960",
+      "slug": "breathless"
+    },
+    {
+      "rank": 39,
+      "tt": "tt0053291",
+      "title": "Some Like It Hot",
+      "year": "1959",
+      "slug": "some-like-it-hot"
+    },
+    {
+      "rank": 40,
+      "tt": "tt0047396",
+      "title": "Rear Window",
+      "year": "1954",
+      "slug": "rear-window"
+    },
+    {
+      "rank": 41,
+      "tt": "tt0040522",
+      "title": "Bicycle Thieves",
+      "year": "1948",
+      "slug": "bicycle-thieves"
+    },
+    {
+      "rank": 42,
+      "tt": "tt0042876",
+      "title": "Rashomon",
+      "year": "1950",
+      "slug": "rashomon"
+    },
+    {
+      "rank": 43,
+      "tt": "tt0079944",
+      "title": "Stalker",
+      "year": "1979",
+      "slug": "stalker"
+    },
+    {
+      "rank": 44,
+      "tt": "tt0076263",
+      "title": "Killer of Sheep",
+      "year": "1978",
+      "slug": "killer-of-sheep"
+    },
+    {
+      "rank": 45,
+      "tt": "tt0053125",
+      "title": "North by Northwest",
+      "year": "1959",
+      "slug": "north-by-northwest"
+    },
+    {
+      "rank": 46,
+      "tt": "tt0058946",
+      "title": "The Battle of Algiers",
+      "year": "1966",
+      "slug": "the-battle-of-algiers"
+    },
+    {
+      "rank": 47,
+      "tt": "tt0072684",
+      "title": "Barry Lyndon",
+      "year": "1975",
+      "slug": "barry-lyndon"
+    },
+    {
+      "rank": 48,
+      "tt": "tt0067961",
+      "title": "Wanda",
+      "year": "1970",
+      "slug": "wanda"
+    },
+    {
+      "rank": 49,
+      "tt": "tt0048452",
+      "title": "Ordet",
+      "year": "1955",
+      "slug": "ordet"
+    },
+    {
+      "rank": 50,
+      "tt": "tt0053198",
+      "title": "The 400 Blows",
+      "year": "1959",
+      "slug": "the-400-blows"
+    },
+    {
+      "rank": 51,
+      "tt": "tt0107822",
+      "title": "The Piano",
+      "year": "1993",
+      "slug": "the-piano"
+    },
+    {
+      "rank": 52,
+      "tt": "tt0076452",
+      "title": "News from Home",
+      "year": "1976",
+      "slug": "news-from-home"
+    },
+    {
+      "rank": 53,
+      "tt": "tt0071141",
+      "title": "Ali: Fear Eats the Soul",
+      "year": "1974",
+      "slug": "ali-fear-eats-the-soul"
+    },
+    {
+      "rank": 54,
+      "tt": "tt0053604",
+      "title": "The Apartment",
+      "year": "1960",
+      "slug": "the-apartment"
+    },
+    {
+      "rank": 55,
+      "tt": "tt0015648",
+      "title": "Battleship Potemkin",
+      "year": "1925",
+      "slug": "battleship-potemkin"
+    },
+    {
+      "rank": 56,
+      "tt": "tt0015324",
+      "title": "Sherlock Jr.",
+      "year": "1924",
+      "slug": "sherlock-jr"
+    },
+    {
+      "rank": 57,
+      "tt": "tt0057345",
+      "title": "Contempt",
+      "year": "1963",
+      "slug": "contempt"
+    },
+    {
+      "rank": 58,
+      "tt": "tt0083658",
+      "title": "Blade Runner",
+      "year": "1982",
+      "slug": "blade-runner"
+    },
+    {
+      "rank": 59,
+      "tt": "tt0084628",
+      "title": "Sans Soleil",
+      "year": "1983",
+      "slug": "sans-soleil"
+    },
+    {
+      "rank": 60,
+      "tt": "tt0104057",
+      "title": "Daughters of the Dust",
+      "year": "1991",
+      "slug": "daughters-of-the-dust"
+    },
+    {
+      "rank": 61,
+      "tt": "tt0053779",
+      "title": "La Dolce Vita",
+      "year": "1960",
+      "slug": "la-dolce-vita"
+    },
+    {
+      "rank": 62,
+      "tt": "tt4975722",
+      "title": "Moonlight",
+      "year": "2016",
+      "slug": "moonlight-2016"
+    },
+    {
+      "rank": 63,
+      "tt": "tt0034583",
+      "title": "Casablanca",
+      "year": "1942",
+      "slug": "casablanca"
+    },
+    {
+      "rank": 64,
+      "tt": "tt0099685",
+      "title": "GoodFellas",
+      "year": "1990",
+      "slug": "goodfellas"
+    },
+    {
+      "rank": 65,
+      "tt": "tt0041959",
+      "title": "The Third Man",
+      "year": "1949",
+      "slug": "the-third-man"
+    },
+    {
+      "rank": 66,
+      "tt": "tt0070820",
+      "title": "Touki Bouki",
+      "year": "1973",
+      "slug": "touki-bouki"
+    },
+    {
+      "rank": 67,
+      "tt": "tt0247380",
+      "title": "The Gleaners and I",
+      "year": "2000",
+      "slug": "the-gleaners-and-i"
+    },
+    {
+      "rank": 68,
+      "tt": "tt0017136",
+      "title": "Metropolis",
+      "year": "1927",
+      "slug": "metropolis"
+    },
+    {
+      "rank": 69,
+      "tt": "tt0060107",
+      "title": "Andrei Rublev",
+      "year": "1966",
+      "slug": "andrei-rublev"
+    },
+    {
+      "rank": 70,
+      "tt": "tt0040725",
+      "title": "The Red Shoes",
+      "year": "1948",
+      "slug": "the-red-shoes"
+    },
+    {
+      "rank": 71,
+      "tt": "tt0056119",
+      "title": "La Jetée",
+      "year": "1962",
+      "slug": "la-jetee"
+    },
+    {
+      "rank": 72,
+      "tt": "tt0096283",
+      "title": "My Neighbor Totoro",
+      "year": "1988",
+      "slug": "my-neighbor-totoro"
+    },
+    {
+      "rank": 73,
+      "tt": "tt0046511",
+      "title": "Journey to Italy",
+      "year": "1954",
+      "slug": "journey-to-italy"
+    },
+    {
+      "rank": 74,
+      "tt": "tt0053619",
+      "title": "L&#039;Avventura",
+      "year": "1960",
+      "slug": "lavventura"
+    },
+    {
+      "rank": 75,
+      "tt": "tt0052918",
+      "title": "Imitation of Life",
+      "year": "1959",
+      "slug": "imitation-of-life-1959"
+    },
+    {
+      "rank": 76,
+      "tt": "tt0047445",
+      "title": "Sansho the Bailiff",
+      "year": "1954",
+      "slug": "sansho-the-bailiff"
+    },
+    {
+      "rank": 77,
+      "tt": "tt0245429",
+      "title": "Spirited Away",
+      "year": "2001",
+      "slug": "spirited-away"
+    },
+    {
+      "rank": 78,
+      "tt": "tt0101985",
+      "title": "A Brighter Summer Day",
+      "year": "1991",
+      "slug": "a-brighter-summer-day"
+    },
+    {
+      "rank": 79,
+      "tt": "tt0111341",
+      "title": "Satantango",
+      "year": "1994",
+      "slug": "satantango"
+    },
+    {
+      "rank": 80,
+      "tt": "tt0071381",
+      "title": "Céline and Julie Go Boating",
+      "year": "1974",
+      "slug": "celine-and-julie-go-boating"
+    },
+    {
+      "rank": 81,
+      "tt": "tt0027977",
+      "title": "Modern Times",
+      "year": "1936",
+      "slug": "modern-times"
+    },
+    {
+      "rank": 82,
+      "tt": "tt0043014",
+      "title": "Sunset Boulevard",
+      "year": "1950",
+      "slug": "sunset-boulevard"
+    },
+    {
+      "rank": 83,
+      "tt": "tt0038733",
+      "title": "A Matter of Life and Death",
+      "year": "1946",
+      "slug": "a-matter-of-life-and-death"
+    },
+    {
+      "rank": 84,
+      "tt": "tt0090756",
+      "title": "Blue Velvet",
+      "year": "1986",
+      "slug": "blue-velvet"
+    },
+    {
+      "rank": 85,
+      "tt": "tt0059592",
+      "title": "Pierrot le Fou",
+      "year": "1965",
+      "slug": "pierrot-le-fou"
+    },
+    {
+      "rank": 86,
+      "tt": "tt6677224",
+      "title": "Histoire(s) du cinéma",
+      "year": "1989",
+      "slug": "histoires-du-cinema-1989"
+    },
+    {
+      "rank": 87,
+      "tt": "tt0070040",
+      "title": "The Spirit of the Beehive",
+      "year": "1973",
+      "slug": "the-spirit-of-the-beehive"
+    },
+    {
+      "rank": 88,
+      "tt": "tt0081505",
+      "title": "The Shining",
+      "year": "1980",
+      "slug": "the-shining"
+    },
+    {
+      "rank": 89,
+      "tt": "tt0109424",
+      "title": "Chungking Express",
+      "year": "1994",
+      "slug": "chungking-express"
+    },
+    {
+      "rank": 90,
+      "tt": "tt0046022",
+      "title": "The Earrings of Madame de...",
+      "year": "1953",
+      "slug": "the-earrings-of-madame-de"
+    },
+    {
+      "rank": 91,
+      "tt": "tt0057091",
+      "title": "The Leopard",
+      "year": "1963",
+      "slug": "the-leopard"
+    },
+    {
+      "rank": 92,
+      "tt": "tt0046478",
+      "title": "Ugetsu",
+      "year": "1953",
+      "slug": "ugetsu"
+    },
+    {
+      "rank": 93,
+      "tt": "tt6751668",
+      "title": "Parasite",
+      "year": "2019",
+      "slug": "parasite-2019"
+    },
+    {
+      "rank": 94,
+      "tt": "tt0244316",
+      "title": "Yi Yi",
+      "year": "2000",
+      "slug": "yi-yi"
+    },
+    {
+      "rank": 95,
+      "tt": "tt0049902",
+      "title": "A Man Escaped",
+      "year": "1956",
+      "slug": "a-man-escaped"
+    },
+    {
+      "rank": 96,
+      "tt": "tt0017925",
+      "title": "The General",
+      "year": "1926",
+      "slug": "the-general"
+    },
+    {
+      "rank": 97,
+      "tt": "tt0064116",
+      "title": "Once Upon a Time in the West",
+      "year": "1968",
+      "slug": "once-upon-a-time-in-the-west"
+    },
+    {
+      "rank": 98,
+      "tt": "tt5052448",
+      "title": "Get Out",
+      "year": "2017",
+      "slug": "get-out-2017"
+    },
+    {
+      "rank": 99,
+      "tt": "tt0060758",
+      "title": "Black Girl",
+      "year": "1966",
+      "slug": "black-girl-1966"
+    },
+    {
+      "rank": 100,
+      "tt": "tt0381668",
+      "title": "Tropical Malady",
+      "year": "2004",
+      "slug": "tropical-malady"
+    }
+  ]
+}
