@@ -10,6 +10,7 @@ import {
 import { buildHealthReport, readPrevHealth } from './health.mjs';
 import { matchImdbToDouban } from './matchers/imdb-to-douban.mjs';
 import imdbTop250 from './sources/imdb-top250.mjs';
+import imdbTop250Tv from './sources/imdb-top250-tv.mjs';
 import criterion from './sources/criterion.mjs';
 import afiTop100 from './sources/afi-top100.mjs';
 import bfiSs2022 from './sources/bfi-ss-2022.mjs';
@@ -26,6 +27,7 @@ const DEFAULT_MATCHERS = {
 
 const DEFAULT_SOURCES = [
     imdbTop250,
+    imdbTop250Tv,
     criterion,
     afiTop100,
     bfiSs2022,
