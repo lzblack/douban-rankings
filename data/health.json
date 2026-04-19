@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-04-19T01:20:56.085Z",
-  "overall": "degraded",
+  "generatedAt": "2026-04-19T01:54:37.698Z",
+  "overall": "ok",
   "sources": [
     {
       "id": "imdb-top250",
       "itemCount": 249,
-      "itemCountDelta": 1,
+      "itemCountDelta": 0,
       "message": null,
       "status": "ok",
-      "lastSuccessAt": "2026-04-19T01:20:22.252Z",
+      "lastSuccessAt": "2026-04-19T01:52:43.012Z",
       "lastFailureAt": null,
       "consecutiveFailures": 0
     },
@@ -18,7 +18,7 @@
       "itemCountDelta": 0,
       "message": null,
       "status": "ok",
-      "lastSuccessAt": "2026-04-19T01:20:45.877Z",
+      "lastSuccessAt": "2026-04-19T01:53:06.232Z",
       "lastFailureAt": "2026-04-18T23:36:48.793Z",
       "consecutiveFailures": 0
     },
@@ -28,7 +28,7 @@
       "itemCountDelta": 0,
       "message": null,
       "status": "ok",
-      "lastSuccessAt": "2026-04-19T01:20:47.007Z",
+      "lastSuccessAt": "2026-04-19T01:53:07.382Z",
       "lastFailureAt": null,
       "consecutiveFailures": 0
     },
@@ -38,7 +38,7 @@
       "itemCountDelta": 0,
       "message": null,
       "status": "ok",
-      "lastSuccessAt": "2026-04-19T01:20:47.170Z",
+      "lastSuccessAt": "2026-04-19T01:53:07.667Z",
       "lastFailureAt": null,
       "consecutiveFailures": 0
     },
@@ -48,29 +48,29 @@
       "itemCountDelta": 0,
       "message": null,
       "status": "ok",
-      "lastSuccessAt": "2026-04-19T01:20:51.462Z",
+      "lastSuccessAt": "2026-04-19T01:53:11.746Z",
       "lastFailureAt": null,
       "consecutiveFailures": 0
     },
     {
       "id": "tspdt-1000",
-      "itemCount": 0,
-      "itemCountDelta": 0,
-      "message": "tspdt-1000: /home/runner/work/douban-rankings/douban-rankings/config/tspdt-1000-snapshot.json not found. Run `pnpm run fetch:tspdt-1000-snapshot` from a residential IP and commit the generated file.",
-      "status": "failed",
-      "lastSuccessAt": null,
+      "itemCount": 987,
+      "itemCountDelta": 987,
+      "message": null,
+      "status": "ok",
+      "lastSuccessAt": "2026-04-19T01:53:16.099Z",
       "lastFailureAt": "2026-04-19T01:20:56.085Z",
-      "consecutiveFailures": 1
+      "consecutiveFailures": 0
     },
     {
       "id": "bangumi-top250",
-      "itemCount": 0,
-      "itemCountDelta": 0,
-      "message": "bangumi-top250: /home/runner/work/douban-rankings/douban-rankings/config/bangumi-top250-snapshot.json not found. Run `pnpm run fetch:bangumi-top250-snapshot` from a residential IP and commit the generated file.",
-      "status": "failed",
-      "lastSuccessAt": null,
+      "itemCount": 13,
+      "itemCountDelta": 13,
+      "message": null,
+      "status": "ok",
+      "lastSuccessAt": "2026-04-19T01:54:37.690Z",
       "lastFailureAt": "2026-04-19T01:20:56.085Z",
-      "consecutiveFailures": 1
+      "consecutiveFailures": 0
     }
   ]
 }
