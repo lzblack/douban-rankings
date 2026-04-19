@@ -12,7 +12,8 @@
         "fetch:criterion-snapshot": "node scripts/fetch-criterion-snapshot.mjs",
         "fetch:bfi-ss-snapshot": "node scripts/fetch-bfi-ss-snapshot.mjs",
         "fetch:letterboxd-top250-snapshot": "node scripts/fetch-letterboxd-top250-snapshot.mjs",
-        "fetch:tspdt-1000-snapshot": "node scripts/fetch-tspdt-1000-snapshot.mjs"
+        "fetch:tspdt-1000-snapshot": "node scripts/fetch-tspdt-1000-snapshot.mjs",
+        "fetch:bangumi-top250-snapshot": "node scripts/fetch-bangumi-top250-snapshot.mjs"
     },
     "dependencies": {
         "cheerio": "^1.0.0",
