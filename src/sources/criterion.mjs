@@ -53,7 +53,7 @@ export default {
     externalIdKind: 'title-year',
     meta: {
         title: 'The Criterion Collection',
-        titleZh: '标准收藏',
+        titleZh: 'CC 标准收藏',
         url: LIST_URL,
     },
 
