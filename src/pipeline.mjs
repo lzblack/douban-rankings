@@ -11,6 +11,7 @@ import { buildHealthReport, readPrevHealth } from './health.mjs';
 import { matchImdbToDouban } from './matchers/imdb-to-douban.mjs';
 import imdbTop250 from './sources/imdb-top250.mjs';
 import criterion from './sources/criterion.mjs';
+import afiTop100 from './sources/afi-top100.mjs';
 
 const PROJECT_ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const DATA_DIR = join(PROJECT_ROOT, 'data');
@@ -19,7 +20,7 @@ const DEFAULT_MATCHERS = {
     imdb: matchImdbToDouban,
 };
 
-const DEFAULT_SOURCES = [imdbTop250, criterion];
+const DEFAULT_SOURCES = [imdbTop250, criterion, afiTop100];
 
 // Per PRD §7: Douban endpoints are the binding constraint. Raising any
 // of these numbers without coordinating with anti-scrape strategy risks
@@ -30,6 +31,7 @@ const DEFAULT_RATE_LIMITS = {
     'www.douban.com': { minDelay: 8000 },
     'www.imdb.com': { minDelay: 2000 },
     'www.criterion.com': { minDelay: 2000 },
+    'en.wikipedia.org': { minDelay: 1000 },
 };
 
 /**
