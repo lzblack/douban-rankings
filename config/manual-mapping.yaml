@@ -42,3 +42,13 @@ titles: {}
 #     "beloved|toni morrison": "1007200"
 #     "the great gatsby|": ["1040000", "2040000"]  # multiple editions
 books: {}
+
+# Music overrides consumed by src/matchers/music-to-douban.mjs.
+# Key: "<normalized-title>|<normalized-artist>" (or empty artist).
+# Value: single dbid or array of dbids (different remasters / pressings
+# often have distinct Douban music subjects).
+# Example:
+#   music:
+#     "abbey road|the beatles": "1401361"
+#     "kind of blue|": ["1401361", "27110924"]
+music: {}
