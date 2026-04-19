@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-18T23:48:25.768Z",
+  "generatedAt": "2026-04-19T00:08:17.651Z",
   "overall": "ok",
   "sources": [
     {
@@ -8,17 +8,17 @@
       "itemCountDelta": 0,
       "message": null,
       "status": "ok",
-      "lastSuccessAt": "2026-04-18T23:48:00.299Z",
+      "lastSuccessAt": "2026-04-19T00:07:52.033Z",
       "lastFailureAt": null,
       "consecutiveFailures": 0
     },
     {
       "id": "criterion",
       "itemCount": 1130,
-      "itemCountDelta": 1130,
+      "itemCountDelta": 0,
       "message": null,
       "status": "ok",
-      "lastSuccessAt": "2026-04-18T23:48:24.598Z",
+      "lastSuccessAt": "2026-04-19T00:08:16.530Z",
       "lastFailureAt": "2026-04-18T23:36:48.793Z",
       "consecutiveFailures": 0
     }
