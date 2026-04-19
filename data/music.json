@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-04-19T02:41:16.354Z",
+  "generatedAt": "2026-04-19T05:22:48.313Z",
   "categories": {
     "music": {
       "sources": {
@@ -11,11 +11,47 @@
           "kind": "yearly",
           "subCategory": "album",
           "priority": 1,
-          "updatedAt": "2026-04-19T02:35:38.452Z",
-          "itemCount": 0
+          "updatedAt": "2026-04-19T05:22:48.312Z",
+          "itemCount": 5
         }
       },
-      "items": {}
+      "items": {
+        "35323025": [
+          {
+            "source": "grammy-aoty",
+            "rank": null,
+            "externalId": "grammy-aoty-2022"
+          }
+        ],
+        "35812597": [
+          {
+            "source": "grammy-aoty",
+            "rank": null,
+            "externalId": "grammy-aoty-2023"
+          }
+        ],
+        "36074639": [
+          {
+            "source": "grammy-aoty",
+            "rank": null,
+            "externalId": "grammy-aoty-2024"
+          }
+        ],
+        "36815438": [
+          {
+            "source": "grammy-aoty",
+            "rank": null,
+            "externalId": "grammy-aoty-2025"
+          }
+        ],
+        "37177165": [
+          {
+            "source": "grammy-aoty",
+            "rank": null,
+            "externalId": "grammy-aoty-2026"
+          }
+        ]
+      }
     }
   }
 }

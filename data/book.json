@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-04-19T02:41:16.354Z",
+  "generatedAt": "2026-04-19T05:22:48.313Z",
   "categories": {
     "book": {
       "sources": {
@@ -11,11 +11,54 @@
           "kind": "yearly",
           "subCategory": "book",
           "priority": 1,
-          "updatedAt": "2026-04-19T02:30:58.168Z",
-          "itemCount": 0
+          "updatedAt": "2026-04-19T05:22:48.311Z",
+          "itemCount": 6
         }
       },
-      "items": {}
+      "items": {
+        "2073168": [
+          {
+            "source": "booker-prize",
+            "rank": null,
+            "externalId": "booker-1974"
+          }
+        ],
+        "2295269": [
+          {
+            "source": "booker-prize",
+            "rank": null,
+            "externalId": "booker-1970"
+          }
+        ],
+        "2295270": [
+          {
+            "source": "booker-prize",
+            "rank": null,
+            "externalId": "booker-1969"
+          }
+        ],
+        "7065748": [
+          {
+            "source": "booker-prize",
+            "rank": null,
+            "externalId": "booker-1975"
+          }
+        ],
+        "11235913": [
+          {
+            "source": "booker-prize",
+            "rank": null,
+            "externalId": "booker-1971"
+          }
+        ],
+        "11616479": [
+          {
+            "source": "booker-prize",
+            "rank": null,
+            "externalId": "booker-1973"
+          }
+        ]
+      }
     }
   }
 }
