@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-04-19T00:51:22.349Z",
+  "generatedAt": "2026-04-19T01:02:19.581Z",
   "overall": "ok",
   "sources": [
     {
       "id": "imdb-top250",
       "itemCount": 248,
-      "itemCountDelta": -1,
+      "itemCountDelta": 0,
       "message": null,
       "status": "ok",
-      "lastSuccessAt": "2026-04-19T00:50:52.584Z",
+      "lastSuccessAt": "2026-04-19T01:01:46.471Z",
       "lastFailureAt": null,
       "consecutiveFailures": 0
     },
@@ -18,7 +18,7 @@
       "itemCountDelta": 0,
       "message": null,
       "status": "ok",
-      "lastSuccessAt": "2026-04-19T00:51:17.863Z",
+      "lastSuccessAt": "2026-04-19T01:02:10.055Z",
       "lastFailureAt": "2026-04-18T23:36:48.793Z",
       "consecutiveFailures": 0
     },
@@ -28,17 +28,27 @@
       "itemCountDelta": 0,
       "message": null,
       "status": "ok",
-      "lastSuccessAt": "2026-04-19T00:51:19.077Z",
+      "lastSuccessAt": "2026-04-19T01:02:11.134Z",
       "lastFailureAt": null,
       "consecutiveFailures": 0
     },
     {
       "id": "bfi-ss-2022",
       "itemCount": 99,
-      "itemCountDelta": 99,
+      "itemCountDelta": 0,
       "message": null,
       "status": "ok",
-      "lastSuccessAt": "2026-04-19T00:51:19.196Z",
+      "lastSuccessAt": "2026-04-19T01:02:11.330Z",
+      "lastFailureAt": null,
+      "consecutiveFailures": 0
+    },
+    {
+      "id": "letterboxd-top250",
+      "itemCount": 249,
+      "itemCountDelta": 249,
+      "message": null,
+      "status": "ok",
+      "lastSuccessAt": "2026-04-19T01:02:14.442Z",
       "lastFailureAt": null,
       "consecutiveFailures": 0
     }
