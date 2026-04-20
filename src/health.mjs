@@ -3,14 +3,14 @@ import { readFile } from 'node:fs/promises';
 /**
  * @typedef {Object} SourceRunOutcome
  * @property {string} id
- * @property {'ok' | 'failed'} status
+ * @property {'ok' | 'failed' | 'skipped'} status
  * @property {number} itemCount
  * @property {string | null} [message]
  * @property {Date} [runAt]
  *
  * @typedef {Object} HealthEntry
  * @property {string} id
- * @property {'ok' | 'failed'} status
+ * @property {'ok' | 'failed' | 'skipped'} status
  * @property {string | null} lastSuccessAt
  * @property {string | null} lastFailureAt
  * @property {number} consecutiveFailures
@@ -61,6 +61,23 @@ export function buildHealthReport(
                 consecutiveFailures: 0,
             };
         }
+        if (outcome.status === 'skipped') {
+            // Snapshot-dependent source ran without its snapshot on disk
+            // (expected in CI where config/*-snapshot.json is gitignored).
+            // Carry prev counters forward unchanged — we have no new
+            // information about whether the source is actually healthy.
+            return {
+                ...common,
+                status: 'skipped',
+                // Preserve prev itemCount so the delta doesn't look like a
+                // regression when we have nothing to compare against.
+                itemCount: prev?.itemCount ?? 0,
+                itemCountDelta: 0,
+                lastSuccessAt: prev?.lastSuccessAt ?? null,
+                lastFailureAt: prev?.lastFailureAt ?? null,
+                consecutiveFailures: prev?.consecutiveFailures ?? 0,
+            };
+        }
         return {
             ...common,
             status: 'failed',
@@ -79,8 +96,14 @@ export function buildHealthReport(
 
 function computeOverall(sources) {
     if (sources.length === 0) return 'ok';
-    if (sources.every(s => s.status === 'ok')) return 'ok';
-    if (sources.every(s => s.status === 'failed')) return 'failed';
+    // Skipped sources (e.g. snapshot-gitignored source running in CI) carry
+    // no new information and shouldn't sway the overall status — they're
+    // neither healthy nor unhealthy signals. Evaluate among sources that
+    // actually produced an outcome.
+    const active = sources.filter(s => s.status !== 'skipped');
+    if (active.length === 0) return 'ok';
+    if (active.every(s => s.status === 'ok')) return 'ok';
+    if (active.every(s => s.status === 'failed')) return 'failed';
     return 'degraded';
 }
 

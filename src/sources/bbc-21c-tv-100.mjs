@@ -58,11 +58,13 @@ export default {
             raw = await readFile(snapshotPath, 'utf-8');
         } catch (err) {
             if (err.code === 'ENOENT') {
-                throw new Error(
+                const e = new Error(
                     'bbc-21c-tv-100: ' +
                         snapshotPath +
-                        ' not found. Run `pnpm run fetch:bbc-21c-tv-100-snapshot` from a residential IP and commit the generated file.',
+                        ' not found (snapshots are gitignored — refresh is maintainer-local: pnpm run fetch:bbc-21c-tv-100-snapshot).',
                 );
+                e.code = 'SNAPSHOT_MISSING';
+                throw e;
             }
             throw err;
         }
