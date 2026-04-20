@@ -44,6 +44,7 @@ export default {
         titleZh: 'TSPDT 影史千部',
         url: 'https://theyshootpictures.com/gf1000_all1000films.htm',
     },
+    formatLabel: it => (it.rank == null ? null : `No.${it.rank}`),
 
     /**
      * @param {{ fetch: Function }} _http

@@ -36,6 +36,7 @@ export default {
         titleZh: 'IMDb 剧集 250',
         url: 'https://www.imdb.com/chart/toptv',
     },
+    formatLabel: it => (it.rank == null ? null : `No.${it.rank}`),
 
     /**
      * @param {{ fetch: Function }} http

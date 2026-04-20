@@ -41,6 +41,12 @@ export default {
         titleZh: '格莱美年度专辑',
         url: 'https://www.grammy.com/awards',
     },
+    // Grammy winners aren't ranked; the ceremony year is the natural label
+    // (e.g. "2024"). externalId has form "grammy-aoty-YYYY".
+    formatLabel: it => {
+        const m = String(it.externalId ?? '').match(/(\d{4})$/);
+        return m ? m[1] : null;
+    },
 
     /**
      * @param {{ fetch: Function }} _http

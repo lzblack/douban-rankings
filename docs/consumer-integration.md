@@ -58,11 +58,14 @@
       },
       "items": {
         "1292052": [
-          { "source": "imdb-top250", "rank": 1, "externalId": "tt0111161" }
+          { "source": "imdb-top250", "rank": 1, "externalId": "tt0111161", "label": "No.1" }
         ],
         "1291561": [
-          { "source": "imdb-top250", "rank": 7, "externalId": "tt0110912" },
-          { "source": "criterion", "rank": null, "externalId": "1056", "spineNumber": "1056" }  // 未来示例
+          { "source": "imdb-top250", "rank": 7, "externalId": "tt0110912", "label": "No.7" },
+          { "source": "criterion", "rank": null, "externalId": "1056", "spineNumber": "1056", "label": "#1056" }
+        ],
+        "36074639": [
+          { "source": "grammy-aoty", "rank": null, "externalId": "grammy-aoty-2024", "label": "2024" }
         ]
       }
     }
@@ -82,6 +85,7 @@
 | `items[].rank` | 榜单排名。`null` 表示"只收录不排名"（如 Criterion Collection） |
 | `items[].externalId` | 原始榜单 id（IMDb tt id、Criterion spine 号等），消费方可安全忽略；主要给 pipeline 增量 resolve 用 |
 | `items[].spineNumber` | 可选辅助标识（如 Criterion 的 spine 编号） |
+| `items[].label` | **推荐字段**：榜单内的 display 文本，由 upstream 决定格式（`"No.1"` / `"#1056"` / `"2024"`）。Consumer 直接显示即可，无需 per-source formatter。老版本 consumer 可回退到 `rank`/`spineNumber` 自行格式化 |
 
 ---
 

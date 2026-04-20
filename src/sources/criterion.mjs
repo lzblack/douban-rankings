@@ -56,6 +56,11 @@ export default {
         titleZh: 'CC 标准收藏',
         url: LIST_URL,
     },
+    // CC uses spine numbers (`#482`, `#1132`) as the conventional label.
+    formatLabel: it => {
+        const n = it.spineNumber ?? it.externalId;
+        return n ? `#${n}` : null;
+    },
 
     /**
      * Read the maintainer-curated snapshot. The `http` param is

@@ -44,6 +44,7 @@ export default {
         titleZh: 'BBC 21 世纪百大剧集',
         url: 'https://www.bbc.com/culture/article/20210827-the-21st-centurys-100-greatest-tv-series',
     },
+    formatLabel: it => (it.rank == null ? null : `No.${it.rank}`),
 
     /**
      * @param {{ fetch: Function }} _http

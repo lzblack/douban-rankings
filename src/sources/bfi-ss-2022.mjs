@@ -48,6 +48,7 @@ export default {
         titleZh: 'BFI 影史百大（2022）',
         url: 'https://www.bfi.org.uk/sight-and-sound/greatest-films-all-time',
     },
+    formatLabel: it => (it.rank == null ? null : `No.${it.rank}`),
 
     /**
      * Read the maintainer-curated snapshot. http param is unused —
