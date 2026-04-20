@@ -150,3 +150,11 @@ docs/todo.md
 # committed scripts under scripts/ are the public tools; anything under
 # scripts/_local/ stays local.
 scripts/_local/
+
+# Pre-resolved snapshots + hand-curated mapping file. These encode the
+# maintainer's curation work (which doulists we trust, which dbid per
+# ambiguous title, etc.) and are a side-channel to our scraping strategy.
+# Kept local-only; pipeline runs against them on the maintainer's machine,
+# the resulting data/*.json is what gets published.
+config/*-snapshot.json
+config/manual-mapping.yaml
