@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-20T00:44:14.114Z",
+  "generatedAt": "2026-04-20T01:02:10.785Z",
   "overall": "ok",
   "sources": [
     {
@@ -8,17 +8,17 @@
       "itemCountDelta": 0,
       "message": null,
       "status": "ok",
-      "lastSuccessAt": "2026-04-20T00:41:39.704Z",
+      "lastSuccessAt": "2026-04-20T00:59:35.331Z",
       "lastFailureAt": null,
       "consecutiveFailures": 0
     },
     {
       "id": "imdb-top250-tv",
-      "itemCount": 241,
-      "itemCountDelta": 4,
+      "itemCount": 242,
+      "itemCountDelta": 1,
       "message": null,
       "status": "ok",
-      "lastSuccessAt": "2026-04-20T00:41:59.353Z",
+      "lastSuccessAt": "2026-04-20T01:00:17.961Z",
       "lastFailureAt": null,
       "consecutiveFailures": 0
     },
@@ -28,7 +28,7 @@
       "itemCountDelta": 0,
       "message": null,
       "status": "ok",
-      "lastSuccessAt": "2026-04-20T00:43:05.257Z",
+      "lastSuccessAt": "2026-04-20T01:01:02.003Z",
       "lastFailureAt": "2026-04-18T23:36:48.793Z",
       "consecutiveFailures": 0
     },
@@ -38,7 +38,7 @@
       "itemCountDelta": 0,
       "message": null,
       "status": "ok",
-      "lastSuccessAt": "2026-04-20T00:43:06.185Z",
+      "lastSuccessAt": "2026-04-20T01:01:02.888Z",
       "lastFailureAt": null,
       "consecutiveFailures": 0
     },
@@ -48,7 +48,7 @@
       "itemCountDelta": 0,
       "message": null,
       "status": "ok",
-      "lastSuccessAt": "2026-04-20T00:43:06.487Z",
+      "lastSuccessAt": "2026-04-20T01:01:03.083Z",
       "lastFailureAt": null,
       "consecutiveFailures": 0
     },
@@ -58,7 +58,7 @@
       "itemCountDelta": 0,
       "message": null,
       "status": "ok",
-      "lastSuccessAt": "2026-04-20T00:43:10.755Z",
+      "lastSuccessAt": "2026-04-20T01:01:07.263Z",
       "lastFailureAt": null,
       "consecutiveFailures": 0
     },
@@ -68,27 +68,27 @@
       "itemCountDelta": 0,
       "message": null,
       "status": "ok",
-      "lastSuccessAt": "2026-04-20T00:43:16.504Z",
+      "lastSuccessAt": "2026-04-20T01:01:13.105Z",
       "lastFailureAt": "2026-04-19T01:20:56.085Z",
       "consecutiveFailures": 0
     },
     {
       "id": "bangumi-top250",
-      "itemCount": 13,
-      "itemCountDelta": 0,
+      "itemCount": 189,
+      "itemCountDelta": 176,
       "message": null,
       "status": "ok",
-      "lastSuccessAt": "2026-04-20T00:44:14.111Z",
+      "lastSuccessAt": "2026-04-20T01:02:10.784Z",
       "lastFailureAt": "2026-04-19T01:20:56.085Z",
       "consecutiveFailures": 0
     },
     {
       "id": "grammy-aoty",
-      "itemCount": 5,
-      "itemCountDelta": 5,
+      "itemCount": 67,
+      "itemCountDelta": 62,
       "message": null,
       "status": "ok",
-      "lastSuccessAt": "2026-04-20T00:44:14.113Z",
+      "lastSuccessAt": "2026-04-20T01:02:10.785Z",
       "lastFailureAt": null,
       "consecutiveFailures": 0
     }

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-04-20T00:44:14.114Z",
+  "generatedAt": "2026-04-20T01:02:10.785Z",
   "categories": {
     "movie": {
       "sources": {
@@ -11,7 +11,7 @@
           "kind": "permanent",
           "subCategory": "movie",
           "priority": 1,
-          "updatedAt": "2026-04-20T00:41:39.704Z",
+          "updatedAt": "2026-04-20T00:59:35.331Z",
           "itemCount": 249
         },
         "imdb-top250-tv": {
@@ -21,8 +21,8 @@
           "kind": "permanent",
           "subCategory": "tv",
           "priority": 8,
-          "updatedAt": "2026-04-20T00:41:59.353Z",
-          "itemCount": 241
+          "updatedAt": "2026-04-20T01:00:17.961Z",
+          "itemCount": 242
         },
         "criterion": {
           "title": "The Criterion Collection",
@@ -31,7 +31,7 @@
           "kind": "permanent",
           "subCategory": "movie",
           "priority": 2,
-          "updatedAt": "2026-04-20T00:43:05.257Z",
+          "updatedAt": "2026-04-20T01:01:02.003Z",
           "itemCount": 1130
         },
         "afi-top100": {
@@ -41,7 +41,7 @@
           "kind": "permanent",
           "subCategory": "movie",
           "priority": 3,
-          "updatedAt": "2026-04-20T00:43:06.185Z",
+          "updatedAt": "2026-04-20T01:01:02.888Z",
           "itemCount": 100
         },
         "bfi-ss-2022": {
@@ -51,7 +51,7 @@
           "kind": "permanent",
           "subCategory": "movie",
           "priority": 4,
-          "updatedAt": "2026-04-20T00:43:06.487Z",
+          "updatedAt": "2026-04-20T01:01:03.083Z",
           "itemCount": 99
         },
         "letterboxd-top250": {
@@ -61,7 +61,7 @@
           "kind": "permanent",
           "subCategory": "movie",
           "priority": 5,
-          "updatedAt": "2026-04-20T00:43:10.755Z",
+          "updatedAt": "2026-04-20T01:01:07.263Z",
           "itemCount": 249
         },
         "tspdt-1000": {
@@ -71,7 +71,7 @@
           "kind": "yearly",
           "subCategory": "movie",
           "priority": 6,
-          "updatedAt": "2026-04-20T00:43:16.504Z",
+          "updatedAt": "2026-04-20T01:01:13.105Z",
           "itemCount": 989
         },
         "bangumi-top250": {
@@ -81,8 +81,8 @@
           "kind": "yearly",
           "subCategory": "anime",
           "priority": 7,
-          "updatedAt": "2026-04-20T00:44:14.111Z",
-          "itemCount": 13
+          "updatedAt": "2026-04-20T01:02:10.784Z",
+          "itemCount": 189
         }
       },
       "items": {
@@ -192,6 +192,11 @@
             "source": "tspdt-1000",
             "rank": 161,
             "externalId": "tt0096283"
+          },
+          {
+            "source": "bangumi-top250",
+            "rank": 128,
+            "externalId": "bangumi-302"
           }
         ],
         "1291561": [
@@ -214,6 +219,11 @@
             "source": "tspdt-1000",
             "rank": 137,
             "externalId": "tt0245429"
+          },
+          {
+            "source": "bangumi-top250",
+            "rank": 28,
+            "externalId": "bangumi-311"
           }
         ],
         "1291562": [
@@ -221,6 +231,13 @@
             "source": "tspdt-1000",
             "rank": 702,
             "externalId": "tt0168629"
+          }
+        ],
+        "1291566": [
+          {
+            "source": "bangumi-top250",
+            "rank": 21,
+            "externalId": "bangumi-238"
           }
         ],
         "1291568": [
@@ -325,6 +342,20 @@
             "externalId": "tt0298148"
           }
         ],
+        "1291583": [
+          {
+            "source": "bangumi-top250",
+            "rank": 47,
+            "externalId": "bangumi-298"
+          }
+        ],
+        "1291585": [
+          {
+            "source": "bangumi-top250",
+            "rank": 81,
+            "externalId": "bangumi-295"
+          }
+        ],
         "1291586": [
           {
             "source": "imdb-top250",
@@ -396,6 +427,13 @@
             "source": "tspdt-1000",
             "rank": 413,
             "externalId": "tt0335266"
+          }
+        ],
+        "1291838": [
+          {
+            "source": "bangumi-top250",
+            "rank": 228,
+            "externalId": "bangumi-307"
           }
         ],
         "1291839": [
@@ -560,6 +598,13 @@
             "source": "tspdt-1000",
             "rank": 24,
             "externalId": "tt0042876"
+          }
+        ],
+        "1291936": [
+          {
+            "source": "bangumi-top250",
+            "rank": 9,
+            "externalId": "bangumi-237"
           }
         ],
         "1291937": [
@@ -5713,6 +5758,13 @@
             "externalId": "tt0058625"
           }
         ],
+        "1295833": [
+          {
+            "source": "bangumi-top250",
+            "rank": 53,
+            "externalId": "bangumi-132373"
+          }
+        ],
         "1295834": [
           {
             "source": "tspdt-1000",
@@ -6920,6 +6972,11 @@
             "source": "tspdt-1000",
             "rank": 510,
             "externalId": "tt0119698"
+          },
+          {
+            "source": "bangumi-top250",
+            "rank": 78,
+            "externalId": "bangumi-310"
           }
         ],
         "1297364": [
@@ -9131,6 +9188,13 @@
             "externalId": "tt0018379"
           }
         ],
+        "1300798": [
+          {
+            "source": "bangumi-top250",
+            "rank": 180,
+            "externalId": "bangumi-769"
+          }
+        ],
         "1300812": [
           {
             "source": "criterion",
@@ -10152,6 +10216,13 @@
             "source": "tspdt-1000",
             "rank": 248,
             "externalId": "tt0042593"
+          }
+        ],
+        "1302930": [
+          {
+            "source": "bangumi-top250",
+            "rank": 219,
+            "externalId": "bangumi-1984"
           }
         ],
         "1302941": [
@@ -12050,6 +12121,13 @@
             "externalId": "tt0064106"
           }
         ],
+        "1306255": [
+          {
+            "source": "bangumi-top250",
+            "rank": 218,
+            "externalId": "bangumi-844"
+          }
+        ],
         "1306266": [
           {
             "source": "criterion",
@@ -12353,6 +12431,13 @@
             "externalId": "tt0251127"
           }
         ],
+        "1307394": [
+          {
+            "source": "bangumi-top250",
+            "rank": 18,
+            "externalId": "bangumi-840"
+          }
+        ],
         "1307564": [
           {
             "source": "criterion",
@@ -12409,6 +12494,13 @@
             "rank": null,
             "externalId": "875",
             "spineNumber": "875"
+          }
+        ],
+        "1307897": [
+          {
+            "source": "bangumi-top250",
+            "rank": 203,
+            "externalId": "bangumi-3627"
           }
         ],
         "1307921": [
@@ -12750,6 +12842,13 @@
             "externalId": "tt0060176"
           }
         ],
+        "1310177": [
+          {
+            "source": "bangumi-top250",
+            "rank": 107,
+            "externalId": "bangumi-842"
+          }
+        ],
         "1310179": [
           {
             "source": "tspdt-1000",
@@ -12794,6 +12893,13 @@
             "source": "tspdt-1000",
             "rank": 891,
             "externalId": "tt0374546"
+          }
+        ],
+        "1316626": [
+          {
+            "source": "bangumi-top250",
+            "rank": 209,
+            "externalId": "bangumi-45089"
           }
         ],
         "1316647": [
@@ -12990,6 +13096,13 @@
             "source": "tspdt-1000",
             "rank": 990,
             "externalId": "tt0051378"
+          }
+        ],
+        "1394510": [
+          {
+            "source": "bangumi-top250",
+            "rank": 119,
+            "externalId": "bangumi-1856"
           }
         ],
         "1395036": [
@@ -13194,6 +13307,20 @@
             "source": "tspdt-1000",
             "rank": 364,
             "externalId": "tt0105438"
+          }
+        ],
+        "1401536": [
+          {
+            "source": "bangumi-top250",
+            "rank": 49,
+            "externalId": "bangumi-4583"
+          }
+        ],
+        "1401542": [
+          {
+            "source": "bangumi-top250",
+            "rank": 30,
+            "externalId": "bangumi-1015"
           }
         ],
         "1401582": [
@@ -13429,6 +13556,13 @@
             "spineNumber": "160"
           }
         ],
+        "1412436": [
+          {
+            "source": "bangumi-top250",
+            "rank": 87,
+            "externalId": "bangumi-822"
+          }
+        ],
         "1414808": [
           {
             "source": "bfi-ss-2022",
@@ -13529,6 +13663,13 @@
             "source": "tspdt-1000",
             "rank": 640,
             "externalId": "tt0043386"
+          }
+        ],
+        "1418019": [
+          {
+            "source": "bangumi-top250",
+            "rank": 32,
+            "externalId": "bangumi-1962"
           }
         ],
         "1418141": [
@@ -14031,6 +14172,13 @@
             "spineNumber": "564"
           }
         ],
+        "1427266": [
+          {
+            "source": "bangumi-top250",
+            "rank": 236,
+            "externalId": "bangumi-3172"
+          }
+        ],
         "1427349": [
           {
             "source": "criterion",
@@ -14064,6 +14212,11 @@
             "source": "imdb-top250-tv",
             "rank": 128,
             "externalId": "tt0434706"
+          },
+          {
+            "source": "bangumi-top250",
+            "rank": 120,
+            "externalId": "bangumi-1959"
           }
         ],
         "1428166": [
@@ -14154,6 +14307,13 @@
             "externalId": "bangumi-324"
           }
         ],
+        "1431683": [
+          {
+            "source": "bangumi-top250",
+            "rank": 176,
+            "externalId": "bangumi-24823"
+          }
+        ],
         "1432448": [
           {
             "source": "imdb-top250-tv",
@@ -14232,6 +14392,11 @@
             "source": "imdb-top250-tv",
             "rank": 229,
             "externalId": "tt0421357"
+          },
+          {
+            "source": "bangumi-top250",
+            "rank": 132,
+            "externalId": "bangumi-315"
           }
         ],
         "1433496": [
@@ -14575,6 +14740,13 @@
             "spineNumber": "537"
           }
         ],
+        "1441053": [
+          {
+            "source": "bangumi-top250",
+            "rank": 217,
+            "externalId": "bangumi-843"
+          }
+        ],
         "1441134": [
           {
             "source": "criterion",
@@ -14708,11 +14880,23 @@
             "externalId": "tt0388629"
           }
         ],
+        "1455442": [
+          {
+            "source": "bangumi-top250",
+            "rank": 158,
+            "externalId": "bangumi-6048"
+          }
+        ],
         "1457573": [
           {
             "source": "imdb-top250-tv",
             "rank": 217,
             "externalId": "tt0112159"
+          },
+          {
+            "source": "bangumi-top250",
+            "rank": 20,
+            "externalId": "bangumi-265"
           }
         ],
         "1459054": [
@@ -14741,6 +14925,25 @@
             "source": "imdb-top250-tv",
             "rank": 249,
             "externalId": "tt0423731"
+          },
+          {
+            "source": "bangumi-top250",
+            "rank": 38,
+            "externalId": "bangumi-254"
+          }
+        ],
+        "1460919": [
+          {
+            "source": "bangumi-top250",
+            "rank": 60,
+            "externalId": "bangumi-1704"
+          }
+        ],
+        "1460922": [
+          {
+            "source": "bangumi-top250",
+            "rank": 133,
+            "externalId": "bangumi-10356"
           }
         ],
         "1460947": [
@@ -14770,6 +14973,13 @@
             "rank": null,
             "externalId": "383",
             "spineNumber": "383"
+          }
+        ],
+        "1465035": [
+          {
+            "source": "bangumi-top250",
+            "rank": 129,
+            "externalId": "bangumi-1940"
           }
         ],
         "1465471": [
@@ -14868,6 +15078,13 @@
             "spineNumber": "932"
           }
         ],
+        "1467780": [
+          {
+            "source": "bangumi-top250",
+            "rank": 145,
+            "externalId": "bangumi-40003"
+          }
+        ],
         "1468030": [
           {
             "source": "criterion",
@@ -14938,6 +15155,13 @@
             "source": "imdb-top250-tv",
             "rank": 137,
             "externalId": "tt0367279"
+          }
+        ],
+        "1474243": [
+          {
+            "source": "bangumi-top250",
+            "rank": 100,
+            "externalId": "bangumi-605"
           }
         ],
         "1474367": [
@@ -15148,6 +15372,13 @@
             "spineNumber": "706"
           }
         ],
+        "1512037": [
+          {
+            "source": "bangumi-top250",
+            "rank": 199,
+            "externalId": "bangumi-1948"
+          }
+        ],
         "1547099": [
           {
             "source": "tspdt-1000",
@@ -15272,6 +15503,13 @@
             "externalId": "tt0111958"
           }
         ],
+        "1756889": [
+          {
+            "source": "bangumi-top250",
+            "rank": 130,
+            "externalId": "bangumi-2741"
+          }
+        ],
         "1757729": [
           {
             "source": "criterion",
@@ -15285,6 +15523,13 @@
             "source": "tspdt-1000",
             "rank": 455,
             "externalId": "tt0130232"
+          }
+        ],
+        "1758491": [
+          {
+            "source": "bangumi-top250",
+            "rank": 151,
+            "externalId": "bangumi-493"
           }
         ],
         "1758810": [
@@ -15374,6 +15619,20 @@
             "externalId": "tt0019415"
           }
         ],
+        "1766556": [
+          {
+            "source": "bangumi-top250",
+            "rank": 44,
+            "externalId": "bangumi-9622"
+          }
+        ],
+        "1766590": [
+          {
+            "source": "bangumi-top250",
+            "rank": 74,
+            "externalId": "bangumi-3553"
+          }
+        ],
         "1767042": [
           {
             "source": "imdb-top250",
@@ -15418,6 +15677,13 @@
             "source": "tspdt-1000",
             "rank": 483,
             "externalId": "tt0456149"
+          }
+        ],
+        "1770547": [
+          {
+            "source": "bangumi-top250",
+            "rank": 62,
+            "externalId": "bangumi-847"
           }
         ],
         "1771234": [
@@ -15501,6 +15767,11 @@
             "source": "imdb-top250-tv",
             "rank": 235,
             "externalId": "tt0088509"
+          },
+          {
+            "source": "bangumi-top250",
+            "rank": 113,
+            "externalId": "bangumi-9565"
           }
         ],
         "1782378": [
@@ -15561,6 +15832,13 @@
             "spineNumber": "969"
           }
         ],
+        "1800597": [
+          {
+            "source": "bangumi-top250",
+            "rank": 22,
+            "externalId": "bangumi-340"
+          }
+        ],
         "1806555": [
           {
             "source": "letterboxd-top250",
@@ -15581,6 +15859,13 @@
             "rank": null,
             "externalId": "1254",
             "spineNumber": "1254"
+          }
+        ],
+        "1810517": [
+          {
+            "source": "bangumi-top250",
+            "rank": 146,
+            "externalId": "bangumi-485"
           }
         ],
         "1812109": [
@@ -15631,6 +15916,13 @@
             "source": "tspdt-1000",
             "rank": 471,
             "externalId": "tt0139500"
+          }
+        ],
+        "1839460": [
+          {
+            "source": "bangumi-top250",
+            "rank": 234,
+            "externalId": "bangumi-1266"
           }
         ],
         "1844182": [
@@ -15825,11 +16117,25 @@
             "externalId": "tt0477348"
           }
         ],
+        "1857664": [
+          {
+            "source": "bangumi-top250",
+            "rank": 165,
+            "externalId": "bangumi-13552"
+          }
+        ],
         "1858711": [
           {
             "source": "imdb-top250",
             "rank": 89,
             "externalId": "tt0435761"
+          }
+        ],
+        "1859043": [
+          {
+            "source": "bangumi-top250",
+            "rank": 157,
+            "externalId": "bangumi-2734"
           }
         ],
         "1861148": [
@@ -15877,6 +16183,20 @@
             "externalId": "tt0193676"
           }
         ],
+        "1865703": [
+          {
+            "source": "bangumi-top250",
+            "rank": 52,
+            "externalId": "bangumi-841"
+          }
+        ],
+        "1866456": [
+          {
+            "source": "bangumi-top250",
+            "rank": 111,
+            "externalId": "bangumi-4163"
+          }
+        ],
         "1866479": [
           {
             "source": "imdb-top250",
@@ -15921,6 +16241,20 @@
             "source": "tspdt-1000",
             "rank": 12,
             "externalId": "tt0073198"
+          }
+        ],
+        "1870128": [
+          {
+            "source": "bangumi-top250",
+            "rank": 77,
+            "externalId": "bangumi-320"
+          }
+        ],
+        "1870140": [
+          {
+            "source": "bangumi-top250",
+            "rank": 226,
+            "externalId": "bangumi-768"
           }
         ],
         "1871906": [
@@ -15989,6 +16323,20 @@
             "source": "tspdt-1000",
             "rank": 258,
             "externalId": "tt0104057"
+          }
+        ],
+        "1892335": [
+          {
+            "source": "bangumi-top250",
+            "rank": 54,
+            "externalId": "bangumi-848"
+          }
+        ],
+        "1898729": [
+          {
+            "source": "bangumi-top250",
+            "rank": 247,
+            "externalId": "bangumi-440"
           }
         ],
         "1899120": [
@@ -16095,6 +16443,13 @@
             "rank": null,
             "externalId": "1310",
             "spineNumber": "1310"
+          }
+        ],
+        "1908561": [
+          {
+            "source": "bangumi-top250",
+            "rank": 144,
+            "externalId": "bangumi-995"
           }
         ],
         "1909533": [
@@ -16265,6 +16620,13 @@
             "externalId": "tt0469494"
           }
         ],
+        "1946839": [
+          {
+            "source": "bangumi-top250",
+            "rank": 224,
+            "externalId": "bangumi-289"
+          }
+        ],
         "1949376": [
           {
             "source": "criterion",
@@ -16314,6 +16676,13 @@
             "rank": null,
             "externalId": "735",
             "spineNumber": "735"
+          }
+        ],
+        "1958667": [
+          {
+            "source": "bangumi-top250",
+            "rank": 95,
+            "externalId": "bangumi-8986"
           }
         ],
         "1958670": [
@@ -16388,6 +16757,13 @@
             "spineNumber": "540"
           }
         ],
+        "1968790": [
+          {
+            "source": "bangumi-top250",
+            "rank": 212,
+            "externalId": "bangumi-772"
+          }
+        ],
         "1978709": [
           {
             "source": "letterboxd-top250",
@@ -16445,6 +16821,20 @@
             "rank": null,
             "externalId": "440",
             "spineNumber": "440"
+          }
+        ],
+        "1998799": [
+          {
+            "source": "bangumi-top250",
+            "rank": 29,
+            "externalId": "bangumi-1608"
+          }
+        ],
+        "1998868": [
+          {
+            "source": "bangumi-top250",
+            "rank": 58,
+            "externalId": "bangumi-1453"
           }
         ],
         "2002721": [
@@ -16554,6 +16944,20 @@
             "externalId": "tt0045555"
           }
         ],
+        "2043591": [
+          {
+            "source": "bangumi-top250",
+            "rank": 148,
+            "externalId": "bangumi-531"
+          }
+        ],
+        "2043601": [
+          {
+            "source": "bangumi-top250",
+            "rank": 108,
+            "externalId": "bangumi-1269"
+          }
+        ],
         "2044081": [
           {
             "source": "criterion",
@@ -16589,6 +16993,13 @@
             "source": "letterboxd-top250",
             "rank": 35,
             "externalId": "tt0795421"
+          }
+        ],
+        "2057171": [
+          {
+            "source": "bangumi-top250",
+            "rank": 24,
+            "externalId": "bangumi-247"
           }
         ],
         "2058936": [
@@ -16646,6 +17057,20 @@
             "spineNumber": "863"
           }
         ],
+        "2077607": [
+          {
+            "source": "bangumi-top250",
+            "rank": 206,
+            "externalId": "bangumi-2921"
+          }
+        ],
+        "2078804": [
+          {
+            "source": "bangumi-top250",
+            "rank": 140,
+            "externalId": "bangumi-48745"
+          }
+        ],
         "2078989": [
           {
             "source": "criterion",
@@ -16665,6 +17090,13 @@
             "rank": null,
             "externalId": "544",
             "spineNumber": "544"
+          }
+        ],
+        "2085545": [
+          {
+            "source": "bangumi-top250",
+            "rank": 183,
+            "externalId": "bangumi-794"
           }
         ],
         "2111535": [
@@ -16717,6 +17149,11 @@
             "source": "tspdt-1000",
             "rank": 562,
             "externalId": "tt0910970"
+          },
+          {
+            "source": "bangumi-top250",
+            "rank": 127,
+            "externalId": "bangumi-1104"
           }
         ],
         "2131949": [
@@ -16793,6 +17230,13 @@
             "externalId": "tt0804503"
           }
         ],
+        "2154314": [
+          {
+            "source": "bangumi-top250",
+            "rank": 175,
+            "externalId": "bangumi-288"
+          }
+        ],
         "2155524": [
           {
             "source": "tspdt-1000",
@@ -16813,6 +17257,13 @@
             "source": "letterboxd-top250",
             "rank": 41,
             "externalId": "tt0446029"
+          }
+        ],
+        "2189090": [
+          {
+            "source": "bangumi-top250",
+            "rank": 213,
+            "externalId": "bangumi-1267"
           }
         ],
         "2209575": [
@@ -16842,6 +17293,13 @@
             "rank": null,
             "externalId": "554",
             "spineNumber": "554"
+          }
+        ],
+        "2224505": [
+          {
+            "source": "bangumi-top250",
+            "rank": 94,
+            "externalId": "bangumi-276"
           }
         ],
         "2225022": [
@@ -16891,6 +17349,13 @@
             "spineNumber": "766"
           }
         ],
+        "2258612": [
+          {
+            "source": "bangumi-top250",
+            "rank": 173,
+            "externalId": "bangumi-750"
+          }
+        ],
         "2264801": [
           {
             "source": "tspdt-1000",
@@ -16931,6 +17396,13 @@
             "source": "imdb-top250-tv",
             "rank": 33,
             "externalId": "tt0103359"
+          }
+        ],
+        "2277181": [
+          {
+            "source": "bangumi-top250",
+            "rank": 75,
+            "externalId": "bangumi-51"
           }
         ],
         "2278780": [
@@ -17040,6 +17512,13 @@
             "externalId": "tt0073707"
           }
         ],
+        "2352020": [
+          {
+            "source": "bangumi-top250",
+            "rank": 177,
+            "externalId": "bangumi-48746"
+          }
+        ],
         "2353023": [
           {
             "source": "imdb-top250",
@@ -17050,6 +17529,13 @@
             "source": "letterboxd-top250",
             "rank": 97,
             "externalId": "tt0892769"
+          }
+        ],
+        "2361247": [
+          {
+            "source": "bangumi-top250",
+            "rank": 25,
+            "externalId": "bangumi-1270"
           }
         ],
         "2363506": [
@@ -17140,11 +17626,25 @@
             "externalId": "tt1149362"
           }
         ],
+        "2567646": [
+          {
+            "source": "bangumi-top250",
+            "rank": 57,
+            "externalId": "bangumi-3302"
+          }
+        ],
         "2567883": [
           {
             "source": "tspdt-1000",
             "rank": 726,
             "externalId": "tt0064256"
+          }
+        ],
+        "2567903": [
+          {
+            "source": "bangumi-top250",
+            "rank": 250,
+            "externalId": "bangumi-2979"
           }
         ],
         "2968813": [
@@ -17338,6 +17838,13 @@
             "externalId": "tt1226837"
           }
         ],
+        "3060542": [
+          {
+            "source": "bangumi-top250",
+            "rank": 238,
+            "externalId": "bangumi-259"
+          }
+        ],
         "3062588": [
           {
             "source": "criterion",
@@ -17423,6 +17930,13 @@
             "externalId": "tt0076341"
           }
         ],
+        "3142101": [
+          {
+            "source": "bangumi-top250",
+            "rank": 68,
+            "externalId": "bangumi-10291"
+          }
+        ],
         "3144308": [
           {
             "source": "criterion",
@@ -17470,6 +17984,20 @@
             "spineNumber": "686"
           }
         ],
+        "3184594": [
+          {
+            "source": "bangumi-top250",
+            "rank": 240,
+            "externalId": "bangumi-909"
+          }
+        ],
+        "3187790": [
+          {
+            "source": "bangumi-top250",
+            "rank": 55,
+            "externalId": "bangumi-1333"
+          }
+        ],
         "3205624": [
           {
             "source": "letterboxd-top250",
@@ -17503,11 +18031,25 @@
             "externalId": "tt1312221"
           }
         ],
+        "3284269": [
+          {
+            "source": "bangumi-top250",
+            "rank": 227,
+            "externalId": "bangumi-891"
+          }
+        ],
         "3285632": [
           {
             "source": "tspdt-1000",
             "rank": 383,
             "externalId": "tt1316540"
+          }
+        ],
+        "3292768": [
+          {
+            "source": "bangumi-top250",
+            "rank": 168,
+            "externalId": "bangumi-37183"
           }
         ],
         "3317598": [
@@ -17533,6 +18075,13 @@
             "externalId": "tt0817177"
           }
         ],
+        "3326764": [
+          {
+            "source": "bangumi-top250",
+            "rank": 143,
+            "externalId": "bangumi-965"
+          }
+        ],
         "3380764": [
           {
             "source": "criterion",
@@ -17546,6 +18095,13 @@
             "source": "imdb-top250",
             "rank": 55,
             "externalId": "tt1345836"
+          }
+        ],
+        "3399553": [
+          {
+            "source": "bangumi-top250",
+            "rank": 245,
+            "externalId": "bangumi-3423"
           }
         ],
         "3401355": [
@@ -17575,6 +18131,11 @@
             "source": "imdb-top250-tv",
             "rank": 19,
             "externalId": "tt1355642"
+          },
+          {
+            "source": "bangumi-top250",
+            "rank": 11,
+            "externalId": "bangumi-1428"
           }
         ],
         "3442923": [
@@ -17598,6 +18159,13 @@
             "rank": null,
             "externalId": "988",
             "spineNumber": "988"
+          }
+        ],
+        "3538051": [
+          {
+            "source": "bangumi-top250",
+            "rank": 43,
+            "externalId": "bangumi-18692"
           }
         ],
         "3541415": [
@@ -17625,6 +18193,13 @@
             "source": "imdb-top250-tv",
             "rank": 103,
             "externalId": "tt0407362"
+          }
+        ],
+        "3584929": [
+          {
+            "source": "bangumi-top250",
+            "rank": 39,
+            "externalId": "bangumi-770"
           }
         ],
         "3587373": [
@@ -17708,6 +18283,13 @@
             "externalId": "tt0053488"
           }
         ],
+        "3681349": [
+          {
+            "source": "bangumi-top250",
+            "rank": 105,
+            "externalId": "bangumi-1424"
+          }
+        ],
         "3703650": [
           {
             "source": "imdb-top250-tv",
@@ -17735,6 +18317,13 @@
             "source": "imdb-top250",
             "rank": 167,
             "externalId": "tt1424432"
+          }
+        ],
+        "3739839": [
+          {
+            "source": "bangumi-top250",
+            "rank": 194,
+            "externalId": "bangumi-1443"
           }
         ],
         "3741764": [
@@ -17817,6 +18406,13 @@
             "spineNumber": "1222"
           }
         ],
+        "3893384": [
+          {
+            "source": "bangumi-top250",
+            "rank": 64,
+            "externalId": "bangumi-1671"
+          }
+        ],
         "3914513": [
           {
             "source": "letterboxd-top250",
@@ -17867,6 +18463,11 @@
             "source": "imdb-top250-tv",
             "rank": 76,
             "externalId": "tt0121220"
+          },
+          {
+            "source": "bangumi-top250",
+            "rank": 134,
+            "externalId": "bangumi-9005"
           }
         ],
         "4023396": [
@@ -17948,6 +18549,20 @@
             "externalId": "tt0318871"
           }
         ],
+        "4099231": [
+          {
+            "source": "bangumi-top250",
+            "rank": 160,
+            "externalId": "bangumi-56847"
+          }
+        ],
+        "4116954": [
+          {
+            "source": "bangumi-top250",
+            "rank": 187,
+            "externalId": "bangumi-10404"
+          }
+        ],
         "4117025": [
           {
             "source": "tspdt-1000",
@@ -17975,6 +18590,34 @@
             "rank": null,
             "externalId": "1173",
             "spineNumber": "1173"
+          }
+        ],
+        "4179418": [
+          {
+            "source": "bangumi-top250",
+            "rank": 84,
+            "externalId": "bangumi-23304"
+          }
+        ],
+        "4195678": [
+          {
+            "source": "bangumi-top250",
+            "rank": 33,
+            "externalId": "bangumi-4019"
+          }
+        ],
+        "4217246": [
+          {
+            "source": "bangumi-top250",
+            "rank": 193,
+            "externalId": "bangumi-4077"
+          }
+        ],
+        "4223466": [
+          {
+            "source": "bangumi-top250",
+            "rank": 56,
+            "externalId": "bangumi-3774"
           }
         ],
         "4250015": [
@@ -18049,6 +18692,13 @@
             "externalId": "tt0158417"
           }
         ],
+        "4745869": [
+          {
+            "source": "bangumi-top250",
+            "rank": 185,
+            "externalId": "bangumi-52787"
+          }
+        ],
         "4769314": [
           {
             "source": "imdb-top250-tv",
@@ -18077,6 +18727,20 @@
             "externalId": "tt1659337"
           }
         ],
+        "4848701": [
+          {
+            "source": "bangumi-top250",
+            "rank": 48,
+            "externalId": "bangumi-9912"
+          }
+        ],
+        "4888015": [
+          {
+            "source": "bangumi-top250",
+            "rank": 19,
+            "externalId": "bangumi-11834"
+          }
+        ],
         "4925398": [
           {
             "source": "imdb-top250-tv",
@@ -18089,11 +18753,25 @@
             "externalId": "bangumi-10380"
           }
         ],
+        "4935091": [
+          {
+            "source": "bangumi-top250",
+            "rank": 198,
+            "externalId": "bangumi-4124"
+          }
+        ],
         "4935242": [
           {
             "source": "imdb-top250",
             "rank": 110,
             "externalId": "tt1255953"
+          }
+        ],
+        "5031867": [
+          {
+            "source": "bangumi-top250",
+            "rank": 171,
+            "externalId": "bangumi-8621"
           }
         ],
         "5041579": [
@@ -18217,11 +18895,32 @@
             "externalId": "tt1534360"
           }
         ],
+        "5163252": [
+          {
+            "source": "imdb-top250-tv",
+            "rank": 213,
+            "externalId": "tt1518542"
+          }
+        ],
         "5192704": [
           {
             "source": "imdb-top250-tv",
             "rank": 248,
             "externalId": "tt1043822"
+          }
+        ],
+        "5332582": [
+          {
+            "source": "bangumi-top250",
+            "rank": 31,
+            "externalId": "bangumi-67753"
+          }
+        ],
+        "5349275": [
+          {
+            "source": "bangumi-top250",
+            "rank": 34,
+            "externalId": "bangumi-9717"
           }
         ],
         "5360889": [
@@ -18245,12 +18944,47 @@
             "spineNumber": "1083"
           }
         ],
+        "5403927": [
+          {
+            "source": "bangumi-top250",
+            "rank": 67,
+            "externalId": "bangumi-12426"
+          }
+        ],
+        "5416070": [
+          {
+            "source": "bangumi-top250",
+            "rank": 174,
+            "externalId": "bangumi-10639"
+          }
+        ],
+        "5915753": [
+          {
+            "source": "bangumi-top250",
+            "rank": 85,
+            "externalId": "bangumi-11577"
+          }
+        ],
         "5937923": [
           {
             "source": "criterion",
             "rank": null,
             "externalId": "628",
             "spineNumber": "628"
+          }
+        ],
+        "5948586": [
+          {
+            "source": "bangumi-top250",
+            "rank": 178,
+            "externalId": "bangumi-14878"
+          }
+        ],
+        "5948587": [
+          {
+            "source": "bangumi-top250",
+            "rank": 221,
+            "externalId": "bangumi-14879"
           }
         ],
         "5950117": [
@@ -18277,6 +19011,13 @@
             "source": "tspdt-1000",
             "rank": 317,
             "externalId": "tt1832382"
+          }
+        ],
+        "5967223": [
+          {
+            "source": "bangumi-top250",
+            "rank": 154,
+            "externalId": "bangumi-12536"
           }
         ],
         "5972040": [
@@ -18328,6 +19069,13 @@
             "source": "imdb-top250-tv",
             "rank": 129,
             "externalId": "tt1856010"
+          }
+        ],
+        "6085356": [
+          {
+            "source": "bangumi-top250",
+            "rank": 222,
+            "externalId": "bangumi-18624"
           }
         ],
         "6142597": [
@@ -18389,6 +19137,11 @@
             "source": "imdb-top250-tv",
             "rank": 29,
             "externalId": "tt2098220"
+          },
+          {
+            "source": "bangumi-top250",
+            "rank": 135,
+            "externalId": "bangumi-21032"
           }
         ],
         "6786002": [
@@ -18425,6 +19178,13 @@
             "source": "imdb-top250-tv",
             "rank": 114,
             "externalId": "tt1909015"
+          }
+        ],
+        "6855097": [
+          {
+            "source": "bangumi-top250",
+            "rank": 243,
+            "externalId": "bangumi-23495"
           }
         ],
         "6874354": [
@@ -18532,11 +19292,32 @@
             "externalId": "tt2015381"
           }
         ],
+        "10001418": [
+          {
+            "source": "bangumi-top250",
+            "rank": 149,
+            "externalId": "bangumi-27364"
+          }
+        ],
+        "10437826": [
+          {
+            "source": "bangumi-top250",
+            "rank": 150,
+            "externalId": "bangumi-28205"
+          }
+        ],
         "10438585": [
           {
             "source": "tspdt-1000",
             "rank": 917,
             "externalId": "tt2153963"
+          }
+        ],
+        "10467755": [
+          {
+            "source": "bangumi-top250",
+            "rank": 195,
+            "externalId": "bangumi-28533"
           }
         ],
         "10512661": [
@@ -18559,6 +19340,13 @@
             "rank": null,
             "externalId": "923",
             "spineNumber": "923"
+          }
+        ],
+        "10527275": [
+          {
+            "source": "bangumi-top250",
+            "rank": 156,
+            "externalId": "bangumi-37785"
           }
         ],
         "10529476": [
@@ -18594,6 +19382,20 @@
             "source": "imdb-top250-tv",
             "rank": 227,
             "externalId": "tt6025022"
+          }
+        ],
+        "10569150": [
+          {
+            "source": "bangumi-top250",
+            "rank": 190,
+            "externalId": "bangumi-44692"
+          }
+        ],
+        "10569151": [
+          {
+            "source": "bangumi-top250",
+            "rank": 35,
+            "externalId": "bangumi-44693"
           }
         ],
         "10577869": [
@@ -18725,6 +19527,11 @@
             "source": "imdb-top250-tv",
             "rank": 24,
             "externalId": "tt2861424"
+          },
+          {
+            "source": "bangumi-top250",
+            "rank": 59,
+            "externalId": "bangumi-93377"
           }
         ],
         "11538029": [
@@ -18790,6 +19597,13 @@
             "externalId": "tt2380307"
           }
         ],
+        "20495792": [
+          {
+            "source": "bangumi-top250",
+            "rank": 115,
+            "externalId": "bangumi-68812"
+          }
+        ],
         "20644938": [
           {
             "source": "imdb-top250-tv",
@@ -18823,11 +19637,32 @@
             "externalId": "tt2543164"
           }
         ],
+        "21348026": [
+          {
+            "source": "bangumi-top250",
+            "rank": 223,
+            "externalId": "bangumi-1606"
+          }
+        ],
         "21349345": [
           {
             "source": "letterboxd-top250",
             "rank": 179,
             "externalId": "tt1790864"
+          }
+        ],
+        "21371652": [
+          {
+            "source": "bangumi-top250",
+            "rank": 229,
+            "externalId": "bangumi-78405"
+          }
+        ],
+        "21485010": [
+          {
+            "source": "bangumi-top250",
+            "rank": 124,
+            "externalId": "bangumi-110148"
           }
         ],
         "21624974": [
@@ -18851,6 +19686,13 @@
             "rank": null,
             "externalId": "809",
             "spineNumber": "809"
+          }
+        ],
+        "23774708": [
+          {
+            "source": "bangumi-top250",
+            "rank": 216,
+            "externalId": "bangumi-85631"
           }
         ],
         "24297912": [
@@ -18940,6 +19782,11 @@
             "source": "imdb-top250-tv",
             "rank": 152,
             "externalId": "tt3398540"
+          },
+          {
+            "source": "bangumi-top250",
+            "rank": 169,
+            "externalId": "bangumi-84171"
           }
         ],
         "25765735": [
@@ -18973,6 +19820,27 @@
             "source": "tspdt-1000",
             "rank": 610,
             "externalId": "tt0080125"
+          }
+        ],
+        "25774760": [
+          {
+            "source": "bangumi-top250",
+            "rank": 125,
+            "externalId": "bangumi-88473"
+          }
+        ],
+        "25806507": [
+          {
+            "source": "bangumi-top250",
+            "rank": 46,
+            "externalId": "bangumi-92705"
+          }
+        ],
+        "25813424": [
+          {
+            "source": "bangumi-top250",
+            "rank": 23,
+            "externalId": "bangumi-93739"
           }
         ],
         "25824851": [
@@ -19023,6 +19891,25 @@
             "source": "imdb-top250-tv",
             "rank": 200,
             "externalId": "tt3895150"
+          },
+          {
+            "source": "bangumi-top250",
+            "rank": 241,
+            "externalId": "bangumi-100444"
+          }
+        ],
+        "25851659": [
+          {
+            "source": "bangumi-top250",
+            "rank": 141,
+            "externalId": "bangumi-100501"
+          }
+        ],
+        "25865470": [
+          {
+            "source": "bangumi-top250",
+            "rank": 63,
+            "externalId": "bangumi-141530"
           }
         ],
         "25872158": [
@@ -19117,6 +20004,13 @@
             "externalId": "tt4034228"
           }
         ],
+        "25984031": [
+          {
+            "source": "bangumi-top250",
+            "rank": 112,
+            "externalId": "bangumi-113292"
+          }
+        ],
         "26088510": [
           {
             "source": "imdb-top250-tv",
@@ -19148,6 +20042,13 @@
             "externalId": "tt4116284"
           }
         ],
+        "26206746": [
+          {
+            "source": "bangumi-top250",
+            "rank": 220,
+            "externalId": "bangumi-116370"
+          }
+        ],
         "26264454": [
           {
             "source": "imdb-top250",
@@ -19158,6 +20059,27 @@
             "source": "letterboxd-top250",
             "rank": 134,
             "externalId": "tt5323662"
+          }
+        ],
+        "26277363": [
+          {
+            "source": "bangumi-top250",
+            "rank": 172,
+            "externalId": "bangumi-119394"
+          }
+        ],
+        "26285156": [
+          {
+            "source": "bangumi-top250",
+            "rank": 109,
+            "externalId": "bangumi-120236"
+          }
+        ],
+        "26287119": [
+          {
+            "source": "bangumi-top250",
+            "rank": 118,
+            "externalId": "bangumi-120791"
           }
         ],
         "26290409": [
@@ -19197,6 +20119,13 @@
             "externalId": "tt5182866"
           }
         ],
+        "26318905": [
+          {
+            "source": "bangumi-top250",
+            "rank": 103,
+            "externalId": "bangumi-124341"
+          }
+        ],
         "26325320": [
           {
             "source": "imdb-top250",
@@ -19214,6 +20143,11 @@
             "source": "imdb-top250-tv",
             "rank": 148,
             "externalId": "tt4508902"
+          },
+          {
+            "source": "bangumi-top250",
+            "rank": 211,
+            "externalId": "bangumi-127563"
           }
         ],
         "26340305": [
@@ -19237,6 +20171,13 @@
             "source": "letterboxd-top250",
             "rank": 10,
             "externalId": "tt3281548"
+          }
+        ],
+        "26355355": [
+          {
+            "source": "bangumi-top250",
+            "rank": 122,
+            "externalId": "bangumi-129807"
           }
         ],
         "26359270": [
@@ -19333,6 +20274,13 @@
             "externalId": "tt4925292"
           }
         ],
+        "26592971": [
+          {
+            "source": "bangumi-top250",
+            "rank": 45,
+            "externalId": "bangumi-146457"
+          }
+        ],
         "26604685": [
           {
             "source": "imdb-top250-tv",
@@ -19345,6 +20293,27 @@
             "source": "imdb-top250",
             "rank": 196,
             "externalId": "tt5027774"
+          }
+        ],
+        "26615510": [
+          {
+            "source": "bangumi-top250",
+            "rank": 88,
+            "externalId": "bangumi-147068"
+          }
+        ],
+        "26635319": [
+          {
+            "source": "bangumi-top250",
+            "rank": 230,
+            "externalId": "bangumi-148036"
+          }
+        ],
+        "26635321": [
+          {
+            "source": "bangumi-top250",
+            "rank": 117,
+            "externalId": "bangumi-148037"
           }
         ],
         "26640371": [
@@ -19432,6 +20401,11 @@
             "source": "letterboxd-top250",
             "rank": 109,
             "externalId": "tt5311514"
+          },
+          {
+            "source": "bangumi-top250",
+            "rank": 191,
+            "externalId": "bangumi-160209"
           }
         ],
         "26688480": [
@@ -19489,6 +20463,13 @@
             "spineNumber": "1302"
           }
         ],
+        "26752075": [
+          {
+            "source": "bangumi-top250",
+            "rank": 61,
+            "externalId": "bangumi-173849"
+          }
+        ],
         "26752852": [
           {
             "source": "criterion",
@@ -19512,11 +20493,25 @@
             "externalId": "tt4834232"
           }
         ],
+        "26761233": [
+          {
+            "source": "bangumi-top250",
+            "rank": 167,
+            "externalId": "bangumi-175596"
+          }
+        ],
         "26762269": [
           {
             "source": "letterboxd-top250",
             "rank": 242,
             "externalId": "tt5613484"
+          }
+        ],
+        "26765302": [
+          {
+            "source": "bangumi-top250",
+            "rank": 102,
+            "externalId": "bangumi-176615"
           }
         ],
         "26778790": [
@@ -19574,6 +20569,13 @@
             "rank": null,
             "externalId": "976",
             "spineNumber": "976"
+          }
+        ],
+        "26837952": [
+          {
+            "source": "bangumi-top250",
+            "rank": 153,
+            "externalId": "bangumi-187276"
           }
         ],
         "26838164": [
@@ -19670,6 +20672,20 @@
             "externalId": "tt10872600"
           }
         ],
+        "26935251": [
+          {
+            "source": "bangumi-top250",
+            "rank": 162,
+            "externalId": "bangumi-202240"
+          }
+        ],
+        "26940008": [
+          {
+            "source": "bangumi-top250",
+            "rank": 114,
+            "externalId": "bangumi-203526"
+          }
+        ],
         "26979545": [
           {
             "source": "imdb-top250-tv",
@@ -19689,6 +20705,13 @@
             "source": "imdb-top250-tv",
             "rank": 236,
             "externalId": "tt7562112"
+          }
+        ],
+        "26999593": [
+          {
+            "source": "bangumi-top250",
+            "rank": 10,
+            "externalId": "bangumi-211567"
           }
         ],
         "27010768": [
@@ -19717,6 +20740,13 @@
             "source": "tspdt-1000",
             "rank": 235,
             "externalId": "tt6751668"
+          }
+        ],
+        "27011763": [
+          {
+            "source": "bangumi-top250",
+            "rank": 164,
+            "externalId": "bangumi-240760"
           }
         ],
         "27016554": [
@@ -19763,6 +20793,27 @@
             "spineNumber": "1178"
           }
         ],
+        "27077082": [
+          {
+            "source": "bangumi-top250",
+            "rank": 116,
+            "externalId": "bangumi-207195"
+          }
+        ],
+        "27080661": [
+          {
+            "source": "bangumi-top250",
+            "rank": 147,
+            "externalId": "bangumi-218708"
+          }
+        ],
+        "27081136": [
+          {
+            "source": "bangumi-top250",
+            "rank": 163,
+            "externalId": "bangumi-218707"
+          }
+        ],
         "27085397": [
           {
             "source": "imdb-top250-tv",
@@ -19807,6 +20858,13 @@
             "source": "letterboxd-top250",
             "rank": 201,
             "externalId": "tt7286456"
+          }
+        ],
+        "27166039": [
+          {
+            "source": "bangumi-top250",
+            "rank": 235,
+            "externalId": "bangumi-246238"
           }
         ],
         "27202818": [
@@ -19861,6 +20919,13 @@
             "externalId": "tt7120662"
           }
         ],
+        "27666505": [
+          {
+            "source": "bangumi-top250",
+            "rank": 244,
+            "externalId": "bangumi-235128"
+          }
+        ],
         "30122624": [
           {
             "source": "imdb-top250-tv",
@@ -19894,6 +20959,11 @@
             "source": "imdb-top250-tv",
             "rank": 70,
             "externalId": "tt10233448"
+          },
+          {
+            "source": "bangumi-top250",
+            "rank": 79,
+            "externalId": "bangumi-240386"
           }
         ],
         "30180030": [
@@ -19915,6 +20985,13 @@
             "source": "imdb-top250-tv",
             "rank": 30,
             "externalId": "tt8420184"
+          }
+        ],
+        "30238385": [
+          {
+            "source": "bangumi-top250",
+            "rank": 76,
+            "externalId": "bangumi-248154"
           }
         ],
         "30252495": [
@@ -20025,6 +21102,13 @@
             "externalId": "tt8111088"
           }
         ],
+        "30358098": [
+          {
+            "source": "bangumi-top250",
+            "rank": 89,
+            "externalId": "bangumi-262897"
+          }
+        ],
         "30374707": [
           {
             "source": "imdb-top250-tv",
@@ -20087,11 +21171,25 @@
             "externalId": "tt9735318"
           }
         ],
+        "30475135": [
+          {
+            "source": "bangumi-top250",
+            "rank": 92,
+            "externalId": "bangumi-298477"
+          }
+        ],
         "32579283": [
           {
             "source": "imdb-top250-tv",
             "rank": 172,
             "externalId": "tt10048342"
+          }
+        ],
+        "33218376": [
+          {
+            "source": "bangumi-top250",
+            "rank": 161,
+            "externalId": "bangumi-278569"
           }
         ],
         "33413905": [
@@ -20121,6 +21219,13 @@
             "rank": null,
             "externalId": "1158",
             "spineNumber": "1158"
+          }
+        ],
+        "33438250": [
+          {
+            "source": "bangumi-top250",
+            "rank": 192,
+            "externalId": "bangumi-282433"
           }
         ],
         "33451730": [
@@ -20262,6 +21367,11 @@
             "source": "imdb-top250-tv",
             "rank": 25,
             "externalId": "tt11126994"
+          },
+          {
+            "source": "bangumi-top250",
+            "rank": 69,
+            "externalId": "bangumi-335036"
           }
         ],
         "34885342": [
@@ -20269,6 +21379,13 @@
             "source": "imdb-top250-tv",
             "rank": 135,
             "externalId": "tt11280740"
+          }
+        ],
+        "34892096": [
+          {
+            "source": "bangumi-top250",
+            "rank": 98,
+            "externalId": "bangumi-246001"
           }
         ],
         "34895145": [
@@ -20314,6 +21431,13 @@
             "source": "imdb-top250",
             "rank": 71,
             "externalId": "tt10189514"
+          }
+        ],
+        "34950968": [
+          {
+            "source": "bangumi-top250",
+            "rank": 42,
+            "externalId": "bangumi-294135"
           }
         ],
         "34951063": [
@@ -20458,6 +21582,20 @@
             "spineNumber": "1141"
           }
         ],
+        "35306636": [
+          {
+            "source": "bangumi-top250",
+            "rank": 83,
+            "externalId": "bangumi-325585"
+          }
+        ],
+        "35332568": [
+          {
+            "source": "bangumi-top250",
+            "rank": 41,
+            "externalId": "bangumi-325285"
+          }
+        ],
         "35334903": [
           {
             "source": "imdb-top250-tv",
@@ -20507,6 +21645,20 @@
             "externalId": "tt10530900"
           }
         ],
+        "35366293": [
+          {
+            "source": "bangumi-top250",
+            "rank": 71,
+            "externalId": "bangumi-328609"
+          }
+        ],
+        "35406658": [
+          {
+            "source": "bangumi-top250",
+            "rank": 214,
+            "externalId": "bangumi-290980"
+          }
+        ],
         "35438220": [
           {
             "source": "imdb-top250-tv",
@@ -20519,6 +21671,13 @@
             "source": "letterboxd-top250",
             "rank": 152,
             "externalId": "tt14849194"
+          }
+        ],
+        "35518839": [
+          {
+            "source": "bangumi-top250",
+            "rank": 188,
+            "externalId": "bangumi-296739"
           }
         ],
         "35524249": [
@@ -20545,6 +21704,13 @@
             "source": "letterboxd-top250",
             "rank": 34,
             "externalId": "tt15239678"
+          }
+        ],
+        "35587922": [
+          {
+            "source": "bangumi-top250",
+            "rank": 215,
+            "externalId": "bangumi-347887"
           }
         ],
         "35593344": [
@@ -20587,6 +21753,13 @@
             "rank": null,
             "externalId": "1218",
             "spineNumber": "1218"
+          }
+        ],
+        "35634023": [
+          {
+            "source": "bangumi-top250",
+            "rank": 142,
+            "externalId": "bangumi-353605"
           }
         ],
         "35652715": [
@@ -20785,6 +21958,11 @@
             "source": "imdb-top250-tv",
             "rank": 57,
             "externalId": "tt22248376"
+          },
+          {
+            "source": "bangumi-top250",
+            "rank": 40,
+            "externalId": "bangumi-400602"
           }
         ],
         "36188176": [
@@ -20815,6 +21993,13 @@
             "rank": null,
             "externalId": "1311",
             "spineNumber": "1311"
+          }
+        ],
+        "36440342": [
+          {
+            "source": "bangumi-top250",
+            "rank": 99,
+            "externalId": "bangumi-441795"
           }
         ],
         "36449242": [
@@ -20900,6 +22085,20 @@
             "source": "imdb-top250",
             "rank": 161,
             "externalId": "tt33175825"
+          }
+        ],
+        "37040084": [
+          {
+            "source": "bangumi-top250",
+            "rank": 170,
+            "externalId": "bangumi-512876"
+          }
+        ],
+        "37069540": [
+          {
+            "source": "bangumi-top250",
+            "rank": 37,
+            "externalId": "bangumi-518519"
           }
         ],
         "37105295": [
