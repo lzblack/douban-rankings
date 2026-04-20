@@ -14,7 +14,6 @@
         "fetch:letterboxd-top250-snapshot": "node scripts/fetch-letterboxd-top250-snapshot.mjs",
         "fetch:tspdt-1000-snapshot": "node scripts/fetch-tspdt-1000-snapshot.mjs",
         "fetch:bangumi-top250-snapshot": "node scripts/fetch-bangumi-top250-snapshot.mjs",
-        "fetch:booker-prize-snapshot": "node scripts/fetch-booker-prize-snapshot.mjs",
         "fetch:grammy-aoty-snapshot": "node scripts/fetch-grammy-aoty-snapshot.mjs"
     },
     "dependencies": {

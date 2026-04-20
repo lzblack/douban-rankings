@@ -28,7 +28,7 @@ test/sources/fixtures/                HTML / TSV 样本（若需）
 
 export default {
     id: 'your-source-id',              // 唯一，kebab-case
-    category: 'movie',                 // movie | book | music | tv | ...（v1 只 movie）
+    category: 'movie',                 // movie | music（book 已放弃，tv 并入 movie 通过 subCategory 区分）
     subCategory: 'movie',              // 同 category 下的细分
     kind: 'permanent',                 // permanent | yearly | periodic
     priority: 3,                       // UI 排序权重，小的靠前

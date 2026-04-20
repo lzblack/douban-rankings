@@ -108,10 +108,10 @@ test('groupByCategory includes only ok sources and buckets them', () => {
     const grouped = groupByCategory([
         { status: 'ok', sourceDef: { category: 'movie' } },
         { status: 'failed', sourceDef: { category: 'movie' } },
-        { status: 'ok', sourceDef: { category: 'book' } },
+        { status: 'ok', sourceDef: { category: 'music' } },
     ]);
     assert.equal(grouped.movie.length, 1);
-    assert.equal(grouped.book.length, 1);
+    assert.equal(grouped.music.length, 1);
     assert.equal(grouped.failed, undefined);
 });
 
