@@ -34,12 +34,8 @@
 import { writeFile, readFile } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { execFile } from 'node:child_process';
-import { promisify } from 'node:util';
-import * as cheerio from 'cheerio';
 import { parseList } from '../src/sources/bangumi-top250.mjs';
-
-const execFileP = promisify(execFile);
+import { fetchViaCurl, scrapeDoulistAll, normalizeForMatch, jaccardScore } from './lib/doulist.mjs';
 
 const LIST_BASE = 'https://bgm.tv/anime/browser';
 const PAGE_COUNT = 11;
@@ -51,99 +47,9 @@ const PROJECT_ROOT = dirname(dirname(fileURLToPath(import.meta.url)));
 const SNAPSHOT_PATH = join(PROJECT_ROOT, 'config', 'bangumi-top250-snapshot.json');
 
 const BGM_DELAY_MS = 1500;
-const DOUBAN_DELAY_MS = 3000;
-
-async function fetchViaCurl(url, { langHeader = 'en-US,en;q=0.9' } = {}) {
-    const { stdout } = await execFileP(
-        'curl',
-        [
-            '-sSL',
-            '--compressed',
-            '-A',
-            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
-            '-H',
-            'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-            '-H',
-            `Accept-Language: ${langHeader}`,
-            '-w',
-            '\\nHTTP_STATUS:%{http_code}',
-            url,
-        ],
-        { maxBuffer: 32 * 1024 * 1024, encoding: 'utf-8' },
-    );
-    const match = stdout.match(/\nHTTP_STATUS:(\d+)$/);
-    if (!match) throw new Error(`curl missing HTTP_STATUS for ${url}`);
-    const status = Number(match[1]);
-    const body = stdout.slice(0, stdout.length - match[0].length);
-    return { status, body };
-}
+const DOULIST_DELAY_MS = 3000;
 
 function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
-
-const CN_NUM_TO_INT = { 一: 1, 二: 2, 三: 3, 四: 4, 五: 5, 六: 6, 七: 7, 八: 8, 九: 9, 十: 10 };
-const ROMAN_LOWER_TO_INT = { 'ⅰ': 1, 'ⅱ': 2, 'ⅲ': 3, 'ⅳ': 4, 'ⅴ': 5, 'ⅵ': 6, 'ⅶ': 7, 'ⅷ': 8, 'ⅸ': 9, 'ⅹ': 10 };
-const ASCII_ROMAN_TO_INT = { ii: 2, iii: 3, iv: 4, v: 5, vi: 6, vii: 7, viii: 8, ix: 9, x: 10 };
-
-/** Normalize for fuzzy title match:
- *  1. Collapse sequel markers (第X季, Season X, II, Ⅱ, etc.) to a common
- *     token "s<N>" — otherwise "灵能百分百 第二季" (bgm.tv) and "灵能百分百
- *     II モブサイコ100 II" (doulist) share only base-title characters
- *     and miss the threshold.
- *  2. Lowercase, strip everything except CJK + ASCII alphanumerics. */
-function normalizeForMatch(s) {
-    let t = String(s).toLowerCase();
-    t = t.replace(/第([一二三四五六七八九十])季/g, (_, n) => ` s${CN_NUM_TO_INT[n]} `);
-    t = t.replace(/第(\d+)季/g, (_, n) => ` s${n} `);
-    t = t.replace(/\bseason\s*(\d+)\b/gi, (_, n) => ` s${n} `);
-    t = t.replace(/[ⅰ-ⅹ]/g, ch => ` s${ROMAN_LOWER_TO_INT[ch] ?? ''} `);
-    t = t.replace(/\b(iii|ii|iv|viii|vii|vi|v|ix|x)\b/g, (_, r) => ` s${ASCII_ROMAN_TO_INT[r] ?? ''} `);
-    return t.replace(/[^\p{Script=Han}\p{Script=Hiragana}\p{Script=Katakana}a-z0-9 ]/gu, '').replace(/\s+/g, '');
-}
-
-/** Character-level Jaccard similarity — how much of the two titles'
- *  normalized character sets overlap. Robust to word reordering and
- *  punctuation, which matters for Japanese-Chinese mixed titles. */
-function jaccardScore(a, b) {
-    const sa = new Set(normalizeForMatch(a));
-    const sb = new Set(normalizeForMatch(b));
-    if (sa.size === 0 || sb.size === 0) return 0;
-    let inter = 0;
-    for (const ch of sa) if (sb.has(ch)) inter++;
-    return inter / (sa.size + sb.size - inter);
-}
-
-async function scrapeDoulistAll(doulistId) {
-    const entries = [];
-    let start = 0;
-    while (true) {
-        const url = `https://www.douban.com/doulist/${doulistId}/?start=${start}`;
-        process.stdout.write(`  doulist page start=${start}… `);
-        const res = await fetchViaCurl(url);
-        if (res.status !== 200) {
-            throw new Error(`doulist ${doulistId} HTTP ${res.status} at start=${start}`);
-        }
-        const $ = cheerio.load(res.body);
-        const items = $('.doulist-item').toArray();
-        console.log(`${items.length} items`);
-        if (items.length === 0) break;
-        for (const el of items) {
-            const $el = $(el);
-            const href = $el.find('.title a').attr('href') || '';
-            const m = href.match(/subject\/(\d+)/);
-            if (!m) continue;
-            const dbid = m[1];
-            const title = $el.find('.title a').text().trim();
-            const abstract = $el.find('.abstract').text().replace(/\s+/g, ' ').trim();
-            const yearMatch = abstract.match(/年份[:：]\s*(\d{4})/);
-            const year = yearMatch ? yearMatch[1] : null;
-            if (title && dbid) entries.push({ dbid, title, abstract, year });
-        }
-        if (items.length < 25) break;
-        start += 25;
-        await sleep(DOUBAN_DELAY_MS);
-    }
-    return entries;
-}
 
 function buildYearIndex(doulistEntries) {
     const map = new Map();
@@ -173,11 +79,11 @@ function resolveByTitle(bgmEntry, yearIndex) {
         if (substr) return { entry: substr, method: 'year + substring' };
     }
 
-    // Pass 2: year exact + best Jaccard ≥ 0.45.
+    // Pass 2: year exact + best Jaccard ≥ 0.45 on normalized char sets.
     const sameYear = yearIndex.get(String(year)) ?? [];
     let best = null;
     for (const c of sameYear) {
-        const score = jaccardScore(title, c.title);
+        const score = jaccardScore(normalizeForMatch(title), normalizeForMatch(c.title));
         if (score >= 0.45 && (!best || score > best.score)) best = { entry: c, score };
     }
     if (best) return { entry: best.entry, method: `year + jaccard=${best.score.toFixed(2)}` };
@@ -214,7 +120,7 @@ async function main() {
     for (let page = 1; page <= PAGE_COUNT; page++) {
         const url = `${LIST_BASE}?sort=rank&page=${page}`;
         console.log(`[bgm] page ${page}`);
-        const res = await fetchViaCurl(url, { langHeader: 'zh-CN,zh;q=0.9,en;q=0.8' });
+        const res = await fetchViaCurl(url, { acceptLanguage: 'zh-CN,zh;q=0.9,en;q=0.8' });
         if (res.status !== 200) {
             console.error(`bgm page ${page} HTTP ${res.status}`);
             process.exit(1);
@@ -226,9 +132,18 @@ async function main() {
     const entries = scraped.slice(0, TOP_N);
     console.log(`Scraped ${entries.length} bgm.tv entries`);
 
-    // Phase 2: scrape doulist
+    // Phase 2: scrape doulist. The shared helper extracts year from 评语;
+    // Bangumi's doulist puts rank info there and the production year in
+    // .abstract (`年份: YYYY`), so override.
     console.log(`\nScraping doulist ${DOULIST_ID}…`);
-    const doulistEntries = await scrapeDoulistAll(DOULIST_ID);
+    const rawEntries = await scrapeDoulistAll(DOULIST_ID, {
+        delayMs: DOULIST_DELAY_MS,
+        onPage: ({ start, count }) => console.log(`  doulist page start=${start}… ${count} items`),
+    });
+    const doulistEntries = rawEntries.map(e => {
+        const m = e.abstract.match(/年份[:：]\s*(\d{4})/);
+        return { ...e, year: m ? m[1] : null };
+    });
     console.log(`Collected ${doulistEntries.length} doulist entries (${doulistEntries.filter(e => e.year).length} with year)`);
     const yearIndex = buildYearIndex(doulistEntries);
 

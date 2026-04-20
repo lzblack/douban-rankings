@@ -29,99 +29,14 @@
 import { writeFile, readFile } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { execFile } from 'node:child_process';
-import { promisify } from 'node:util';
-import * as cheerio from 'cheerio';
 import { parseList, CRITERION_LIST_URL } from '../src/sources/criterion.mjs';
-
-const execFileP = promisify(execFile);
+import { fetchViaCurl, scrapeDoulistAll, normalizeForMatch } from './lib/doulist.mjs';
 
 const PROJECT_ROOT = dirname(dirname(fileURLToPath(import.meta.url)));
 const SNAPSHOT_PATH = join(PROJECT_ROOT, 'config', 'criterion-snapshot.json');
 
 const DOULIST_ID = '123607960';
 const DOULIST_DELAY_MS = 2500;
-
-function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
-
-const CN_NUM_TO_INT = { 一: 1, 二: 2, 三: 3, 四: 4, 五: 5, 六: 6, 七: 7, 八: 8, 九: 9, 十: 10 };
-const ROMAN_LOWER_TO_INT = { 'ⅰ': 1, 'ⅱ': 2, 'ⅲ': 3, 'ⅳ': 4, 'ⅴ': 5, 'ⅵ': 6, 'ⅶ': 7, 'ⅷ': 8, 'ⅸ': 9, 'ⅹ': 10 };
-const ASCII_ROMAN_TO_INT = { ii: 2, iii: 3, iv: 4, v: 5, vi: 6, vii: 7, viii: 8, ix: 9, x: 10 };
-
-/** Normalize for fuzzy title match (shared shape with bangumi fetcher;
- *  see that script for rationale). */
-function normalizeForMatch(s) {
-    let t = String(s).toLowerCase();
-    t = t.replace(/第([一二三四五六七八九十])季/g, (_, n) => ` s${CN_NUM_TO_INT[n]} `);
-    t = t.replace(/第(\d+)季/g, (_, n) => ` s${n} `);
-    t = t.replace(/\bseason\s*(\d+)\b/gi, (_, n) => ` s${n} `);
-    t = t.replace(/[ⅰ-ⅹ]/g, ch => ` s${ROMAN_LOWER_TO_INT[ch] ?? ''} `);
-    t = t.replace(/\b(iii|ii|iv|viii|vii|vi|v|ix|x)\b/g, (_, r) => ` s${ASCII_ROMAN_TO_INT[r] ?? ''} `);
-    return t.replace(/[^\p{Script=Han}\p{Script=Hiragana}\p{Script=Katakana}a-z0-9 ]/gu, '').replace(/\s+/g, '');
-}
-
-// Criterion's edge filter rejects requests whose TLS fingerprint isn't a
-// real browser's — Node's undici fetch has a distinct JA3 and gets 403
-// even on residential IPs. Shelling out to the system curl (same binary
-// that returns 200 in a terminal) sidesteps fingerprinting entirely.
-async function fetchViaCurl(url) {
-    const { stdout } = await execFileP(
-        'curl',
-        [
-            '-sSL',
-            '--compressed',
-            '-A',
-            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
-            '-H', 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-            '-H', 'Accept-Language: en-US,en;q=0.9',
-            '-w', '\\nHTTP_STATUS:%{http_code}',
-            url,
-        ],
-        {
-            maxBuffer: 64 * 1024 * 1024, // 64MB — Criterion page is ~1.5MB
-            encoding: 'utf-8',
-        },
-    );
-    const match = stdout.match(/\nHTTP_STATUS:(\d+)$/);
-    if (!match) {
-        throw new Error('curl output missing HTTP_STATUS marker');
-    }
-    const status = Number(match[1]);
-    const body = stdout.slice(0, stdout.length - match[0].length);
-    return { status, body };
-}
-
-async function scrapeDoulistAll(doulistId) {
-    const entries = [];
-    let start = 0;
-    while (true) {
-        const url = `https://www.douban.com/doulist/${doulistId}/?start=${start}`;
-        process.stdout.write(`  doulist page start=${start}… `);
-        const res = await fetchViaCurl(url);
-        if (res.status !== 200) {
-            throw new Error(`doulist ${doulistId} HTTP ${res.status} at start=${start}`);
-        }
-        const $ = cheerio.load(res.body);
-        const items = $('.doulist-item').toArray();
-        console.log(`${items.length} items`);
-        if (items.length === 0) break;
-        for (const el of items) {
-            const $el = $(el);
-            const href = $el.find('.title a').attr('href') || '';
-            const m = href.match(/subject\/(\d+)/);
-            if (!m) continue;
-            const dbid = m[1];
-            const title = $el.find('.title a').text().trim();
-            const abstract = $el.find('.abstract').text().replace(/\s+/g, ' ').trim();
-            const yearMatch = abstract.match(/年份[:：]\s*(\d{4})/);
-            const year = yearMatch ? yearMatch[1] : null;
-            if (title && dbid) entries.push({ dbid, title, year });
-        }
-        start += 25;
-        await sleep(DOULIST_DELAY_MS);
-    }
-    return entries;
-}
 
 function buildYearIndex(doulistEntries) {
     const map = new Map();
@@ -194,7 +109,16 @@ async function main() {
     }
 
     console.log(`\nScraping doulist ${DOULIST_ID} (this takes ~3 min)…`);
-    const doulistEntries = await scrapeDoulistAll(DOULIST_ID);
+    const rawEntries = await scrapeDoulistAll(DOULIST_ID, {
+        delayMs: DOULIST_DELAY_MS,
+        onPage: ({ start, count }) => console.log(`  doulist page start=${start}… ${count} items`),
+    });
+    // The shared helper pulls year from 评语; CC doulist has year in
+    // `年份: YYYY` inside .abstract instead. Override.
+    const doulistEntries = rawEntries.map(e => {
+        const m = e.abstract.match(/年份[:：]\s*(\d{4})/);
+        return { ...e, year: m ? m[1] : null };
+    });
     console.log(`Collected ${doulistEntries.length} doulist entries (${doulistEntries.filter(e => e.year).length} with year)`);
     const yearIndex = buildYearIndex(doulistEntries);
 

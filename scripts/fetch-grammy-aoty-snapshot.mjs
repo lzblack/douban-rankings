@@ -28,81 +28,18 @@
 import { writeFile, readFile } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { execFile } from 'node:child_process';
-import { promisify } from 'node:util';
 import * as cheerio from 'cheerio';
 import { parseList, GRAMMY_AOTY_LIST_URL } from '../src/sources/grammy-aoty.mjs';
-
-const execFileP = promisify(execFile);
+import { fetchViaCurl, scrapeDoulistAll } from './lib/doulist.mjs';
 
 const PROJECT_ROOT = dirname(dirname(fileURLToPath(import.meta.url)));
 const SNAPSHOT_PATH = join(PROJECT_ROOT, 'config', 'grammy-aoty-snapshot.json');
 
 const DOULIST_ID = '12039871';
 const SUBJECT_DOMAIN = 'music.douban.com';
-const DOUBAN_DELAY_MS = 3000;
-
-async function fetchViaCurl(url) {
-    const { stdout } = await execFileP(
-        'curl',
-        [
-            '-sSL',
-            '--compressed',
-            '-A',
-            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
-            '-H',
-            'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-            '-H',
-            'Accept-Language: en-US,en;q=0.9',
-            '-w',
-            '\\nHTTP_STATUS:%{http_code}',
-            url,
-        ],
-        { maxBuffer: 16 * 1024 * 1024, encoding: 'utf-8' },
-    );
-    const match = stdout.match(/\nHTTP_STATUS:(\d+)$/);
-    if (!match) throw new Error(`curl missing HTTP_STATUS for ${url}`);
-    const status = Number(match[1]);
-    const body = stdout.slice(0, stdout.length - match[0].length);
-    return { status, body };
-}
+const DOULIST_DELAY_MS = 3000;
 
 function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
-
-async function scrapeDoulist(doulistId) {
-    const entries = [];
-    let start = 0;
-    while (true) {
-        const url = `https://www.douban.com/doulist/${doulistId}/?start=${start}`;
-        process.stdout.write(`  doulist page start=${start}… `);
-        const res = await fetchViaCurl(url);
-        if (res.status !== 200) {
-            throw new Error(`doulist ${doulistId} HTTP ${res.status} at start=${start}`);
-        }
-        const $ = cheerio.load(res.body);
-        const items = $('.doulist-item').toArray();
-        console.log(`${items.length} items`);
-        if (items.length === 0) break;
-        for (const el of items) {
-            const $el = $(el);
-            const href = $el.find('.title a').attr('href') || '';
-            const m = href.match(/subject\/(\d+)/);
-            if (!m) continue;
-            const dbid = m[1];
-            const title = $el.find('.title a').text().trim();
-            const abstract = $el.find('.abstract').text().replace(/\s+/g, ' ').trim();
-            const comment = $el.find('.ft blockquote.comment').text().replace(/\s+/g, ' ').trim();
-            // Award year = first 4-digit year in 评语.
-            const yearMatch = comment.match(/(\d{4})/);
-            const year = yearMatch ? yearMatch[1] : null;
-            if (title && dbid) entries.push({ dbid, title, abstract, comment, year });
-        }
-        if (items.length < 25) break;
-        start += 25;
-        await sleep(DOUBAN_DELAY_MS);
-    }
-    return entries;
-}
 
 async function fetchOriginalTitle(dbid) {
     const url = `https://${SUBJECT_DOMAIN}/subject/${dbid}/`;
@@ -143,7 +80,10 @@ async function main() {
     console.log(`Parsed ${entries.length} winners from Wikipedia`);
 
     console.log(`\nScraping doulist ${DOULIST_ID}…`);
-    const doulistEntries = await scrapeDoulist(DOULIST_ID);
+    const doulistEntries = await scrapeDoulistAll(DOULIST_ID, {
+        delayMs: DOULIST_DELAY_MS,
+        onPage: ({ start, count }) => console.log(`  doulist page start=${start}… ${count} items`),
+    });
     console.log(`Collected ${doulistEntries.length} doulist entries`);
 
     const yearMap = new Map();
@@ -237,7 +177,7 @@ async function main() {
             } else {
                 console.log('no alt-title field');
             }
-            if (i + 1 < dbidList.length) await sleep(DOUBAN_DELAY_MS);
+            if (i + 1 < dbidList.length) await sleep(DOULIST_DELAY_MS);
         }
         for (const a of ambiguous) {
             const titleLower = a.entry.title.toLowerCase();
