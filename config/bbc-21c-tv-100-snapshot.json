@@ -1,0 +1,591 @@
+{
+  "generatedAt": "2026-04-20T01:36:59.858Z",
+  "source": "https://www.bbc.com/culture/article/20210827-the-21st-centurys-100-greatest-tv-series",
+  "doulistSource": "https://www.douban.com/doulist/146136295/",
+  "count": 97,
+  "resolvedCount": 97,
+  "items": [
+    {
+      "externalId": "bbc-21c-tv-1",
+      "rank": 1,
+      "title": "火线 第一季 The Wire Season 1",
+      "doubanId": "1418199"
+    },
+    {
+      "externalId": "bbc-21c-tv-2",
+      "rank": 2,
+      "title": "广告狂人 第一季 Mad Men Season 1",
+      "doubanId": "2149047"
+    },
+    {
+      "externalId": "bbc-21c-tv-3",
+      "rank": 3,
+      "title": "绝命毒师 第一季 Breaking Bad Season 1",
+      "doubanId": "2373195"
+    },
+    {
+      "externalId": "bbc-21c-tv-4",
+      "rank": 4,
+      "title": "伦敦生活 第一季 Fleabag Season 1",
+      "doubanId": "26838164"
+    },
+    {
+      "externalId": "bbc-21c-tv-5",
+      "rank": 5,
+      "title": "权力的游戏 第一季 Game of Thrones Season 1",
+      "doubanId": "3016187"
+    },
+    {
+      "externalId": "bbc-21c-tv-6",
+      "rank": 6,
+      "title": "我可以毁掉你 I May Destroy You",
+      "doubanId": "34919073"
+    },
+    {
+      "externalId": "bbc-21c-tv-7",
+      "rank": 7,
+      "title": "守望尘世 第一季 The Leftovers Season 1",
+      "doubanId": "23774557"
+    },
+    {
+      "externalId": "bbc-21c-tv-8",
+      "rank": 8,
+      "title": "美国谍梦 第一季 The Americans Season 1",
+      "doubanId": "10539218"
+    },
+    {
+      "externalId": "bbc-21c-tv-9",
+      "rank": 9,
+      "title": "办公室笑云 第一季 The Office Season 1",
+      "doubanId": "1428333"
+    },
+    {
+      "externalId": "bbc-21c-tv-10",
+      "rank": 10,
+      "title": "继承之战 第一季 Succession Season 1",
+      "doubanId": "26813224"
+    },
+    {
+      "externalId": "bbc-21c-tv-11",
+      "rank": 11,
+      "title": "马男波杰克 第一季 BoJack Horseman Season 1",
+      "doubanId": "25900177"
+    },
+    {
+      "externalId": "bbc-21c-tv-12",
+      "rank": 12,
+      "title": "六尺之下 第一季 Six Feet Under Season 1",
+      "doubanId": "1353727"
+    },
+    {
+      "externalId": "bbc-21c-tv-13",
+      "rank": 13,
+      "title": "双峰 第三季 Twin Peaks Season 3",
+      "doubanId": "26088510"
+    },
+    {
+      "externalId": "bbc-21c-tv-14",
+      "rank": 14,
+      "title": "亚特兰大 第一季 Atlanta Season 1",
+      "doubanId": "26417192"
+    },
+    {
+      "externalId": "bbc-21c-tv-16",
+      "rank": 16,
+      "title": "王冠 第一季 The Crown Season 1",
+      "doubanId": "26427152"
+    },
+    {
+      "externalId": "bbc-21c-tv-17",
+      "rank": 17,
+      "title": "我为喜剧狂 第一季 30 Rock Season 1",
+      "doubanId": "1899487"
+    },
+    {
+      "externalId": "bbc-21c-tv-18",
+      "rank": 18,
+      "title": "朽木 第一季 Deadwood Season 1",
+      "doubanId": "1395440"
+    },
+    {
+      "externalId": "bbc-21c-tv-19",
+      "rank": 19,
+      "title": "迷失 第一季 Lost Season 1",
+      "doubanId": "1394819"
+    },
+    {
+      "externalId": "bbc-21c-tv-20",
+      "rank": 20,
+      "title": "幕后危机 第一季 The Thick of It Season 1",
+      "doubanId": "2267424"
+    },
+    {
+      "externalId": "bbc-21c-tv-21",
+      "rank": 21,
+      "title": "消消气 第一季 Curb Your Enthusiasm Season 1",
+      "doubanId": "1428366"
+    },
+    {
+      "externalId": "bbc-21c-tv-22",
+      "rank": 22,
+      "title": "黑镜 第一季 Black Mirror Season 1",
+      "doubanId": "7054120"
+    },
+    {
+      "externalId": "bbc-21c-tv-23",
+      "rank": 23,
+      "title": "风骚律师 第一季 Better Call Saul Season 1",
+      "doubanId": "25726259"
+    },
+    {
+      "externalId": "bbc-21c-tv-24",
+      "rank": 24,
+      "title": "副总统 第一季 Veep Season 1",
+      "doubanId": "5379824"
+    },
+    {
+      "externalId": "bbc-21c-tv-25",
+      "rank": 25,
+      "title": "神探夏洛克 第一季 Sherlock Season 1",
+      "doubanId": "3986493"
+    },
+    {
+      "externalId": "bbc-21c-tv-26",
+      "rank": 26,
+      "title": "守望者 Watchmen",
+      "doubanId": "26635374"
+    },
+    {
+      "externalId": "bbc-21c-tv-27",
+      "rank": 27,
+      "title": "重任在肩 第一季 Line of Duty Season 1",
+      "doubanId": "10829031"
+    },
+    {
+      "externalId": "bbc-21c-tv-28",
+      "rank": 28,
+      "title": "胜利之光 第一季 Friday Night Lights Season 1",
+      "doubanId": "1899120"
+    },
+    {
+      "externalId": "bbc-21c-tv-29",
+      "rank": 29,
+      "title": "公园与游憩 第一季 Parks and Recreation Season 1",
+      "doubanId": "3419246"
+    },
+    {
+      "externalId": "bbc-21c-tv-30",
+      "rank": 30,
+      "title": "都市女孩 第一季 Girls Season 1",
+      "doubanId": "5998128"
+    },
+    {
+      "externalId": "bbc-21c-tv-31",
+      "rank": 31,
+      "title": "真探 第一季 True Detective Season 1",
+      "doubanId": "10748120"
+    },
+    {
+      "externalId": "bbc-21c-tv-32",
+      "rank": 32,
+      "title": "发展受阻 第一季 Arrested Development Season 1",
+      "doubanId": "1472988"
+    },
+    {
+      "externalId": "bbc-21c-tv-33",
+      "rank": 33,
+      "title": "傲骨贤妻 第一季 The Good Wife Season 1",
+      "doubanId": "3754368"
+    },
+    {
+      "externalId": "bbc-21c-tv-34",
+      "rank": 34,
+      "title": "桥 第一季 Bron - Säsong 1",
+      "doubanId": "7000220"
+    },
+    {
+      "externalId": "bbc-21c-tv-35",
+      "rank": 35,
+      "title": "冰血暴 第一季 Fargo Season 1",
+      "doubanId": "24297912"
+    },
+    {
+      "externalId": "bbc-21c-tv-36",
+      "rank": 36,
+      "title": "唐顿庄园  第一季 Downton Abbey Season 1",
+      "doubanId": "4769314"
+    },
+    {
+      "externalId": "bbc-21c-tv-37",
+      "rank": 37,
+      "title": "兄弟连 Band of Brothers",
+      "doubanId": "1307847"
+    },
+    {
+      "externalId": "bbc-21c-tv-38",
+      "rank": 38,
+      "title": "使女的故事 第一季 The Handmaid's Tale Season 1",
+      "doubanId": "26784967"
+    },
+    {
+      "externalId": "bbc-21c-tv-39",
+      "rank": 39,
+      "title": "办公室 第一季 The Office Season 1",
+      "doubanId": "10529476"
+    },
+    {
+      "externalId": "bbc-21c-tv-40",
+      "rank": 40,
+      "title": "权力的堡垒 第一季 Borgen Sæson 1",
+      "doubanId": "4082095"
+    },
+    {
+      "externalId": "bbc-21c-tv-41",
+      "rank": 41,
+      "title": "富家穷路 第一季 Schitt's Creek Season 1",
+      "doubanId": "25840539"
+    },
+    {
+      "externalId": "bbc-21c-tv-42",
+      "rank": 42,
+      "title": "窥视秀 第一季 Peep Show Season 1",
+      "doubanId": "2111535"
+    },
+    {
+      "externalId": "bbc-21c-tv-43",
+      "rank": 43,
+      "title": "纸钞屋 第一季 La casa de papel Season 1",
+      "doubanId": "27185036"
+    },
+    {
+      "externalId": "bbc-21c-tv-44",
+      "rank": 44,
+      "title": "废柴联盟 第一季 Community Season 1",
+      "doubanId": "3741764"
+    },
+    {
+      "externalId": "bbc-21c-tv-46",
+      "rank": 46,
+      "title": "国土安全  第一季 Homeland Season 1",
+      "doubanId": "5413527"
+    },
+    {
+      "externalId": "bbc-21c-tv-47",
+      "rank": 47,
+      "title": "实习医生格蕾 第一季 Grey's Anatomy Season 1",
+      "doubanId": "1395471"
+    },
+    {
+      "externalId": "bbc-21c-tv-48",
+      "rank": 48,
+      "title": "9号秘事 第一季 Inside No. 9 Season 1",
+      "doubanId": "20452350"
+    },
+    {
+      "externalId": "bbc-21c-tv-49",
+      "rank": 49,
+      "title": "传奇办公室 第一季 Le Bureau des Légendes Season 1",
+      "doubanId": "26379912"
+    },
+    {
+      "externalId": "bbc-21c-tv-50",
+      "rank": 50,
+      "title": "奔腾年代 第一季 Halt and Catch Fire Season 1",
+      "doubanId": "21371686"
+    },
+    {
+      "externalId": "bbc-21c-tv-51",
+      "rank": 51,
+      "title": "小斧子 Small Axe",
+      "doubanId": "30447884"
+    },
+    {
+      "externalId": "bbc-21c-tv-52",
+      "rank": 52,
+      "title": "英伦86 This Is England '86",
+      "doubanId": "5279666"
+    },
+    {
+      "externalId": "bbc-21c-tv-53",
+      "rank": 53,
+      "title": "百分之十 第一季 Dix pour cent Season 1",
+      "doubanId": "26638338"
+    },
+    {
+      "externalId": "bbc-21c-tv-54",
+      "rank": 54,
+      "title": "幸福谷 第一季 Happy Valley Season 1",
+      "doubanId": "25872158"
+    },
+    {
+      "externalId": "bbc-21c-tv-55",
+      "rank": 55,
+      "title": "盾牌 第一季 The Shield Season 1",
+      "doubanId": "1417487"
+    },
+    {
+      "externalId": "bbc-21c-tv-56",
+      "rank": 56,
+      "title": "生活大爆炸  第一季 The Big Bang Theory Season 1",
+      "doubanId": "2156528"
+    },
+    {
+      "externalId": "bbc-21c-tv-57",
+      "rank": 57,
+      "title": "年轻的教宗 The Young Pope",
+      "doubanId": "25884125"
+    },
+    {
+      "externalId": "bbc-21c-tv-58",
+      "rank": 58,
+      "title": "暗黑 第一季 Dark Season 1",
+      "doubanId": "26992330"
+    },
+    {
+      "externalId": "bbc-21c-tv-59",
+      "rank": 59,
+      "title": "地下铁道 The Underground Railroad",
+      "doubanId": "26876532"
+    },
+    {
+      "externalId": "bbc-21c-tv-60",
+      "rank": 60,
+      "title": "纸牌屋 第一季 House of Cards Season 1",
+      "doubanId": "6037429"
+    },
+    {
+      "externalId": "bbc-21c-tv-61",
+      "rank": 61,
+      "title": "降世神通 第一季 Avatar: The Last Airbender Season 1",
+      "doubanId": "1938084"
+    },
+    {
+      "externalId": "bbc-21c-tv-62",
+      "rank": 62,
+      "title": "善地 第一季 The Good Place Season 1",
+      "doubanId": "26591485"
+    },
+    {
+      "externalId": "bbc-21c-tv-63",
+      "rank": 63,
+      "title": "姿态 第一季 Pose Season 1",
+      "doubanId": "26997983"
+    },
+    {
+      "externalId": "bbc-21c-tv-64",
+      "rank": 64,
+      "title": "寻宝搭档 第一季 Detectorists Season 1",
+      "doubanId": "26067960"
+    },
+    {
+      "externalId": "bbc-21c-tv-65",
+      "rank": 65,
+      "title": "女子监狱 第一季 Orange Is the New Black Season 1",
+      "doubanId": "20506276"
+    },
+    {
+      "externalId": "bbc-21c-tv-66",
+      "rank": 66,
+      "title": "东城梦魇 第一季 Mare of Easttown Season 1",
+      "doubanId": "30441731"
+    },
+    {
+      "externalId": "bbc-21c-tv-67",
+      "rank": 67,
+      "title": "鲁保罗变装皇后秀 第一季 RuPaul's Drag Race Season 1",
+      "doubanId": "11498228"
+    },
+    {
+      "externalId": "bbc-21c-tv-68",
+      "rank": 68,
+      "title": "怪奇物语 第一季 Stranger Things Season 1",
+      "doubanId": "26359270"
+    },
+    {
+      "externalId": "bbc-21c-tv-69",
+      "rank": 69,
+      "title": "24小时  第一季 24 Season 1",
+      "doubanId": "1298854"
+    },
+    {
+      "externalId": "bbc-21c-tv-70",
+      "rank": 70,
+      "title": "太空堡垒卡拉狄加  第一季 Battlestar Galactica Season 1",
+      "doubanId": "3581476"
+    },
+    {
+      "externalId": "bbc-21c-tv-71",
+      "rank": 71,
+      "title": "醍醐灌顶 第一季 Enlightened Season 1",
+      "doubanId": "4745365"
+    },
+    {
+      "externalId": "bbc-21c-tv-72",
+      "rank": 72,
+      "title": "吉尔莫女孩 第一季 Gilmore Girls Season 1",
+      "doubanId": "1418746"
+    },
+    {
+      "externalId": "bbc-21c-tv-73",
+      "rank": 73,
+      "title": "地球脉动 第一季 Planet Earth Season 1",
+      "doubanId": "1871906"
+    },
+    {
+      "externalId": "bbc-21c-tv-74",
+      "rank": 74,
+      "title": "乌托邦 第一季 Utopia Season 1",
+      "doubanId": "20507018"
+    },
+    {
+      "externalId": "bbc-21c-tv-75",
+      "rank": 75,
+      "title": "巴比伦柏林 第一季 Babylon Berlin Season 1",
+      "doubanId": "26389403"
+    },
+    {
+      "externalId": "bbc-21c-tv-76",
+      "rank": 76,
+      "title": "瑞克和莫蒂 第一季 Rick and Morty Season 1",
+      "doubanId": "11537954"
+    },
+    {
+      "externalId": "bbc-21c-tv-77",
+      "rank": 77,
+      "title": "美国犯罪故事 第一季 American Crime Story Season 1",
+      "doubanId": "26101233"
+    },
+    {
+      "externalId": "bbc-21c-tv-78",
+      "rank": 78,
+      "title": "丹麦版谋杀 第一季 Forbrydelsen Sæson 1",
+      "doubanId": "5203869"
+    },
+    {
+      "externalId": "bbc-21c-tv-79",
+      "rank": 79,
+      "title": "心灵猎人 第一季 Mindhunter Season 1",
+      "doubanId": "26691486"
+    },
+    {
+      "externalId": "bbc-21c-tv-80",
+      "rank": 80,
+      "title": "豪斯医生 第一季 House M.D. Season 1",
+      "doubanId": "1442129"
+    },
+    {
+      "externalId": "bbc-21c-tv-81",
+      "rank": 81,
+      "title": "辛普森：美国制造 O.J.: Made in America",
+      "doubanId": "26681664"
+    },
+    {
+      "externalId": "bbc-21c-tv-82",
+      "rank": 82,
+      "title": "大小谎言 第一季 Big Little Lies Season 1",
+      "doubanId": "25953429"
+    },
+    {
+      "externalId": "bbc-21c-tv-83",
+      "rank": 83,
+      "title": "不安感 第一季 Insecure Season 1",
+      "doubanId": "26643163"
+    },
+    {
+      "externalId": "bbc-21c-tv-84",
+      "rank": 84,
+      "title": "正常人 Normal People",
+      "doubanId": "33477335"
+    },
+    {
+      "externalId": "bbc-21c-tv-85",
+      "rank": 85,
+      "title": "毒枭 第一季 Narcos Season 1",
+      "doubanId": "25850640"
+    },
+    {
+      "externalId": "bbc-21c-tv-86",
+      "rank": 86,
+      "title": "老爸老妈的浪漫史 第一季 How I Met Your Mother Season 1",
+      "doubanId": "1427818"
+    },
+    {
+      "externalId": "bbc-21c-tv-87",
+      "rank": 87,
+      "title": "归来记 第一季 The Comeback Season 1",
+      "doubanId": "2152811"
+    },
+    {
+      "externalId": "bbc-21c-tv-88",
+      "rank": 88,
+      "title": "先见之明 第一季 The OA Season 1",
+      "doubanId": "26727307"
+    },
+    {
+      "externalId": "bbc-21c-tv-90",
+      "rank": 90,
+      "title": "费城永远阳光灿烂 第一季 It's Always Sunny in Philadelphia Season 1",
+      "doubanId": "1902947"
+    },
+    {
+      "externalId": "bbc-21c-tv-91",
+      "rank": 91,
+      "title": "西部世界 第一季 Westworld Season 1",
+      "doubanId": "2338055"
+    },
+    {
+      "externalId": "bbc-21c-tv-92",
+      "rank": 92,
+      "title": "黑色乌托邦 Show Me a Hero",
+      "doubanId": "25971000"
+    },
+    {
+      "externalId": "bbc-21c-tv-93",
+      "rank": 93,
+      "title": "忧愁河上桥 第一季 Treme Season 1",
+      "doubanId": "3236431"
+    },
+    {
+      "externalId": "bbc-21c-tv-94",
+      "rank": 94,
+      "title": "路易不容易 第一季 Louie Season 1",
+      "doubanId": "4023396"
+    },
+    {
+      "externalId": "bbc-21c-tv-95",
+      "rank": 95,
+      "title": "路德 第一季 Luther Season 1",
+      "doubanId": "3871785"
+    },
+    {
+      "externalId": "bbc-21c-tv-96",
+      "rank": 96,
+      "title": "大祸临头 第一季 Catastrophe Season 1",
+      "doubanId": "26313277"
+    },
+    {
+      "externalId": "bbc-21c-tv-97",
+      "rank": 97,
+      "title": "汉尼拔 第一季 Hannibal Season 1",
+      "doubanId": "10539856"
+    },
+    {
+      "externalId": "bbc-21c-tv-98",
+      "rank": 98,
+      "title": "疯狂前女友 第一季 Crazy Ex-Girlfriend Season 1",
+      "doubanId": "26384946"
+    },
+    {
+      "externalId": "bbc-21c-tv-99",
+      "rank": 99,
+      "title": "宇宙小子 第一季 Steven Universe Season 1",
+      "doubanId": "25741912"
+    },
+    {
+      "externalId": "bbc-21c-tv-100",
+      "rank": 100,
+      "title": "后翼弃兵 The Queen's Gambit",
+      "doubanId": "32579283"
+    }
+  ]
+}
