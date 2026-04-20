@@ -100,11 +100,18 @@ export default {
     async matchItem(raw, http, ctx = {}) {
         const cached = ctx.prevResolved?.get('criterion')?.get(raw.externalId);
         if (Array.isArray(cached) && cached.length) return cached;
-        return matchTitleYearToDouban(
+        const matched = await matchTitleYearToDouban(
             { title: raw.title, year: raw.year },
             http,
             { skipSearchFallback: true },
         );
+        if (matched.length > 0) return matched;
+        // Final fallback: the curator-picked dbid from the Douban CC doulist
+        // (pre-resolved by `scripts/fetch-criterion-snapshot.mjs`). This only
+        // kicks in for entries the manual/IMDB/PtGen layers can't resolve,
+        // so it strictly expands coverage without reshuffling prior mappings.
+        if (raw.doubanId) return [String(raw.doubanId)];
+        return [];
     },
 };
 
