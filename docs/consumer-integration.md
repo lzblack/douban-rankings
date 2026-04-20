@@ -16,7 +16,7 @@
 | `https://rank.douban.zhili.dev/movie.json` | 电影品类完整反向索引 | 页面 match `movie.douban.com/subject/*` 时 |
 | `https://rank.douban.zhili.dev/health.json` | 抓取健康状态 | 仅做监控时可选 |
 
-v1 只有 `movie.json`；未来会有 `book.json` / `tv.json` / `music.json` 等，**通过 manifest 发现**，consumer 无需硬编码品类列表。
+当前有 `movie.json`（含电影和 TV，靠 `subCategory` 区分）和 `music.json`。未来可能新增其他品类，**通过 manifest 发现**，consumer 无需硬编码品类列表。
 
 ---
 
@@ -233,7 +233,7 @@ function insertRankLabel({ text, href, sourceId, kind }) {
 1. **只有 1 个 source**（`imdb-top250`）。consumer 代码应**遍历 `sources`**，不 hardcode source id。
 2. **250 条里漏 1 条**：workflow 最新一次跑出 249/250（PRD §9.1 成功标准要求 ≥240）。个别条目在 movie.json 里不存在，属正常边界。
 3. **更新频率月级**：如果你手工发现数据过期（比如 IMDb 新片上榜），可在本 repo Actions 里手动 `workflow_dispatch` 触发一次。
-4. **schema 演进**：`book.json` / `tv.json` 等未来会加；userscript 通过 manifest 自动发现。
+4. **schema 演进**：未来可能新增品类文件；userscript 通过 manifest 自动发现。
 
 ---
 
