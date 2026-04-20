@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-04-20T00:44:14.114Z",
+  "generatedAt": "2026-04-20T01:02:10.785Z",
   "categories": {
     "music": {
       "sources": {
@@ -11,12 +11,446 @@
           "kind": "yearly",
           "subCategory": "album",
           "priority": 1,
-          "updatedAt": "2026-04-20T00:44:14.113Z",
-          "itemCount": 5
+          "updatedAt": "2026-04-20T01:02:10.785Z",
+          "itemCount": 67
         }
       },
       "items": {
-        "35323025": [
+        "1394625": [
+          {
+            "source": "grammy-aoty",
+            "rank": null,
+            "externalId": "grammy-aoty-1996"
+          }
+        ],
+        "1394665": [
+          {
+            "source": "grammy-aoty",
+            "rank": null,
+            "externalId": "grammy-aoty-1968"
+          }
+        ],
+        "1394747": [
+          {
+            "source": "grammy-aoty",
+            "rank": null,
+            "externalId": "grammy-aoty-2003"
+          }
+        ],
+        "1394846": [
+          {
+            "source": "grammy-aoty",
+            "rank": null,
+            "externalId": "grammy-aoty-1965"
+          }
+        ],
+        "1395306": [
+          {
+            "source": "grammy-aoty",
+            "rank": null,
+            "externalId": "grammy-aoty-2006"
+          }
+        ],
+        "1395444": [
+          {
+            "source": "grammy-aoty",
+            "rank": null,
+            "externalId": "grammy-aoty-1972"
+          }
+        ],
+        "1395808": [
+          {
+            "source": "grammy-aoty",
+            "rank": null,
+            "externalId": "grammy-aoty-1997"
+          }
+        ],
+        "1414835": [
+          {
+            "source": "grammy-aoty",
+            "rank": null,
+            "externalId": "grammy-aoty-1989"
+          }
+        ],
+        "1414855": [
+          {
+            "source": "grammy-aoty",
+            "rank": null,
+            "externalId": "grammy-aoty-2000"
+          }
+        ],
+        "1417001": [
+          {
+            "source": "grammy-aoty",
+            "rank": null,
+            "externalId": "grammy-aoty-1978"
+          }
+        ],
+        "1418556": [
+          {
+            "source": "grammy-aoty",
+            "rank": null,
+            "externalId": "grammy-aoty-1994"
+          }
+        ],
+        "1419291": [
+          {
+            "source": "grammy-aoty",
+            "rank": null,
+            "externalId": "grammy-aoty-1987"
+          }
+        ],
+        "1422148": [
+          {
+            "source": "grammy-aoty",
+            "rank": null,
+            "externalId": "grammy-aoty-1984"
+          }
+        ],
+        "1424328": [
+          {
+            "source": "grammy-aoty",
+            "rank": null,
+            "externalId": "grammy-aoty-2002"
+          }
+        ],
+        "1431826": [
+          {
+            "source": "grammy-aoty",
+            "rank": null,
+            "externalId": "grammy-aoty-1982"
+          }
+        ],
+        "1431991": [
+          {
+            "source": "grammy-aoty",
+            "rank": null,
+            "externalId": "grammy-aoty-2005"
+          }
+        ],
+        "1432871": [
+          {
+            "source": "grammy-aoty",
+            "rank": null,
+            "externalId": "grammy-aoty-1990"
+          }
+        ],
+        "1434050": [
+          {
+            "source": "grammy-aoty",
+            "rank": null,
+            "externalId": "grammy-aoty-1999"
+          }
+        ],
+        "1437489": [
+          {
+            "source": "grammy-aoty",
+            "rank": null,
+            "externalId": "grammy-aoty-1971"
+          }
+        ],
+        "1453000": [
+          {
+            "source": "grammy-aoty",
+            "rank": null,
+            "externalId": "grammy-aoty-1992"
+          }
+        ],
+        "1455401": [
+          {
+            "source": "grammy-aoty",
+            "rank": null,
+            "externalId": "grammy-aoty-1960"
+          }
+        ],
+        "1455402": [
+          {
+            "source": "grammy-aoty",
+            "rank": null,
+            "externalId": "grammy-aoty-1966"
+          }
+        ],
+        "1463672": [
+          {
+            "source": "grammy-aoty",
+            "rank": null,
+            "externalId": "grammy-aoty-1974"
+          }
+        ],
+        "1463673": [
+          {
+            "source": "grammy-aoty",
+            "rank": null,
+            "externalId": "grammy-aoty-1977"
+          }
+        ],
+        "1470095": [
+          {
+            "source": "grammy-aoty",
+            "rank": null,
+            "externalId": "grammy-aoty-1980"
+          }
+        ],
+        "1472591": [
+          {
+            "source": "grammy-aoty",
+            "rank": null,
+            "externalId": "grammy-aoty-1981"
+          }
+        ],
+        "1480464": [
+          {
+            "source": "grammy-aoty",
+            "rank": null,
+            "externalId": "grammy-aoty-1986"
+          }
+        ],
+        "1486113": [
+          {
+            "source": "grammy-aoty",
+            "rank": null,
+            "externalId": "grammy-aoty-1988"
+          }
+        ],
+        "1578914": [
+          {
+            "source": "grammy-aoty",
+            "rank": null,
+            "externalId": "grammy-aoty-1998"
+          }
+        ],
+        "1749143": [
+          {
+            "source": "grammy-aoty",
+            "rank": null,
+            "externalId": "grammy-aoty-1964"
+          }
+        ],
+        "1755196": [
+          {
+            "source": "grammy-aoty",
+            "rank": null,
+            "externalId": "grammy-aoty-1979"
+          }
+        ],
+        "1767658": [
+          {
+            "source": "grammy-aoty",
+            "rank": null,
+            "externalId": "grammy-aoty-2007"
+          }
+        ],
+        "1783058": [
+          {
+            "source": "grammy-aoty",
+            "rank": null,
+            "externalId": "grammy-aoty-2004"
+          }
+        ],
+        "1786557": [
+          {
+            "source": "grammy-aoty",
+            "rank": null,
+            "externalId": "grammy-aoty-1995"
+          }
+        ],
+        "1795419": [
+          {
+            "source": "grammy-aoty",
+            "rank": null,
+            "externalId": "grammy-aoty-1967"
+          }
+        ],
+        "1795827": [
+          {
+            "source": "grammy-aoty",
+            "rank": null,
+            "externalId": "grammy-aoty-1991"
+          }
+        ],
+        "1796906": [
+          {
+            "source": "grammy-aoty",
+            "rank": null,
+            "externalId": "grammy-aoty-1985"
+          }
+        ],
+        "1799009": [
+          {
+            "source": "grammy-aoty",
+            "rank": null,
+            "externalId": "grammy-aoty-1983"
+          }
+        ],
+        "1865241": [
+          {
+            "source": "grammy-aoty",
+            "rank": null,
+            "externalId": "grammy-aoty-2001"
+          }
+        ],
+        "1868088": [
+          {
+            "source": "grammy-aoty",
+            "rank": null,
+            "externalId": "grammy-aoty-1975"
+          }
+        ],
+        "1871838": [
+          {
+            "source": "grammy-aoty",
+            "rank": null,
+            "externalId": "grammy-aoty-1976"
+          }
+        ],
+        "1977760": [
+          {
+            "source": "grammy-aoty",
+            "rank": null,
+            "externalId": "grammy-aoty-1973"
+          }
+        ],
+        "2073150": [
+          {
+            "source": "grammy-aoty",
+            "rank": null,
+            "externalId": "grammy-aoty-1993"
+          }
+        ],
+        "2209331": [
+          {
+            "source": "grammy-aoty",
+            "rank": null,
+            "externalId": "grammy-aoty-2009"
+          }
+        ],
+        "2228912": [
+          {
+            "source": "grammy-aoty",
+            "rank": null,
+            "externalId": "grammy-aoty-2008"
+          }
+        ],
+        "3103449": [
+          {
+            "source": "grammy-aoty",
+            "rank": null,
+            "externalId": "grammy-aoty-1959"
+          }
+        ],
+        "3155858": [
+          {
+            "source": "grammy-aoty",
+            "rank": null,
+            "externalId": "grammy-aoty-1969"
+          }
+        ],
+        "3155869": [
+          {
+            "source": "grammy-aoty",
+            "rank": null,
+            "externalId": "grammy-aoty-1963"
+          }
+        ],
+        "3155871": [
+          {
+            "source": "grammy-aoty",
+            "rank": null,
+            "externalId": "grammy-aoty-1961"
+          }
+        ],
+        "3220185": [
+          {
+            "source": "grammy-aoty",
+            "rank": null,
+            "externalId": "grammy-aoty-2010"
+          }
+        ],
+        "3714048": [
+          {
+            "source": "grammy-aoty",
+            "rank": null,
+            "externalId": "grammy-aoty-1962"
+          }
+        ],
+        "3878730": [
+          {
+            "source": "grammy-aoty",
+            "rank": null,
+            "externalId": "grammy-aoty-1970"
+          }
+        ],
+        "4852038": [
+          {
+            "source": "grammy-aoty",
+            "rank": null,
+            "externalId": "grammy-aoty-2011"
+          }
+        ],
+        "5351500": [
+          {
+            "source": "grammy-aoty",
+            "rank": null,
+            "externalId": "grammy-aoty-2012"
+          }
+        ],
+        "11528383": [
+          {
+            "source": "grammy-aoty",
+            "rank": null,
+            "externalId": "grammy-aoty-2013"
+          }
+        ],
+        "22951704": [
+          {
+            "source": "grammy-aoty",
+            "rank": null,
+            "externalId": "grammy-aoty-2014"
+          }
+        ],
+        "25808827": [
+          {
+            "source": "grammy-aoty",
+            "rank": null,
+            "externalId": "grammy-aoty-2015"
+          }
+        ],
+        "26647907": [
+          {
+            "source": "grammy-aoty",
+            "rank": null,
+            "externalId": "grammy-aoty-2017"
+          }
+        ],
+        "26888125": [
+          {
+            "source": "grammy-aoty",
+            "rank": null,
+            "externalId": "grammy-aoty-2018"
+          }
+        ],
+        "30149281": [
+          {
+            "source": "grammy-aoty",
+            "rank": null,
+            "externalId": "grammy-aoty-2019"
+          }
+        ],
+        "30450334": [
+          {
+            "source": "grammy-aoty",
+            "rank": null,
+            "externalId": "grammy-aoty-2020"
+          }
+        ],
+        "35154230": [
+          {
+            "source": "grammy-aoty",
+            "rank": null,
+            "externalId": "grammy-aoty-2021"
+          }
+        ],
+        "35404379": [
           {
             "source": "grammy-aoty",
             "rank": null,
