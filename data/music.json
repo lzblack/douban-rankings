@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-04-20T03:09:11.055Z",
+  "generatedAt": "2026-04-20T03:16:44.355Z",
   "categories": {
     "music": {
       "sources": {
@@ -11,7 +11,7 @@
           "kind": "yearly",
           "subCategory": "album",
           "priority": 1,
-          "updatedAt": "2026-04-20T03:09:11.053Z",
+          "updatedAt": "2026-04-20T03:16:44.354Z",
           "itemCount": 67
         }
       },

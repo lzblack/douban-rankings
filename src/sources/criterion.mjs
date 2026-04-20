@@ -78,11 +78,13 @@ export default {
             raw = await readFile(snapshotPath, 'utf-8');
         } catch (err) {
             if (err.code === 'ENOENT') {
-                throw new Error(
+                const e = new Error(
                     'criterion: ' +
                         snapshotPath +
-                        ' not found. criterion.com blocks cloud IPs, so the pipeline cannot fetch directly. Run `pnpm run fetch:criterion-snapshot` from a residential IP and commit the generated file.',
+                        ' not found (snapshots are gitignored — refresh is maintainer-local: pnpm run fetch:criterion-snapshot).',
                 );
+                e.code = 'SNAPSHOT_MISSING';
+                throw e;
             }
             throw err;
         }

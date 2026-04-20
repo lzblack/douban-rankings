@@ -38,31 +38,23 @@ jobs:
       - name: Run pipeline
         run: pnpm run update
 
-      - name: Commit data changes
+      - name: Commit health report
         run: |
           git config user.name "rankings-bot"
           git config user.email "bot@users.noreply.github.com"
-          # Guard: never clobber good data with a degraded run. The snapshot
-          # files (config/*-snapshot.json) and manual-mapping.yaml are
-          # gitignored — the CI runner only has what the scheduled pipeline
-          # can scrape live, which is a minority of sources. Everything that
-          # depends on a snapshot reports failed → overall=degraded.
-          # Publishing that would shrink data/movie.json from ~2,200 dbids
-          # to a few hundred. Only commit when the run is clean.
-          overall=$(jq -r '.overall' data/health.json 2>/dev/null || echo unknown)
-          if [ "$overall" != "ok" ]; then
-            echo "health.json overall=$overall → skipping commit to avoid clobbering data/."
-            echo "Refresh is maintainer-local: run fetchers locally, then commit and push data/."
-            exit 0
-          fi
-          git add data/
-          # `git diff --cached` sees staged changes including new files;
-          # `git diff data/` would miss untracked new files (first run case).
+          # In CI, snapshot-dependent sources report status=skipped (their
+          # config/*-snapshot.json is gitignored and absent from the runner),
+          # and writer still rebuilds data/movie.json + data/music.json from
+          # whatever did run — i.e. only the live-scrape sources (IMDb, AFI).
+          # Committing that would shrink the published data from ~2,200
+          # dbids to a few hundred. So: only the health report ships from
+          # CI. It carries the monitoring signal (consecutiveFailures for
+          # live sources → alerts via health-alert workflow) without
+          # touching data/movie.json or data/music.json.
+          git add data/health.json
           if git diff --cached --quiet; then
-            echo "No data changes."
+            echo "No health changes."
             exit 0
           fi
-          # Commit message carries the summary; pipeline already printed
-          # details in job logs. A structured format is a v2 concern.
-          git commit -m "data: scheduled update"
+          git commit -m "health: scheduled check"
           git push

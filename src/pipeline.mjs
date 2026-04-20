@@ -148,6 +148,12 @@ export async function runSource(source, http, deps = {}) {
             message: null,
         };
     } catch (err) {
+        // Sources with gitignored snapshots throw a tagged error when the
+        // snapshot file isn't on disk — that's expected in CI and shouldn't
+        // increment health's consecutive-failures counter. Treat as skipped.
+        if (err?.code === 'SNAPSHOT_MISSING') {
+            return skippedResult(source, updatedAt, err.message ?? String(err));
+        }
         return failedResult(source, updatedAt, err.message ?? String(err));
     }
 }
@@ -168,6 +174,19 @@ function failedResult(source, updatedAt, message) {
         id: source.id,
         sourceDef: source,
         status: 'failed',
+        itemCount: 0,
+        scrapedCount: 0,
+        items: [],
+        updatedAt,
+        message,
+    };
+}
+
+function skippedResult(source, updatedAt, message) {
+    return {
+        id: source.id,
+        sourceDef: source,
+        status: 'skipped',
         itemCount: 0,
         scrapedCount: 0,
         items: [],
@@ -304,6 +323,8 @@ function printSummary(results, health) {
             console.log(
                 `  [ok]   ${r.id}: ${r.itemCount}/${r.scrapedCount} matched`,
             );
+        } else if (r.status === 'skipped') {
+            console.log(`  [skip] ${r.id}: ${r.message}`);
         } else {
             console.log(`  [fail] ${r.id}: ${r.message}`);
         }
