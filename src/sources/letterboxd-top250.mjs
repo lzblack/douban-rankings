@@ -41,6 +41,7 @@ export default {
         titleZh: 'Letterboxd 人气 250',
         url: 'https://letterboxd.com/official/list/top-250-films-with-the-most-fans/',
     },
+    formatLabel: it => (it.rank == null ? null : `No.${it.rank}`),
 
     /**
      * @param {{ fetch: Function }} _http

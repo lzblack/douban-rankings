@@ -36,6 +36,7 @@ export default {
         titleZh: 'AFI 百年百大电影',
         url: 'https://www.afi.com/afis-100-years-100-movies-10th-anniversary-edition/',
     },
+    formatLabel: it => (it.rank == null ? null : `No.${it.rank}`),
 
     /**
      * @param {{ fetch: Function }} http

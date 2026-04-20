@@ -72,6 +72,12 @@ function aggregateItems(sourceResults) {
                 externalId: item.externalId,
             };
             if (item.spineNumber != null) entry.spineNumber = item.spineNumber;
+            // Display label: each source decides how to format its own
+            // rank/spine/year so the consumer doesn't need per-source
+            // rendering logic. Falsy return means "omit label, consumer
+            // falls back to whatever legacy formatter it has".
+            const label = r.sourceDef.formatLabel?.(item);
+            if (label != null && label !== '') entry.label = String(label);
             (items[item.doubanId] ??= []).push(entry);
         }
     }

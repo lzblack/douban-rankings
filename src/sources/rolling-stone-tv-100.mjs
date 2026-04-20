@@ -40,6 +40,7 @@ export default {
         titleZh: '滚石 100 最伟大电视剧',
         url: 'https://www.rollingstone.com/tv-movies/tv-movie-lists/best-tv-shows-of-all-time-1234598313/',
     },
+    formatLabel: it => (it.rank == null ? null : `No.${it.rank}`),
 
     /**
      * @param {{ fetch: Function }} _http

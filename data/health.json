@@ -1,24 +1,24 @@
 {
-  "generatedAt": "2026-04-20T01:44:57.864Z",
+  "generatedAt": "2026-04-20T03:09:11.055Z",
   "overall": "ok",
   "sources": [
     {
       "id": "imdb-top250",
-      "itemCount": 248,
-      "itemCountDelta": 0,
+      "itemCount": 249,
+      "itemCountDelta": 1,
       "message": null,
       "status": "ok",
-      "lastSuccessAt": "2026-04-20T01:42:50.676Z",
+      "lastSuccessAt": "2026-04-20T03:07:01.891Z",
       "lastFailureAt": null,
       "consecutiveFailures": 0
     },
     {
       "id": "imdb-top250-tv",
-      "itemCount": 242,
-      "itemCountDelta": 0,
+      "itemCount": 243,
+      "itemCountDelta": 1,
       "message": null,
       "status": "ok",
-      "lastSuccessAt": "2026-04-20T01:43:10.671Z",
+      "lastSuccessAt": "2026-04-20T03:07:28.213Z",
       "lastFailureAt": null,
       "consecutiveFailures": 0
     },
@@ -28,7 +28,7 @@
       "itemCountDelta": 0,
       "message": null,
       "status": "ok",
-      "lastSuccessAt": "2026-04-20T01:43:51.524Z",
+      "lastSuccessAt": "2026-04-20T03:08:06.089Z",
       "lastFailureAt": "2026-04-18T23:36:48.793Z",
       "consecutiveFailures": 0
     },
@@ -38,7 +38,7 @@
       "itemCountDelta": 0,
       "message": null,
       "status": "ok",
-      "lastSuccessAt": "2026-04-20T01:43:52.421Z",
+      "lastSuccessAt": "2026-04-20T03:08:07.006Z",
       "lastFailureAt": null,
       "consecutiveFailures": 0
     },
@@ -48,7 +48,7 @@
       "itemCountDelta": 0,
       "message": null,
       "status": "ok",
-      "lastSuccessAt": "2026-04-20T01:43:52.611Z",
+      "lastSuccessAt": "2026-04-20T03:08:07.195Z",
       "lastFailureAt": null,
       "consecutiveFailures": 0
     },
@@ -58,7 +58,7 @@
       "itemCountDelta": 0,
       "message": null,
       "status": "ok",
-      "lastSuccessAt": "2026-04-20T01:43:56.722Z",
+      "lastSuccessAt": "2026-04-20T03:08:10.606Z",
       "lastFailureAt": null,
       "consecutiveFailures": 0
     },
@@ -68,7 +68,7 @@
       "itemCountDelta": 0,
       "message": null,
       "status": "ok",
-      "lastSuccessAt": "2026-04-20T01:44:02.318Z",
+      "lastSuccessAt": "2026-04-20T03:08:15.372Z",
       "lastFailureAt": "2026-04-19T01:20:56.085Z",
       "consecutiveFailures": 0
     },
@@ -78,7 +78,7 @@
       "itemCountDelta": 0,
       "message": null,
       "status": "ok",
-      "lastSuccessAt": "2026-04-20T01:44:57.862Z",
+      "lastSuccessAt": "2026-04-20T03:09:11.052Z",
       "lastFailureAt": "2026-04-19T01:20:56.085Z",
       "consecutiveFailures": 0
     },
@@ -88,7 +88,7 @@
       "itemCountDelta": 0,
       "message": null,
       "status": "ok",
-      "lastSuccessAt": "2026-04-20T01:44:57.863Z",
+      "lastSuccessAt": "2026-04-20T03:09:11.053Z",
       "lastFailureAt": null,
       "consecutiveFailures": 0
     },
@@ -98,17 +98,17 @@
       "itemCountDelta": 0,
       "message": null,
       "status": "ok",
-      "lastSuccessAt": "2026-04-20T01:44:57.864Z",
+      "lastSuccessAt": "2026-04-20T03:09:11.054Z",
       "lastFailureAt": null,
       "consecutiveFailures": 0
     },
     {
       "id": "rolling-stone-tv-100",
       "itemCount": 98,
-      "itemCountDelta": 98,
+      "itemCountDelta": 0,
       "message": null,
       "status": "ok",
-      "lastSuccessAt": "2026-04-20T01:44:57.864Z",
+      "lastSuccessAt": "2026-04-20T03:09:11.054Z",
       "lastFailureAt": null,
       "consecutiveFailures": 0
     }

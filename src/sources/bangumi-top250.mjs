@@ -49,6 +49,7 @@ export default {
         titleZh: 'Bangumi 动画 Top 250',
         url: 'https://bgm.tv/anime/browser?sort=rank',
     },
+    formatLabel: it => (it.rank == null ? null : `No.${it.rank}`),
 
     /**
      * @param {{ fetch: Function }} _http
