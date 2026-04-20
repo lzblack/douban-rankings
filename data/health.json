@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-04-20T01:40:21.446Z",
+  "generatedAt": "2026-04-20T01:44:57.864Z",
   "overall": "ok",
   "sources": [
     {
       "id": "imdb-top250",
       "itemCount": 248,
-      "itemCountDelta": -1,
+      "itemCountDelta": 0,
       "message": null,
       "status": "ok",
-      "lastSuccessAt": "2026-04-20T01:38:12.727Z",
+      "lastSuccessAt": "2026-04-20T01:42:50.676Z",
       "lastFailureAt": null,
       "consecutiveFailures": 0
     },
@@ -18,7 +18,7 @@
       "itemCountDelta": 0,
       "message": null,
       "status": "ok",
-      "lastSuccessAt": "2026-04-20T01:38:34.509Z",
+      "lastSuccessAt": "2026-04-20T01:43:10.671Z",
       "lastFailureAt": null,
       "consecutiveFailures": 0
     },
@@ -28,7 +28,7 @@
       "itemCountDelta": 0,
       "message": null,
       "status": "ok",
-      "lastSuccessAt": "2026-04-20T01:39:15.933Z",
+      "lastSuccessAt": "2026-04-20T01:43:51.524Z",
       "lastFailureAt": "2026-04-18T23:36:48.793Z",
       "consecutiveFailures": 0
     },
@@ -38,7 +38,7 @@
       "itemCountDelta": 0,
       "message": null,
       "status": "ok",
-      "lastSuccessAt": "2026-04-20T01:39:16.843Z",
+      "lastSuccessAt": "2026-04-20T01:43:52.421Z",
       "lastFailureAt": null,
       "consecutiveFailures": 0
     },
@@ -48,7 +48,7 @@
       "itemCountDelta": 0,
       "message": null,
       "status": "ok",
-      "lastSuccessAt": "2026-04-20T01:39:17.031Z",
+      "lastSuccessAt": "2026-04-20T01:43:52.611Z",
       "lastFailureAt": null,
       "consecutiveFailures": 0
     },
@@ -58,7 +58,7 @@
       "itemCountDelta": 0,
       "message": null,
       "status": "ok",
-      "lastSuccessAt": "2026-04-20T01:39:20.887Z",
+      "lastSuccessAt": "2026-04-20T01:43:56.722Z",
       "lastFailureAt": null,
       "consecutiveFailures": 0
     },
@@ -68,7 +68,7 @@
       "itemCountDelta": 0,
       "message": null,
       "status": "ok",
-      "lastSuccessAt": "2026-04-20T01:39:25.151Z",
+      "lastSuccessAt": "2026-04-20T01:44:02.318Z",
       "lastFailureAt": "2026-04-19T01:20:56.085Z",
       "consecutiveFailures": 0
     },
@@ -78,7 +78,7 @@
       "itemCountDelta": 0,
       "message": null,
       "status": "ok",
-      "lastSuccessAt": "2026-04-20T01:40:21.444Z",
+      "lastSuccessAt": "2026-04-20T01:44:57.862Z",
       "lastFailureAt": "2026-04-19T01:20:56.085Z",
       "consecutiveFailures": 0
     },
@@ -88,17 +88,27 @@
       "itemCountDelta": 0,
       "message": null,
       "status": "ok",
-      "lastSuccessAt": "2026-04-20T01:40:21.445Z",
+      "lastSuccessAt": "2026-04-20T01:44:57.863Z",
       "lastFailureAt": null,
       "consecutiveFailures": 0
     },
     {
       "id": "bbc-21c-tv-100",
       "itemCount": 97,
-      "itemCountDelta": 97,
+      "itemCountDelta": 0,
       "message": null,
       "status": "ok",
-      "lastSuccessAt": "2026-04-20T01:40:21.445Z",
+      "lastSuccessAt": "2026-04-20T01:44:57.864Z",
+      "lastFailureAt": null,
+      "consecutiveFailures": 0
+    },
+    {
+      "id": "rolling-stone-tv-100",
+      "itemCount": 98,
+      "itemCountDelta": 98,
+      "message": null,
+      "status": "ok",
+      "lastSuccessAt": "2026-04-20T01:44:57.864Z",
       "lastFailureAt": null,
       "consecutiveFailures": 0
     }

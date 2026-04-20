@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-04-20T01:40:21.446Z",
+  "generatedAt": "2026-04-20T01:44:57.864Z",
   "categories": {
     "movie": {
       "sources": {
@@ -11,7 +11,7 @@
           "kind": "permanent",
           "subCategory": "movie",
           "priority": 1,
-          "updatedAt": "2026-04-20T01:38:12.727Z",
+          "updatedAt": "2026-04-20T01:42:50.676Z",
           "itemCount": 248
         },
         "imdb-top250-tv": {
@@ -21,7 +21,7 @@
           "kind": "permanent",
           "subCategory": "tv",
           "priority": 8,
-          "updatedAt": "2026-04-20T01:38:34.509Z",
+          "updatedAt": "2026-04-20T01:43:10.671Z",
           "itemCount": 242
         },
         "criterion": {
@@ -31,7 +31,7 @@
           "kind": "permanent",
           "subCategory": "movie",
           "priority": 2,
-          "updatedAt": "2026-04-20T01:39:15.933Z",
+          "updatedAt": "2026-04-20T01:43:51.524Z",
           "itemCount": 1174
         },
         "afi-top100": {
@@ -41,7 +41,7 @@
           "kind": "permanent",
           "subCategory": "movie",
           "priority": 3,
-          "updatedAt": "2026-04-20T01:39:16.843Z",
+          "updatedAt": "2026-04-20T01:43:52.421Z",
           "itemCount": 100
         },
         "bfi-ss-2022": {
@@ -51,7 +51,7 @@
           "kind": "permanent",
           "subCategory": "movie",
           "priority": 4,
-          "updatedAt": "2026-04-20T01:39:17.031Z",
+          "updatedAt": "2026-04-20T01:43:52.611Z",
           "itemCount": 99
         },
         "letterboxd-top250": {
@@ -61,7 +61,7 @@
           "kind": "permanent",
           "subCategory": "movie",
           "priority": 5,
-          "updatedAt": "2026-04-20T01:39:20.887Z",
+          "updatedAt": "2026-04-20T01:43:56.722Z",
           "itemCount": 249
         },
         "tspdt-1000": {
@@ -71,7 +71,7 @@
           "kind": "yearly",
           "subCategory": "movie",
           "priority": 6,
-          "updatedAt": "2026-04-20T01:39:25.151Z",
+          "updatedAt": "2026-04-20T01:44:02.318Z",
           "itemCount": 989
         },
         "bangumi-top250": {
@@ -81,7 +81,7 @@
           "kind": "yearly",
           "subCategory": "anime",
           "priority": 7,
-          "updatedAt": "2026-04-20T01:40:21.444Z",
+          "updatedAt": "2026-04-20T01:44:57.862Z",
           "itemCount": 189
         },
         "bbc-21c-tv-100": {
@@ -91,8 +91,18 @@
           "kind": "permanent",
           "subCategory": "tv",
           "priority": 6,
-          "updatedAt": "2026-04-20T01:40:21.445Z",
+          "updatedAt": "2026-04-20T01:44:57.864Z",
           "itemCount": 97
+        },
+        "rolling-stone-tv-100": {
+          "title": "Rolling Stone — 100 Greatest TV Shows of All Time",
+          "titleZh": "滚石 100 最伟大电视剧",
+          "url": "https://www.rollingstone.com/tv-movies/tv-movie-lists/best-tv-shows-of-all-time-1234598313/",
+          "kind": "permanent",
+          "subCategory": "tv",
+          "priority": 5,
+          "updatedAt": "2026-04-20T01:44:57.864Z",
+          "itemCount": 98
         }
       },
       "items": {
@@ -5483,6 +5493,11 @@
             "source": "imdb-top250-tv",
             "rank": 142,
             "externalId": "tt0106179"
+          },
+          {
+            "source": "rolling-stone-tv-100",
+            "rank": 51,
+            "externalId": "rs-tv-51"
           }
         ],
         "1295526": [
@@ -5490,6 +5505,11 @@
             "source": "imdb-top250-tv",
             "rank": 97,
             "externalId": "tt0098936"
+          },
+          {
+            "source": "rolling-stone-tv-100",
+            "rank": 16,
+            "externalId": "rs-tv-16"
           }
         ],
         "1295538": [
@@ -9693,6 +9713,13 @@
             "spineNumber": "1166"
           }
         ],
+        "1301612": [
+          {
+            "source": "rolling-stone-tv-100",
+            "rank": 90,
+            "externalId": "rs-tv-90"
+          }
+        ],
         "1301630": [
           {
             "source": "letterboxd-top250",
@@ -11587,6 +11614,13 @@
             "externalId": "tt0103099"
           }
         ],
+        "1304397": [
+          {
+            "source": "rolling-stone-tv-100",
+            "rank": 78,
+            "externalId": "rs-tv-78"
+          }
+        ],
         "1304404": [
           {
             "source": "criterion",
@@ -12644,6 +12678,11 @@
             "source": "bbc-21c-tv-100",
             "rank": 37,
             "externalId": "bbc-21c-tv-37"
+          },
+          {
+            "source": "rolling-stone-tv-100",
+            "rank": 80,
+            "externalId": "rs-tv-80"
           }
         ],
         "1307886": [
@@ -12788,6 +12827,13 @@
             "rank": null,
             "externalId": "506",
             "spineNumber": "506"
+          }
+        ],
+        "1308723": [
+          {
+            "source": "rolling-stone-tv-100",
+            "rank": 29,
+            "externalId": "rs-tv-29"
           }
         ],
         "1308755": [
@@ -13141,6 +13187,11 @@
             "source": "bbc-21c-tv-100",
             "rank": 12,
             "externalId": "bbc-21c-tv-12"
+          },
+          {
+            "source": "rolling-stone-tv-100",
+            "rank": 58,
+            "externalId": "rs-tv-58"
           }
         ],
         "1353745": [
@@ -13230,6 +13281,11 @@
             "source": "imdb-top250-tv",
             "rank": 54,
             "externalId": "tt0108778"
+          },
+          {
+            "source": "rolling-stone-tv-100",
+            "rank": 49,
+            "externalId": "rs-tv-49"
           }
         ],
         "1394218": [
@@ -13279,6 +13335,11 @@
             "source": "bbc-21c-tv-100",
             "rank": 19,
             "externalId": "bbc-21c-tv-19"
+          },
+          {
+            "source": "rolling-stone-tv-100",
+            "rank": 35,
+            "externalId": "rs-tv-35"
           }
         ],
         "1395036": [
@@ -13324,6 +13385,11 @@
             "source": "bbc-21c-tv-100",
             "rank": 18,
             "externalId": "bbc-21c-tv-18"
+          },
+          {
+            "source": "rolling-stone-tv-100",
+            "rank": 27,
+            "externalId": "rs-tv-27"
           }
         ],
         "1395469": [
@@ -13331,6 +13397,11 @@
             "source": "imdb-top250-tv",
             "rank": 52,
             "externalId": "tt0200276"
+          },
+          {
+            "source": "rolling-stone-tv-100",
+            "rank": 46,
+            "externalId": "rs-tv-46"
           }
         ],
         "1395471": [
@@ -13851,6 +13922,11 @@
             "source": "bbc-21c-tv-100",
             "rank": 55,
             "externalId": "bbc-21c-tv-55"
+          },
+          {
+            "source": "rolling-stone-tv-100",
+            "rank": 48,
+            "externalId": "rs-tv-48"
           }
         ],
         "1417947": [
@@ -13898,6 +13974,11 @@
             "source": "imdb-top250-tv",
             "rank": 131,
             "externalId": "tt0096697"
+          },
+          {
+            "source": "rolling-stone-tv-100",
+            "rank": 2,
+            "externalId": "rs-tv-2"
           }
         ],
         "1418198": [
@@ -13905,6 +13986,11 @@
             "source": "imdb-top250-tv",
             "rank": 42,
             "externalId": "tt0098904"
+          },
+          {
+            "source": "rolling-stone-tv-100",
+            "rank": 6,
+            "externalId": "rs-tv-6"
           }
         ],
         "1418199": [
@@ -13917,6 +14003,11 @@
             "source": "bbc-21c-tv-100",
             "rank": 1,
             "externalId": "bbc-21c-tv-1"
+          },
+          {
+            "source": "rolling-stone-tv-100",
+            "rank": 4,
+            "externalId": "rs-tv-4"
           }
         ],
         "1418200": [
@@ -13944,6 +14035,11 @@
             "source": "imdb-top250-tv",
             "rank": 108,
             "externalId": "tt0118421"
+          },
+          {
+            "source": "rolling-stone-tv-100",
+            "rank": 99,
+            "externalId": "rs-tv-99"
           }
         ],
         "1418492": [
@@ -14481,6 +14577,11 @@
             "source": "bbc-21c-tv-100",
             "rank": 9,
             "externalId": "bbc-21c-tv-9"
+          },
+          {
+            "source": "rolling-stone-tv-100",
+            "rank": 53,
+            "externalId": "rs-tv-53"
           }
         ],
         "1428366": [
@@ -14493,6 +14594,11 @@
             "source": "bbc-21c-tv-100",
             "rank": 21,
             "externalId": "bbc-21c-tv-21"
+          },
+          {
+            "source": "rolling-stone-tv-100",
+            "rank": 39,
+            "externalId": "rs-tv-39"
           }
         ],
         "1428878": [
@@ -14838,6 +14944,13 @@
             "spineNumber": "448"
           }
         ],
+        "1438242": [
+          {
+            "source": "rolling-stone-tv-100",
+            "rank": 75,
+            "externalId": "rs-tv-75"
+          }
+        ],
         "1438410": [
           {
             "source": "criterion",
@@ -15058,6 +15171,18 @@
             "source": "imdb-top250-tv",
             "rank": 74,
             "externalId": "tt0072500"
+          },
+          {
+            "source": "rolling-stone-tv-100",
+            "rank": 68,
+            "externalId": "rs-tv-68"
+          }
+        ],
+        "1441952": [
+          {
+            "source": "rolling-stone-tv-100",
+            "rank": 64,
+            "externalId": "rs-tv-64"
           }
         ],
         "1441973": [
@@ -15435,6 +15560,11 @@
             "source": "bbc-21c-tv-100",
             "rank": 32,
             "externalId": "bbc-21c-tv-32"
+          },
+          {
+            "source": "rolling-stone-tv-100",
+            "rank": 37,
+            "externalId": "rs-tv-37"
           }
         ],
         "1474243": [
@@ -15449,6 +15579,13 @@
             "source": "tspdt-1000",
             "rank": 242,
             "externalId": "tt0051790"
+          }
+        ],
+        "1474671": [
+          {
+            "source": "rolling-stone-tv-100",
+            "rank": 47,
+            "externalId": "rs-tv-47"
           }
         ],
         "1474748": [
@@ -15627,6 +15764,11 @@
             "source": "imdb-top250-tv",
             "rank": 81,
             "externalId": "tt0063929"
+          },
+          {
+            "source": "rolling-stone-tv-100",
+            "rank": 33,
+            "externalId": "rs-tv-33"
           }
         ],
         "1486017": [
@@ -15861,6 +16003,11 @@
             "source": "imdb-top250-tv",
             "rank": 9,
             "externalId": "tt0141842"
+          },
+          {
+            "source": "rolling-stone-tv-100",
+            "rank": 1,
+            "externalId": "rs-tv-1"
           }
         ],
         "1763027": [
@@ -16201,6 +16348,13 @@
             "spineNumber": "623"
           }
         ],
+        "1828018": [
+          {
+            "source": "rolling-stone-tv-100",
+            "rank": 70,
+            "externalId": "rs-tv-70"
+          }
+        ],
         "1829859": [
           {
             "source": "criterion",
@@ -16477,6 +16631,11 @@
             "source": "imdb-top250-tv",
             "rank": 66,
             "externalId": "tt0193676"
+          },
+          {
+            "source": "rolling-stone-tv-100",
+            "rank": 24,
+            "externalId": "rs-tv-24"
           }
         ],
         "1865703": [
@@ -16579,6 +16738,13 @@
             "externalId": "tt0283283"
           }
         ],
+        "1875340": [
+          {
+            "source": "rolling-stone-tv-100",
+            "rank": 83,
+            "externalId": "rs-tv-83"
+          }
+        ],
         "1876327": [
           {
             "source": "tspdt-1000",
@@ -16600,6 +16766,13 @@
             "rank": null,
             "externalId": "523",
             "spineNumber": "523"
+          }
+        ],
+        "1887452": [
+          {
+            "source": "rolling-stone-tv-100",
+            "rank": 18,
+            "externalId": "rs-tv-18"
           }
         ],
         "1889243": [
@@ -16633,6 +16806,13 @@
             "externalId": "bangumi-848"
           }
         ],
+        "1892363": [
+          {
+            "source": "rolling-stone-tv-100",
+            "rank": 74,
+            "externalId": "rs-tv-74"
+          }
+        ],
         "1898729": [
           {
             "source": "bangumi-top250",
@@ -16650,6 +16830,11 @@
             "source": "bbc-21c-tv-100",
             "rank": 28,
             "externalId": "bbc-21c-tv-28"
+          },
+          {
+            "source": "rolling-stone-tv-100",
+            "rank": 28,
+            "externalId": "rs-tv-28"
           }
         ],
         "1899487": [
@@ -16657,6 +16842,11 @@
             "source": "bbc-21c-tv-100",
             "rank": 17,
             "externalId": "bbc-21c-tv-17"
+          },
+          {
+            "source": "rolling-stone-tv-100",
+            "rank": 20,
+            "externalId": "rs-tv-20"
           }
         ],
         "1899630": [
@@ -16738,6 +16928,11 @@
             "source": "bbc-21c-tv-100",
             "rank": 90,
             "externalId": "bbc-21c-tv-90"
+          },
+          {
+            "source": "rolling-stone-tv-100",
+            "rank": 81,
+            "externalId": "rs-tv-81"
           }
         ],
         "1903817": [
@@ -16745,6 +16940,11 @@
             "source": "imdb-top250-tv",
             "rank": 245,
             "externalId": "tt0068098"
+          },
+          {
+            "source": "rolling-stone-tv-100",
+            "rank": 25,
+            "externalId": "rs-tv-25"
           }
         ],
         "1904183": [
@@ -16805,6 +17005,11 @@
             "source": "imdb-top250-tv",
             "rank": 231,
             "externalId": "tt0314979"
+          },
+          {
+            "source": "rolling-stone-tv-100",
+            "rank": 42,
+            "externalId": "rs-tv-42"
           }
         ],
         "1921860": [
@@ -16844,6 +17049,13 @@
             "rank": null,
             "externalId": "373",
             "spineNumber": "373"
+          }
+        ],
+        "1924523": [
+          {
+            "source": "rolling-stone-tv-100",
+            "rank": 36,
+            "externalId": "rs-tv-36"
           }
         ],
         "1925767": [
@@ -16991,6 +17203,18 @@
             "source": "imdb-top250-tv",
             "rank": 35,
             "externalId": "tt0052520"
+          },
+          {
+            "source": "rolling-stone-tv-100",
+            "rank": 12,
+            "externalId": "rs-tv-12"
+          }
+        ],
+        "1957976": [
+          {
+            "source": "rolling-stone-tv-100",
+            "rank": 8,
+            "externalId": "rs-tv-8"
           }
         ],
         "1958178": [
@@ -17242,6 +17466,27 @@
             "externalId": "tt0094525"
           }
         ],
+        "2034960": [
+          {
+            "source": "rolling-stone-tv-100",
+            "rank": 44,
+            "externalId": "rs-tv-44"
+          }
+        ],
+        "2039681": [
+          {
+            "source": "rolling-stone-tv-100",
+            "rank": 67,
+            "externalId": "rs-tv-67"
+          }
+        ],
+        "2039706": [
+          {
+            "source": "rolling-stone-tv-100",
+            "rank": 38,
+            "externalId": "rs-tv-38"
+          }
+        ],
         "2042301": [
           {
             "source": "criterion",
@@ -17310,6 +17555,11 @@
             "source": "imdb-top250-tv",
             "rank": 83,
             "externalId": "tt0353049"
+          },
+          {
+            "source": "rolling-stone-tv-100",
+            "rank": 69,
+            "externalId": "rs-tv-69"
           }
         ],
         "2051015": [
@@ -17404,6 +17654,13 @@
             "externalId": "tt0080910"
           }
         ],
+        "2073688": [
+          {
+            "source": "rolling-stone-tv-100",
+            "rank": 93,
+            "externalId": "rs-tv-93"
+          }
+        ],
         "2073741": [
           {
             "source": "criterion",
@@ -17464,6 +17721,13 @@
             "source": "bbc-21c-tv-100",
             "rank": 42,
             "externalId": "bbc-21c-tv-42"
+          }
+        ],
+        "2125375": [
+          {
+            "source": "rolling-stone-tv-100",
+            "rank": 50,
+            "externalId": "rs-tv-50"
           }
         ],
         "2129039": [
@@ -17537,6 +17801,13 @@
             "externalId": "tt0359950"
           }
         ],
+        "2134687": [
+          {
+            "source": "rolling-stone-tv-100",
+            "rank": 92,
+            "externalId": "rs-tv-92"
+          }
+        ],
         "2135352": [
           {
             "source": "tspdt-1000",
@@ -17558,6 +17829,13 @@
             "rank": null,
             "externalId": "435",
             "spineNumber": "435"
+          }
+        ],
+        "2139816": [
+          {
+            "source": "rolling-stone-tv-100",
+            "rank": 79,
+            "externalId": "rs-tv-79"
           }
         ],
         "2142191": [
@@ -17593,6 +17871,11 @@
             "source": "bbc-21c-tv-100",
             "rank": 2,
             "externalId": "bbc-21c-tv-2"
+          },
+          {
+            "source": "rolling-stone-tv-100",
+            "rank": 7,
+            "externalId": "rs-tv-7"
           }
         ],
         "2152811": [
@@ -17600,6 +17883,13 @@
             "source": "bbc-21c-tv-100",
             "rank": 87,
             "externalId": "bbc-21c-tv-87"
+          }
+        ],
+        "2153585": [
+          {
+            "source": "rolling-stone-tv-100",
+            "rank": 26,
+            "externalId": "rs-tv-26"
           }
         ],
         "2154314": [
@@ -17689,6 +17979,13 @@
             "spineNumber": "891"
           }
         ],
+        "2241490": [
+          {
+            "source": "rolling-stone-tv-100",
+            "rank": 15,
+            "externalId": "rs-tv-15"
+          }
+        ],
         "2241829": [
           {
             "source": "criterion",
@@ -17775,6 +18072,13 @@
             "externalId": "tt0298597"
           }
         ],
+        "2270292": [
+          {
+            "source": "rolling-stone-tv-100",
+            "rank": 97,
+            "externalId": "rs-tv-97"
+          }
+        ],
         "2272384": [
           {
             "source": "imdb-top250-tv",
@@ -17787,6 +18091,13 @@
             "source": "bangumi-top250",
             "rank": 75,
             "externalId": "bangumi-51"
+          }
+        ],
+        "2278376": [
+          {
+            "source": "rolling-stone-tv-100",
+            "rank": 94,
+            "externalId": "rs-tv-94"
           }
         ],
         "2278780": [
@@ -17850,6 +18161,13 @@
             "spineNumber": "560"
           }
         ],
+        "2329004": [
+          {
+            "source": "rolling-stone-tv-100",
+            "rank": 77,
+            "externalId": "rs-tv-77"
+          }
+        ],
         "2330175": [
           {
             "source": "criterion",
@@ -17909,6 +18227,13 @@
             "externalId": "tt0073707"
           }
         ],
+        "2348189": [
+          {
+            "source": "rolling-stone-tv-100",
+            "rank": 60,
+            "externalId": "rs-tv-60"
+          }
+        ],
         "2352020": [
           {
             "source": "bangumi-top250",
@@ -17926,6 +18251,13 @@
             "source": "letterboxd-top250",
             "rank": 97,
             "externalId": "tt0892769"
+          }
+        ],
+        "2353922": [
+          {
+            "source": "rolling-stone-tv-100",
+            "rank": 22,
+            "externalId": "rs-tv-22"
           }
         ],
         "2361247": [
@@ -18003,6 +18335,11 @@
             "source": "bbc-21c-tv-100",
             "rank": 3,
             "externalId": "bbc-21c-tv-3"
+          },
+          {
+            "source": "rolling-stone-tv-100",
+            "rank": 3,
+            "externalId": "rs-tv-3"
           }
         ],
         "2382777": [
@@ -18185,6 +18522,11 @@
             "source": "bbc-21c-tv-100",
             "rank": 5,
             "externalId": "bbc-21c-tv-5"
+          },
+          {
+            "source": "rolling-stone-tv-100",
+            "rank": 31,
+            "externalId": "rs-tv-31"
           }
         ],
         "3024645": [
@@ -18274,6 +18616,27 @@
             "spineNumber": "502"
           }
         ],
+        "3068614": [
+          {
+            "source": "rolling-stone-tv-100",
+            "rank": 21,
+            "externalId": "rs-tv-21"
+          }
+        ],
+        "3068630": [
+          {
+            "source": "rolling-stone-tv-100",
+            "rank": 72,
+            "externalId": "rs-tv-72"
+          }
+        ],
+        "3070173": [
+          {
+            "source": "rolling-stone-tv-100",
+            "rank": 10,
+            "externalId": "rs-tv-10"
+          }
+        ],
         "3070921": [
           {
             "source": "criterion",
@@ -18351,6 +18714,13 @@
             "externalId": "tt0076341"
           }
         ],
+        "3140235": [
+          {
+            "source": "rolling-stone-tv-100",
+            "rank": 62,
+            "externalId": "rs-tv-62"
+          }
+        ],
         "3142101": [
           {
             "source": "bangumi-top250",
@@ -18371,6 +18741,13 @@
             "source": "letterboxd-top250",
             "rank": 170,
             "externalId": "tt1262426"
+          }
+        ],
+        "3151620": [
+          {
+            "source": "rolling-stone-tv-100",
+            "rank": 91,
+            "externalId": "rs-tv-91"
           }
         ],
         "3154392": [
@@ -18403,6 +18780,13 @@
             "rank": null,
             "externalId": "686",
             "spineNumber": "686"
+          }
+        ],
+        "3182785": [
+          {
+            "source": "rolling-stone-tv-100",
+            "rank": 66,
+            "externalId": "rs-tv-66"
           }
         ],
         "3184594": [
@@ -18565,6 +18949,11 @@
             "source": "bbc-21c-tv-100",
             "rank": 29,
             "externalId": "bbc-21c-tv-29"
+          },
+          {
+            "source": "rolling-stone-tv-100",
+            "rank": 30,
+            "externalId": "rs-tv-30"
           }
         ],
         "3425808": [
@@ -18635,6 +19024,13 @@
             "rank": null,
             "externalId": "850",
             "spineNumber": "850"
+          }
+        ],
+        "3552016": [
+          {
+            "source": "rolling-stone-tv-100",
+            "rank": 82,
+            "externalId": "rs-tv-82"
           }
         ],
         "3581476": [
@@ -18737,6 +19133,13 @@
             "externalId": "tt0053488"
           }
         ],
+        "3668287": [
+          {
+            "source": "rolling-stone-tv-100",
+            "rank": 73,
+            "externalId": "rs-tv-73"
+          }
+        ],
         "3681349": [
           {
             "source": "bangumi-top250",
@@ -18790,6 +19193,11 @@
             "source": "bbc-21c-tv-100",
             "rank": 44,
             "externalId": "bbc-21c-tv-44"
+          },
+          {
+            "source": "rolling-stone-tv-100",
+            "rank": 56,
+            "externalId": "rs-tv-56"
           }
         ],
         "3742993": [
@@ -18850,6 +19258,13 @@
             "externalId": "tt1187043"
           }
         ],
+        "3803143": [
+          {
+            "source": "rolling-stone-tv-100",
+            "rank": 87,
+            "externalId": "rs-tv-87"
+          }
+        ],
         "3804629": [
           {
             "source": "letterboxd-top250",
@@ -18906,6 +19321,11 @@
             "source": "imdb-top250-tv",
             "rank": 162,
             "externalId": "tt1489428"
+          },
+          {
+            "source": "rolling-stone-tv-100",
+            "rank": 76,
+            "externalId": "rs-tv-76"
           }
         ],
         "3986212": [
@@ -18926,6 +19346,13 @@
             "source": "bbc-21c-tv-100",
             "rank": 25,
             "externalId": "bbc-21c-tv-25"
+          }
+        ],
+        "4000529": [
+          {
+            "source": "rolling-stone-tv-100",
+            "rank": 45,
+            "externalId": "rs-tv-45"
           }
         ],
         "4005490": [
@@ -19044,6 +19471,13 @@
             "source": "bangumi-top250",
             "rank": 160,
             "externalId": "bangumi-56847"
+          }
+        ],
+        "4109226": [
+          {
+            "source": "rolling-stone-tv-100",
+            "rank": 89,
+            "externalId": "rs-tv-89"
           }
         ],
         "4116954": [
@@ -19322,6 +19756,13 @@
             "spineNumber": "1096"
           }
         ],
+        "5055462": [
+          {
+            "source": "rolling-stone-tv-100",
+            "rank": 86,
+            "externalId": "rs-tv-86"
+          }
+        ],
         "5055911": [
           {
             "source": "criterion",
@@ -19473,6 +19914,11 @@
             "source": "bbc-21c-tv-100",
             "rank": 24,
             "externalId": "bbc-21c-tv-24"
+          },
+          {
+            "source": "rolling-stone-tv-100",
+            "rank": 13,
+            "externalId": "rs-tv-13"
           }
         ],
         "5385557": [
@@ -19594,6 +20040,11 @@
             "source": "bbc-21c-tv-100",
             "rank": 30,
             "externalId": "bbc-21c-tv-30"
+          },
+          {
+            "source": "rolling-stone-tv-100",
+            "rank": 65,
+            "externalId": "rs-tv-65"
           }
         ],
         "6024430": [
@@ -19881,6 +20332,13 @@
             "externalId": "tt2153963"
           }
         ],
+        "10441174": [
+          {
+            "source": "rolling-stone-tv-100",
+            "rank": 59,
+            "externalId": "rs-tv-59"
+          }
+        ],
         "10467755": [
           {
             "source": "bangumi-top250",
@@ -19927,6 +20385,11 @@
             "source": "bbc-21c-tv-100",
             "rank": 39,
             "externalId": "bbc-21c-tv-39"
+          },
+          {
+            "source": "rolling-stone-tv-100",
+            "rank": 34,
+            "externalId": "rs-tv-34"
           }
         ],
         "10533913": [
@@ -19948,6 +20411,11 @@
             "source": "bbc-21c-tv-100",
             "rank": 8,
             "externalId": "bbc-21c-tv-8"
+          },
+          {
+            "source": "rolling-stone-tv-100",
+            "rank": 14,
+            "externalId": "rs-tv-14"
           }
         ],
         "10539856": [
@@ -19981,6 +20449,13 @@
             "source": "bangumi-top250",
             "rank": 35,
             "externalId": "bangumi-44693"
+          }
+        ],
+        "10575369": [
+          {
+            "source": "rolling-stone-tv-100",
+            "rank": 54,
+            "externalId": "rs-tv-54"
           }
         ],
         "10577869": [
@@ -20153,6 +20628,11 @@
             "source": "bbc-21c-tv-100",
             "rank": 76,
             "externalId": "bbc-21c-tv-76"
+          },
+          {
+            "source": "rolling-stone-tv-100",
+            "rank": 96,
+            "externalId": "rs-tv-96"
           }
         ],
         "11538029": [
@@ -20237,6 +20717,11 @@
             "source": "bbc-21c-tv-100",
             "rank": 65,
             "externalId": "bbc-21c-tv-65"
+          },
+          {
+            "source": "rolling-stone-tv-100",
+            "rank": 85,
+            "externalId": "rs-tv-85"
           }
         ],
         "20507018": [
@@ -20305,6 +20790,11 @@
             "source": "bbc-21c-tv-100",
             "rank": 50,
             "externalId": "bbc-21c-tv-50"
+          },
+          {
+            "source": "rolling-stone-tv-100",
+            "rank": 55,
+            "externalId": "rs-tv-55"
           }
         ],
         "21485010": [
@@ -20342,6 +20832,11 @@
             "source": "bbc-21c-tv-100",
             "rank": 7,
             "externalId": "bbc-21c-tv-7"
+          },
+          {
+            "source": "rolling-stone-tv-100",
+            "rank": 17,
+            "externalId": "rs-tv-17"
           }
         ],
         "23774708": [
@@ -20361,6 +20856,11 @@
             "source": "bbc-21c-tv-100",
             "rank": 35,
             "externalId": "bbc-21c-tv-35"
+          },
+          {
+            "source": "rolling-stone-tv-100",
+            "rank": 84,
+            "externalId": "rs-tv-84"
           }
         ],
         "24698699": [
@@ -20449,6 +20949,11 @@
             "source": "bbc-21c-tv-100",
             "rank": 23,
             "externalId": "bbc-21c-tv-23"
+          },
+          {
+            "source": "rolling-stone-tv-100",
+            "rank": 32,
+            "externalId": "rs-tv-32"
           }
         ],
         "25732103": [
@@ -20640,6 +21145,11 @@
             "source": "bbc-21c-tv-100",
             "rank": 11,
             "externalId": "bbc-21c-tv-11"
+          },
+          {
+            "source": "rolling-stone-tv-100",
+            "rank": 41,
+            "externalId": "rs-tv-41"
           }
         ],
         "25924036": [
@@ -20860,6 +21370,13 @@
             "externalId": "tt5182866"
           }
         ],
+        "26309270": [
+          {
+            "source": "rolling-stone-tv-100",
+            "rank": 71,
+            "externalId": "rs-tv-71"
+          }
+        ],
         "26313277": [
           {
             "source": "bbc-21c-tv-100",
@@ -21014,6 +21531,11 @@
             "source": "bbc-21c-tv-100",
             "rank": 14,
             "externalId": "bbc-21c-tv-14"
+          },
+          {
+            "source": "rolling-stone-tv-100",
+            "rank": 9,
+            "externalId": "rs-tv-9"
           }
         ],
         "26420932": [
@@ -21041,6 +21563,11 @@
             "source": "bbc-21c-tv-100",
             "rank": 16,
             "externalId": "bbc-21c-tv-16"
+          },
+          {
+            "source": "rolling-stone-tv-100",
+            "rank": 88,
+            "externalId": "rs-tv-88"
           }
         ],
         "26581349": [
@@ -21063,6 +21590,11 @@
             "source": "bbc-21c-tv-100",
             "rank": 62,
             "externalId": "bbc-21c-tv-62"
+          },
+          {
+            "source": "rolling-stone-tv-100",
+            "rank": 40,
+            "externalId": "rs-tv-40"
           }
         ],
         "26592971": [
@@ -21112,6 +21644,11 @@
             "source": "bbc-21c-tv-100",
             "rank": 26,
             "externalId": "bbc-21c-tv-26"
+          },
+          {
+            "source": "rolling-stone-tv-100",
+            "rank": 23,
+            "externalId": "rs-tv-23"
           }
         ],
         "26638338": [
@@ -21139,6 +21676,11 @@
             "source": "bbc-21c-tv-100",
             "rank": 83,
             "externalId": "bbc-21c-tv-83"
+          },
+          {
+            "source": "rolling-stone-tv-100",
+            "rank": 43,
+            "externalId": "rs-tv-43"
           }
         ],
         "26648249": [
@@ -21254,6 +21796,13 @@
             "source": "bbc-21c-tv-100",
             "rank": 79,
             "externalId": "bbc-21c-tv-79"
+          }
+        ],
+        "26707518": [
+          {
+            "source": "rolling-stone-tv-100",
+            "rank": 52,
+            "externalId": "rs-tv-52"
           }
         ],
         "26716348": [
@@ -21404,6 +21953,11 @@
             "source": "bbc-21c-tv-100",
             "rank": 10,
             "externalId": "bbc-21c-tv-10"
+          },
+          {
+            "source": "rolling-stone-tv-100",
+            "rank": 11,
+            "externalId": "rs-tv-11"
           }
         ],
         "26836810": [
@@ -21431,6 +21985,11 @@
             "source": "bbc-21c-tv-100",
             "rank": 4,
             "externalId": "bbc-21c-tv-4"
+          },
+          {
+            "source": "rolling-stone-tv-100",
+            "rank": 5,
+            "externalId": "rs-tv-5"
           }
         ],
         "26847068": [
@@ -21497,6 +22056,11 @@
             "source": "bbc-21c-tv-100",
             "rank": 59,
             "externalId": "bbc-21c-tv-59"
+          },
+          {
+            "source": "rolling-stone-tv-100",
+            "rank": 61,
+            "externalId": "rs-tv-61"
           }
         ],
         "26881181": [
@@ -21810,6 +22374,11 @@
             "source": "imdb-top250-tv",
             "rank": 209,
             "externalId": "tt7908628"
+          },
+          {
+            "source": "rolling-stone-tv-100",
+            "rank": 100,
+            "externalId": "rs-tv-100"
           }
         ],
         "30143336": [
@@ -22028,6 +22597,13 @@
             "externalId": "tt7838252"
           }
         ],
+        "30414812": [
+          {
+            "source": "rolling-stone-tv-100",
+            "rank": 57,
+            "externalId": "rs-tv-57"
+          }
+        ],
         "30430720": [
           {
             "source": "criterion",
@@ -22225,6 +22801,13 @@
             "externalId": "tt9263550"
           }
         ],
+        "34812928": [
+          {
+            "source": "rolling-stone-tv-100",
+            "rank": 95,
+            "externalId": "rs-tv-95"
+          }
+        ],
         "34819530": [
           {
             "source": "imdb-top250-tv",
@@ -22329,6 +22912,11 @@
             "source": "bbc-21c-tv-100",
             "rank": 6,
             "externalId": "bbc-21c-tv-6"
+          },
+          {
+            "source": "rolling-stone-tv-100",
+            "rank": 19,
+            "externalId": "rs-tv-19"
           }
         ],
         "34938553": [
