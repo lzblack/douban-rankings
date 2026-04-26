@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-04-20T03:16:44.355Z",
+  "generatedAt": "2026-04-26T05:31:19.836Z",
   "overall": "ok",
   "sources": [
     {
       "id": "imdb-top250",
-      "itemCount": 248,
-      "itemCountDelta": -1,
+      "itemCount": 249,
+      "itemCountDelta": 1,
       "message": null,
       "status": "ok",
-      "lastSuccessAt": "2026-04-20T03:14:46.210Z",
+      "lastSuccessAt": "2026-04-26T05:30:17.751Z",
       "lastFailureAt": null,
       "consecutiveFailures": 0
     },
@@ -18,7 +18,7 @@
       "itemCountDelta": 0,
       "message": null,
       "status": "ok",
-      "lastSuccessAt": "2026-04-20T03:15:06.396Z",
+      "lastSuccessAt": "2026-04-26T05:30:49.753Z",
       "lastFailureAt": null,
       "consecutiveFailures": 0
     },
@@ -26,8 +26,8 @@
       "id": "criterion",
       "itemCount": 1174,
       "itemCountDelta": 0,
-      "message": null,
-      "status": "ok",
+      "message": "criterion: /home/runner/work/douban-rankings/douban-rankings/config/criterion-snapshot.json not found (snapshots are gitignored — refresh is maintainer-local: pnpm run fetch:criterion-snapshot).",
+      "status": "skipped",
       "lastSuccessAt": "2026-04-20T03:15:36.050Z",
       "lastFailureAt": "2026-04-18T23:36:48.793Z",
       "consecutiveFailures": 0
@@ -38,7 +38,7 @@
       "itemCountDelta": 0,
       "message": null,
       "status": "ok",
-      "lastSuccessAt": "2026-04-20T03:15:36.946Z",
+      "lastSuccessAt": "2026-04-26T05:31:19.513Z",
       "lastFailureAt": null,
       "consecutiveFailures": 0
     },
@@ -46,8 +46,8 @@
       "id": "bfi-ss-2022",
       "itemCount": 99,
       "itemCountDelta": 0,
-      "message": null,
-      "status": "ok",
+      "message": "bfi-ss-2022: /home/runner/work/douban-rankings/douban-rankings/config/bfi-ss-snapshot.json not found (snapshots are gitignored — refresh is maintainer-local: pnpm run fetch:bfi-ss-snapshot).",
+      "status": "skipped",
       "lastSuccessAt": "2026-04-20T03:15:37.138Z",
       "lastFailureAt": null,
       "consecutiveFailures": 0
@@ -56,8 +56,8 @@
       "id": "letterboxd-top250",
       "itemCount": 249,
       "itemCountDelta": 0,
-      "message": null,
-      "status": "ok",
+      "message": "letterboxd-top250: /home/runner/work/douban-rankings/douban-rankings/config/letterboxd-top250-snapshot.json not found (snapshots are gitignored — refresh is maintainer-local: pnpm run fetch:letterboxd-top250-snapshot).",
+      "status": "skipped",
       "lastSuccessAt": "2026-04-20T03:15:41.594Z",
       "lastFailureAt": null,
       "consecutiveFailures": 0
@@ -66,8 +66,8 @@
       "id": "tspdt-1000",
       "itemCount": 989,
       "itemCountDelta": 0,
-      "message": null,
-      "status": "ok",
+      "message": "tspdt-1000: /home/runner/work/douban-rankings/douban-rankings/config/tspdt-1000-snapshot.json not found (snapshots are gitignored — refresh is maintainer-local: pnpm run fetch:tspdt-1000-snapshot).",
+      "status": "skipped",
       "lastSuccessAt": "2026-04-20T03:15:46.518Z",
       "lastFailureAt": "2026-04-19T01:20:56.085Z",
       "consecutiveFailures": 0
@@ -76,8 +76,8 @@
       "id": "bangumi-top250",
       "itemCount": 189,
       "itemCountDelta": 0,
-      "message": null,
-      "status": "ok",
+      "message": "bangumi-top250: /home/runner/work/douban-rankings/douban-rankings/config/bangumi-top250-snapshot.json not found (snapshots are gitignored — refresh is maintainer-local: pnpm run fetch:bangumi-top250-snapshot).",
+      "status": "skipped",
       "lastSuccessAt": "2026-04-20T03:16:44.353Z",
       "lastFailureAt": "2026-04-19T01:20:56.085Z",
       "consecutiveFailures": 0
@@ -86,8 +86,8 @@
       "id": "grammy-aoty",
       "itemCount": 67,
       "itemCountDelta": 0,
-      "message": null,
-      "status": "ok",
+      "message": "grammy-aoty: /home/runner/work/douban-rankings/douban-rankings/config/grammy-aoty-snapshot.json not found (snapshots are gitignored — refresh is maintainer-local: pnpm run fetch:grammy-aoty-snapshot).",
+      "status": "skipped",
       "lastSuccessAt": "2026-04-20T03:16:44.354Z",
       "lastFailureAt": null,
       "consecutiveFailures": 0
@@ -96,8 +96,8 @@
       "id": "bbc-21c-tv-100",
       "itemCount": 97,
       "itemCountDelta": 0,
-      "message": null,
-      "status": "ok",
+      "message": "bbc-21c-tv-100: /home/runner/work/douban-rankings/douban-rankings/config/bbc-21c-tv-100-snapshot.json not found (snapshots are gitignored — refresh is maintainer-local: pnpm run fetch:bbc-21c-tv-100-snapshot).",
+      "status": "skipped",
       "lastSuccessAt": "2026-04-20T03:16:44.355Z",
       "lastFailureAt": null,
       "consecutiveFailures": 0
@@ -106,8 +106,8 @@
       "id": "rolling-stone-tv-100",
       "itemCount": 98,
       "itemCountDelta": 0,
-      "message": null,
-      "status": "ok",
+      "message": "rolling-stone-tv-100: /home/runner/work/douban-rankings/douban-rankings/config/rolling-stone-tv-100-snapshot.json not found (snapshots are gitignored — refresh is maintainer-local: pnpm run fetch:rolling-stone-tv-100-snapshot).",
+      "status": "skipped",
       "lastSuccessAt": "2026-04-20T03:16:44.355Z",
       "lastFailureAt": null,
       "consecutiveFailures": 0
