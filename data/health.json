@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-07T06:58:41.228Z",
+  "generatedAt": "2026-06-14T07:16:06.757Z",
   "overall": "ok",
   "sources": [
     {
@@ -8,7 +8,7 @@
       "itemCountDelta": 0,
       "message": null,
       "status": "ok",
-      "lastSuccessAt": "2026-06-07T06:57:43.496Z",
+      "lastSuccessAt": "2026-06-14T07:15:14.140Z",
       "lastFailureAt": null,
       "consecutiveFailures": 0
     },
@@ -18,7 +18,7 @@
       "itemCountDelta": 0,
       "message": null,
       "status": "ok",
-      "lastSuccessAt": "2026-06-07T06:58:10.317Z",
+      "lastSuccessAt": "2026-06-14T07:15:35.206Z",
       "lastFailureAt": null,
       "consecutiveFailures": 0
     },
@@ -38,7 +38,7 @@
       "itemCountDelta": 0,
       "message": null,
       "status": "ok",
-      "lastSuccessAt": "2026-06-07T06:58:41.008Z",
+      "lastSuccessAt": "2026-06-14T07:16:06.553Z",
       "lastFailureAt": null,
       "consecutiveFailures": 0
     },
