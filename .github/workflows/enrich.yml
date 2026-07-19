@@ -1,0 +1,59 @@
+name: Enrich ratings
+
+# Standalone from `update`: reads the committed data/movie.json, tops up
+# MDBList cross-platform ratings (incremental — only missing/stale titles), and
+# commits just the ratings change. Independent of the scrape pipeline, so it is
+# unaffected by the snapshot-source limitation that keeps `update` from
+# committing movie.json in CI.
+
+on:
+  schedule:
+    - cron: '0 4 8-14 * 0' # second Sunday each month, 04:00 UTC (offset from update)
+  workflow_dispatch:
+
+permissions:
+  contents: write # commit data/movie.json
+
+concurrency:
+  # Share the update workflow's group so the two never write data/ concurrently.
+  group: update-rankings
+  cancel-in-progress: false
+
+jobs:
+  enrich:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v5
+        # Reads `packageManager` from package.json for version pinning.
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 20
+          cache: 'pnpm'
+
+      - name: Install deps
+        run: pnpm install --frozen-lockfile
+
+      - name: Enrich ratings
+        env:
+          MDBLIST_API_KEY: ${{ secrets.MDBLIST_API_KEY }}
+        # No-op (exit 0) if the secret is unset — e.g. on a fork without access.
+        run: pnpm run enrich
+
+      - name: Commit ratings
+        run: |
+          git config user.name "rankings-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add data/movie.json
+          if git diff --cached --quiet; then
+            echo "No ratings changes."
+            exit 0
+          fi
+          git commit -m "data(movie): enrich ratings via MDBList (scheduled)"
+          # Rebase in case another data writer landed since checkout, then push.
+          git pull --rebase --autostash origin main
+          git push
