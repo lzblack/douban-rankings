@@ -100,6 +100,45 @@ test('buildCategoryPayload merges same doubanId across sources, preserving spine
     });
 });
 
+test('buildCategoryPayload carries prevRatings forward only for surviving doubanIds', () => {
+    const sourceResults = [
+        {
+            sourceDef: fakeSource,
+            itemCount: 1,
+            updatedAt: NOW,
+            items: [{ doubanId: '1292052', rank: 1, externalId: 'tt0111161' }],
+        },
+    ];
+    const prevRatings = {
+        1292052: { imdb: 93, at: '2026-07-19T00:00:00.000Z' }, // survives
+        9999999: { imdb: 50, at: '2026-07-19T00:00:00.000Z' }, // dropped (not in items)
+    };
+    const payload = buildCategoryPayload('movie', sourceResults, { now: NOW, prevRatings });
+    assert.deepEqual(payload.categories.movie.ratings, {
+        1292052: { imdb: 93, at: '2026-07-19T00:00:00.000Z' },
+    });
+});
+
+test('buildCategoryPayload omits ratings without prevRatings or when none survive', () => {
+    const sourceResults = [
+        {
+            sourceDef: fakeSource,
+            itemCount: 1,
+            updatedAt: NOW,
+            items: [{ doubanId: '1292052', rank: 1, externalId: 'tt0111161' }],
+        },
+    ];
+    // no prevRatings → no ratings key at all
+    const a = buildCategoryPayload('movie', sourceResults, { now: NOW });
+    assert.equal('ratings' in a.categories.movie, false);
+    // prevRatings present but for a doubanId not in items → still omitted
+    const b = buildCategoryPayload('movie', sourceResults, {
+        now: NOW,
+        prevRatings: { 9999999: { imdb: 50, at: '2026-07-19T00:00:00.000Z' } },
+    });
+    assert.equal('ratings' in b.categories.movie, false);
+});
+
 test('buildManifest lists categories and URLs with configurable baseUrl', () => {
     const manifest = buildManifest(['movie'], {
         now: NOW,

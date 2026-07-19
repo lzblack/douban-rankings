@@ -8,6 +8,7 @@ import {
     runAll,
     groupByCategory,
     loadPrevResolved,
+    loadPrevRatings,
 } from '../src/pipeline.mjs';
 
 const fakeHttp = { fetch: async () => new Response('') };
@@ -242,6 +243,31 @@ test('loadPrevResolved returns empty map when no prior files', async () => {
     try {
         const map = await loadPrevResolved(dir);
         assert.equal(map.size, 0);
+    } finally {
+        await rm(dir, { recursive: true, force: true });
+    }
+});
+
+test('loadPrevRatings returns the prior ratings map, {} when absent', async () => {
+    const dir = await mkdtemp(join(tmpdir(), 'pipeline-ratings-'));
+    try {
+        assert.deepEqual(await loadPrevRatings('movie', dir), {}); // no file yet
+        await writeFile(
+            join(dir, 'movie.json'),
+            JSON.stringify({
+                schemaVersion: 1,
+                categories: {
+                    movie: {
+                        sources: {},
+                        items: {},
+                        ratings: { '1292052': { imdb: 93, at: '2026-07-19T00:00:00.000Z' } },
+                    },
+                },
+            }),
+        );
+        assert.deepEqual(await loadPrevRatings('movie', dir), {
+            '1292052': { imdb: 93, at: '2026-07-19T00:00:00.000Z' },
+        });
     } finally {
         await rm(dir, { recursive: true, force: true });
     }
