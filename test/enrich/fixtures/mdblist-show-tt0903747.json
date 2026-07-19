@@ -1,0 +1,527 @@
+{
+  "title": "Breaking Bad",
+  "year": 2008,
+  "released": "2008-01-20",
+  "released_digital": null,
+  "description": "Walter White, a New Mexico chemistry teacher, is diagnosed with Stage III cancer and given a prognosis of only two years left to live. He becomes filled with a sense of fearlessness and an unrelenting desire to secure his family's financial future at any cost as he enters the dangerous world of drugs and crime.",
+  "tagline": "Change the equation.",
+  "runtime": 2995,
+  "budget": null,
+  "revenue": null,
+  "score": 92,
+  "score_average": 92,
+  "ids": {
+    "imdb": "tt0903747",
+    "trakt": 1388,
+    "tmdb": 1396,
+    "tvdb": 81189,
+    "mal": null,
+    "mdblist": "8plj"
+  },
+  "type": "show",
+  "updated": "2026-07-16T18:55:45.000Z",
+  "ratings": [
+    {
+      "source": "imdb",
+      "value": 9.5,
+      "score": 95,
+      "votes": 2642930,
+      "url": 18
+    },
+    {
+      "source": "metacritic",
+      "value": 87,
+      "score": 87,
+      "votes": 98,
+      "url": "/breaking-bad"
+    },
+    {
+      "source": "metacriticuser",
+      "value": 9.4,
+      "score": 94,
+      "votes": 19269,
+      "url": null
+    },
+    {
+      "source": "trakt",
+      "value": 92,
+      "score": 92,
+      "votes": 66183,
+      "url": null
+    },
+    {
+      "source": "tomatoes",
+      "value": 96,
+      "score": 96,
+      "votes": 250,
+      "url": "/tv/breaking_bad",
+      "fresh": 1
+    },
+    {
+      "source": "popcorn",
+      "value": 97,
+      "score": 97,
+      "votes": null,
+      "url": "/tv/breaking_bad"
+    },
+    {
+      "source": "tmdb",
+      "value": 89,
+      "score": 89,
+      "votes": 18127,
+      "url": null
+    },
+    {
+      "source": "letterboxd",
+      "value": null,
+      "score": null,
+      "votes": null,
+      "url": null
+    },
+    {
+      "source": "rogerebert",
+      "value": null,
+      "score": null,
+      "votes": null,
+      "url": null
+    },
+    {
+      "source": "myanimelist",
+      "value": null,
+      "score": null,
+      "votes": null,
+      "url": null
+    }
+  ],
+  "genres": [
+    {
+      "id": 4,
+      "title": "Crime"
+    },
+    {
+      "id": 6,
+      "title": "Drama"
+    },
+    {
+      "id": 21,
+      "title": "Thriller"
+    }
+  ],
+  "streams": [
+    {
+      "id": 1,
+      "name": "Netflix"
+    },
+    {
+      "id": 10,
+      "name": "AMC"
+    }
+  ],
+  "watch_providers": [
+    {
+      "id": 2,
+      "name": "Apple TV Store"
+    },
+    {
+      "id": 3,
+      "name": "Google Play Movies"
+    },
+    {
+      "id": 7,
+      "name": "Fandango At Home"
+    },
+    {
+      "id": 8,
+      "name": "Netflix"
+    },
+    {
+      "id": 10,
+      "name": "Amazon Video"
+    },
+    {
+      "id": 1796,
+      "name": "Netflix Standard with Ads"
+    }
+  ],
+  "production_companies": [
+    {
+      "id": 11073,
+      "name": "Sony Pictures Television"
+    },
+    {
+      "id": 2605,
+      "name": "Gran Via Productions"
+    },
+    {
+      "id": 33742,
+      "name": "High Bridge Entertainment"
+    }
+  ],
+  "network": "AMC",
+  "seasons": [
+    {
+      "avg": 87,
+      "label": "S1",
+      "episodes": [
+        {
+          "votes": 83761,
+          "rating": 90,
+          "episode_number": 1
+        },
+        {
+          "votes": 62170,
+          "rating": 86,
+          "episode_number": 2
+        },
+        {
+          "votes": 59916,
+          "rating": 87,
+          "episode_number": 3
+        },
+        {
+          "votes": 57577,
+          "rating": 82,
+          "episode_number": 4
+        },
+        {
+          "votes": 56547,
+          "rating": 82,
+          "episode_number": 5
+        },
+        {
+          "votes": 65926,
+          "rating": 93,
+          "episode_number": 6
+        },
+        {
+          "votes": 57470,
+          "rating": 88,
+          "episode_number": 7
+        }
+      ],
+      "season_number": 1
+    },
+    {
+      "avg": 88,
+      "label": "S2",
+      "episodes": [
+        {
+          "votes": 51709,
+          "rating": 86,
+          "episode_number": 1
+        },
+        {
+          "votes": 59526,
+          "rating": 93,
+          "episode_number": 2
+        },
+        {
+          "votes": 49734,
+          "rating": 83,
+          "episode_number": 3
+        },
+        {
+          "votes": 49795,
+          "rating": 82,
+          "episode_number": 4
+        },
+        {
+          "votes": 49102,
+          "rating": 82,
+          "episode_number": 5
+        },
+        {
+          "votes": 52503,
+          "rating": 88,
+          "episode_number": 6
+        },
+        {
+          "votes": 48834,
+          "rating": 86,
+          "episode_number": 7
+        },
+        {
+          "votes": 57640,
+          "rating": 93,
+          "episode_number": 8
+        },
+        {
+          "votes": 55372,
+          "rating": 92,
+          "episode_number": 9
+        },
+        {
+          "votes": 48014,
+          "rating": 84,
+          "episode_number": 10
+        },
+        {
+          "votes": 49897,
+          "rating": 89,
+          "episode_number": 11
+        },
+        {
+          "votes": 56119,
+          "rating": 93,
+          "episode_number": 12
+        },
+        {
+          "votes": 54788,
+          "rating": 92,
+          "episode_number": 13
+        }
+      ],
+      "season_number": 2
+    },
+    {
+      "avg": 87,
+      "label": "S3",
+      "episodes": [
+        {
+          "votes": 47308,
+          "rating": 84,
+          "episode_number": 1
+        },
+        {
+          "votes": 46093,
+          "rating": 86,
+          "episode_number": 2
+        },
+        {
+          "votes": 45911,
+          "rating": 83,
+          "episode_number": 3
+        },
+        {
+          "votes": 47762,
+          "rating": 81,
+          "episode_number": 4
+        },
+        {
+          "votes": 45109,
+          "rating": 85,
+          "episode_number": 5
+        },
+        {
+          "votes": 51717,
+          "rating": 93,
+          "episode_number": 6
+        },
+        {
+          "votes": 63329,
+          "rating": 96,
+          "episode_number": 7
+        },
+        {
+          "votes": 46117,
+          "rating": 87,
+          "episode_number": 8
+        },
+        {
+          "votes": 45489,
+          "rating": 83,
+          "episode_number": 9
+        },
+        {
+          "votes": 96993,
+          "rating": 79,
+          "episode_number": 10
+        },
+        {
+          "votes": 45281,
+          "rating": 84,
+          "episode_number": 11
+        },
+        {
+          "votes": 62696,
+          "rating": 95,
+          "episode_number": 12
+        },
+        {
+          "votes": 76514,
+          "rating": 97,
+          "episode_number": 13
+        }
+      ],
+      "season_number": 3
+    },
+    {
+      "avg": 90,
+      "label": "S4",
+      "episodes": [
+        {
+          "votes": 54821,
+          "rating": 92,
+          "episode_number": 1
+        },
+        {
+          "votes": 46499,
+          "rating": 82,
+          "episode_number": 2
+        },
+        {
+          "votes": 56328,
+          "rating": 79,
+          "episode_number": 3
+        },
+        {
+          "votes": 45544,
+          "rating": 85,
+          "episode_number": 4
+        },
+        {
+          "votes": 45181,
+          "rating": 86,
+          "episode_number": 5
+        },
+        {
+          "votes": 46245,
+          "rating": 84,
+          "episode_number": 6
+        },
+        {
+          "votes": 46659,
+          "rating": 88,
+          "episode_number": 7
+        },
+        {
+          "votes": 53456,
+          "rating": 93,
+          "episode_number": 8
+        },
+        {
+          "votes": 48933,
+          "rating": 89,
+          "episode_number": 9
+        },
+        {
+          "votes": 66404,
+          "rating": 96,
+          "episode_number": 10
+        },
+        {
+          "votes": 84762,
+          "rating": 97,
+          "episode_number": 11
+        },
+        {
+          "votes": 61577,
+          "rating": 95,
+          "episode_number": 12
+        },
+        {
+          "votes": 158601,
+          "rating": 98,
+          "episode_number": 13
+        }
+      ],
+      "season_number": 4
+    },
+    {
+      "avg": 93,
+      "label": "S5",
+      "episodes": [
+        {
+          "votes": 64521,
+          "rating": 92,
+          "episode_number": 1
+        },
+        {
+          "votes": 57072,
+          "rating": 88,
+          "episode_number": 2
+        },
+        {
+          "votes": 56476,
+          "rating": 88,
+          "episode_number": 3
+        },
+        {
+          "votes": 56875,
+          "rating": 87,
+          "episode_number": 4
+        },
+        {
+          "votes": 86481,
+          "rating": 96,
+          "episode_number": 5
+        },
+        {
+          "votes": 59203,
+          "rating": 90,
+          "episode_number": 6
+        },
+        {
+          "votes": 82407,
+          "rating": 96,
+          "episode_number": 7
+        },
+        {
+          "votes": 73028,
+          "rating": 95,
+          "episode_number": 8
+        },
+        {
+          "votes": 68789,
+          "rating": 94,
+          "episode_number": 9
+        },
+        {
+          "votes": 63272,
+          "rating": 92,
+          "episode_number": 10
+        },
+        {
+          "votes": 80567,
+          "rating": 96,
+          "episode_number": 11
+        },
+        {
+          "votes": 68012,
+          "rating": 91,
+          "episode_number": 12
+        },
+        {
+          "votes": 127966,
+          "rating": 97,
+          "episode_number": 13
+        },
+        {
+          "votes": 504346,
+          "rating": 95,
+          "episode_number": 14
+        },
+        {
+          "votes": 123056,
+          "rating": 96,
+          "episode_number": 15
+        },
+        {
+          "votes": 293886,
+          "rating": 98,
+          "episode_number": 16
+        }
+      ],
+      "season_number": 5
+    }
+  ],
+  "language": "en",
+  "spoken_language": "en",
+  "country": "US",
+  "certification": "TV-MA",
+  "commonsense": true,
+  "age_rating": 17,
+  "commonsense_media": {
+    "common_sense": 17,
+    "common_sense_selection": false,
+    "parental_violence": 4,
+    "parental_nudity": 3,
+    "parental_language": 4,
+    "parental_drinking": 5
+  },
+  "awards": "Won: Best Television Series - Drama (Golden Globes, 2014). Plus 5 more wins & 32 nominations.",
+  "status": "Ended",
+  "trailer": "https://youtube.com/watch?v=XZ8daibM3AE",
+  "poster": "https://image.tmdb.org/t/p/original/ztkUQFLlC19CCMYHW9o1zWhJRNq.jpg",
+  "backdrop": "https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/tsRy63Mu5cu8etL1X7ZLyf7UP1M.jpg"
+}

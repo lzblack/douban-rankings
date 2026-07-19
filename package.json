@@ -6,6 +6,7 @@
     "packageManager": "pnpm@9.15.9",
     "scripts": {
         "update": "node src/pipeline.mjs",
+        "enrich": "node --env-file-if-exists=.env src/enrich/mdblist-enrich.mjs",
         "test": "node --test test/**/*.test.mjs",
         "health": "node src/health.mjs --report",
         "format": "prettier --write \"src/**/*.mjs\"",
