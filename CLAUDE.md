@@ -103,7 +103,8 @@ src/util/http.mjs             所有 fetch 的唯一出口：UA、限速、重�
 
 - `pnpm run enrich`：读 `data/movie.json`，按 IMDb id 从 **MDBList** 拉跨平台评分，写回 additive 的 `categories.movie.ratings`（schemaVersion 不变）。**独立于 `update`**——`update` 在 CI 跑但不 commit movie.json；enrich 是本地全量 build 后手动跑，故 key 只在本地/CI secret，永不进 scrape 路径。
 - 覆盖：仅 tt-backed 条目（imdb/letterboxd/bfi/tspdt 源）；movie/show 类型由 `sources[].subCategory` 推出。
-- 配额：MDBList 免费 ~1000 req/天。首次冷启动 ~1500 条分 2 天灌（默认 `MDBLIST_MAX_REQUESTS=900`/run，最旧优先）；稳态只补缺失或 >`MDBLIST_TTL_DAYS`（默认 90）过期的。核心逻辑 `src/enrich/mdblist.mjs`，纯函数全测试覆盖。
+- 配额：MDBList 免费 ~1000 req/天。`MDBLIST_MAX_REQUESTS`（默认 900）是**每次运行的 HTTP 请求预算**（非标题数——一次 miss 会因 movie→show fallback 花 2 请求），保证单跑不越日限。首次冷启动 ~1500 条分 2 天灌（最旧优先）；稳态只补缺失或 >`MDBLIST_TTL_DAYS`（默认 90）过期的。
+- 负缓存：MDBList 查无的条目写 `{at}` 哨兵，按更短的 `MDBLIST_NEGATIVE_TTL_DAYS`（默认 30）重查，避免每次 churn。核心逻辑 `src/enrich/mdblist.mjs`，纯函数全测试覆盖。
 
 ## Timeline 策略
 

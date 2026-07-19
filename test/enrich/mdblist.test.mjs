@@ -120,6 +120,21 @@ test('selectStale rejects a non-positive ttl', () => {
     assert.throws(() => selectStale(new Map(), {}, { ttlMs: 0, now: NOW }), /ttlMs/);
 });
 
+test('selectStale rechecks a negative sentinel on the shorter negative TTL', () => {
+    const targets = new Map([['tt_neg', T(['1'])], ['tt_pos', T(['2'])]]);
+    const prev = {
+        1: { at: '2026-06-19T04:00:00Z' }, // sentinel, 30 days old
+        2: { imdb: 80, at: '2026-06-19T04:00:00Z' }, // real score, 30 days old
+    };
+    // ttl 90d (both within) but negativeTtl 20d → the sentinel is stale, the real one fresh
+    const stale = selectStale(targets, prev, {
+        ttlMs: 90 * 864e5,
+        negativeTtlMs: 20 * 864e5,
+        now: NOW,
+    });
+    assert.deepEqual(stale, ['tt_neg']);
+});
+
 // --- normalizeMdblistResponse (real fixtures) -----------------------------
 
 test('normalizeMdblistResponse maps slugs and drops null/unknown sources (movie)', () => {
@@ -251,12 +266,15 @@ test('injectRatings preserves prior ratings not in the new batch', () => {
     assert.equal(out.categories.movie.ratings['1292052'].imdb, 78);
 });
 
-test('injectRatings skips empty score objects and does not mutate input', () => {
+test('injectRatings writes an {at}-only negative sentinel for empty scores', () => {
     const json = movieFixture({
         1292052: [{ source: 'imdb-top250', rank: 1, externalId: 'tt0111161' }],
     });
     const out = injectRatings(json, { 1292052: {}, 1291841: { imdb: 90 } }, { now: NOW });
-    assert.equal('1292052' in out.categories.movie.ratings, false);
+    // empty → sentinel (present, but only `at`), not skipped
+    assert.deepEqual(out.categories.movie.ratings['1292052'], {
+        at: '2026-07-19T04:00:00.000Z',
+    });
     assert.equal(out.categories.movie.ratings['1291841'].imdb, 90);
     assert.notEqual(out, json);
     assert.equal(json.categories.movie.ratings, undefined);
@@ -324,30 +342,54 @@ test('enrichPayload fetches tt-backed titles, routes show, and summarizes', asyn
     const ratings = payload.categories.movie.ratings;
     assert.equal(ratings['1'].imdb, 93); // movie
     assert.equal(ratings['2'].imdb, 95); // show routed to /show/
-    assert.equal('3' in ratings, false); // MDBList miss → no entry
+    assert.deepEqual(Object.keys(ratings['3']), ['at']); // MDBList miss → negative sentinel
     assert.equal('4' in ratings, false); // non-tt never targeted
     assert.deepEqual(summary, {
         ttTargets: 3,
         fresh: 0,
         stale: 3,
-        fetched: 3,
+        attempted: 3,
+        requests: 4, // hit+hit = 2, miss (movie 404 → show 404) = 2
         withRatings: 2,
         noData: 1,
         skippedByCap: 0,
     });
 });
 
-test('enrichPayload honors maxRequests cap and reports the remainder', async () => {
+test('enrichPayload caps on HTTP requests (not titles) and reports the remainder', async () => {
     const calls = [];
     const { summary } = await enrichPayload(enrichFixtureJson(), {
         http: routedHttp(calls),
         key: 'K',
         ttlMs: 90 * 864e5,
-        maxRequests: 1,
+        maxRequests: 4, // miss(2) + one hit(1) = 3 used; next title needs 2 → stop
         now: NOW,
     });
-    assert.equal(summary.fetched, 1);
-    assert.equal(summary.skippedByCap, 2);
+    assert.equal(summary.attempted, 2);
+    assert.equal(summary.requests, 3);
+    assert.equal(summary.skippedByCap, 1);
+});
+
+test('enrichPayload negative-caches misses so a second run does not refetch them', async () => {
+    const first = await enrichPayload(enrichFixtureJson(), {
+        http: routedHttp([]),
+        key: 'K',
+        ttlMs: 90 * 864e5,
+        negativeTtlMs: 30 * 864e5,
+        now: NOW,
+    });
+    assert.deepEqual(Object.keys(first.payload.categories.movie.ratings['3']), ['at']);
+
+    const calls2 = [];
+    const second = await enrichPayload(first.payload, {
+        http: routedHttp(calls2),
+        key: 'K',
+        ttlMs: 90 * 864e5,
+        negativeTtlMs: 30 * 864e5,
+        now: new Date('2026-07-25T04:00:00Z'), // 6 days later, within both TTLs
+    });
+    assert.equal(second.summary.stale, 0); // sentinel counts as fresh
+    assert.equal(calls2.length, 0); // zero network on the re-run
 });
 
 test('enrichPayload skips titles whose ratings are still fresh', async () => {

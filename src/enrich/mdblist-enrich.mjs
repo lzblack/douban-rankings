@@ -36,8 +36,11 @@ async function main() {
 
     const maxRequests = Number(process.env.MDBLIST_MAX_REQUESTS ?? 900);
     const ttlDays = Number(process.env.MDBLIST_TTL_DAYS ?? 90);
-    if (!(maxRequests > 0) || !(ttlDays > 0)) {
-        console.error('[enrich] MDBLIST_MAX_REQUESTS / MDBLIST_TTL_DAYS must be positive.');
+    const negativeTtlDays = Number(process.env.MDBLIST_NEGATIVE_TTL_DAYS ?? 30);
+    if (!(maxRequests > 0) || !(ttlDays > 0) || !(negativeTtlDays > 0)) {
+        console.error(
+            '[enrich] MDBLIST_MAX_REQUESTS / MDBLIST_TTL_DAYS / MDBLIST_NEGATIVE_TTL_DAYS must be positive.',
+        );
         process.exit(1);
     }
 
@@ -61,6 +64,7 @@ async function main() {
         http,
         key,
         ttlMs: ttlDays * DAY_MS,
+        negativeTtlMs: negativeTtlDays * DAY_MS,
         maxRequests,
         now,
         category: CATEGORY,
@@ -72,8 +76,9 @@ async function main() {
     console.log('[enrich] done:', JSON.stringify(summary));
     if (summary.skippedByCap > 0) {
         console.log(
-            `[enrich] ${summary.skippedByCap} titles skipped by the ${maxRequests}/run cap — ` +
-                're-run tomorrow to continue the cold fill (stays under MDBList’s daily quota).',
+            `[enrich] ${summary.skippedByCap} titles left for next run — hit the ` +
+                `${maxRequests}-request/run budget. Re-run tomorrow to continue the ` +
+                'cold fill (stays under MDBList’s daily quota).',
         );
     }
 }
