@@ -39,6 +39,9 @@ https://rank.douban.zhili.dev/health.json       最近一次抓取的健康状�
       },
       "items": {
         "1292052": [{ "source": "imdb-top250", "rank": 1 }]
+      },
+      "ratings": {
+        "1292052": { "imdb": 93, "rt": 89, "rtAudience": 98, "metacritic": 82, "letterboxd": 92, "tmdb": 87, "at": "2026-07-19T04:10:00Z" }
       }
     }
   }
@@ -50,6 +53,7 @@ https://rank.douban.zhili.dev/health.json       最近一次抓取的健康状�
 - `schemaVersion` 在消费侧不匹配时**静默降级**，不要报错
 - 字段**只加不改**——新字段追加，老字段语义不变
 - `items[subjectId]` 是数组，同一条目可在多榜单
+- `ratings[subjectId]` 是**可选附加**字段（0–100 跨平台评分，来自 MDBList，按需 opt-in 消费）；条目可能缺失或缺某平台
 
 消费方详细集成指南（代码示例、缓存策略、caveats）：**[`docs/consumer-integration.md`](docs/consumer-integration.md)**。
 
@@ -58,6 +62,7 @@ https://rank.douban.zhili.dev/health.json       最近一次抓取的健康状�
 - Node 20+，ESM，pnpm（通过 `corepack enable`）
 - `pnpm install`
 - `pnpm run update` — 跑 pipeline，刷新 `data/*.json`
+- `pnpm run enrich` — 用 MDBList 给 `movie.json` 补跨平台评分（需本地 `.env` 里的 `MDBLIST_API_KEY`；无 key 时静默跳过）。见 [`.env.example`](.env.example)
 - `pnpm test` — 单测
 - `pnpm run health` — 查看健康状态
 
