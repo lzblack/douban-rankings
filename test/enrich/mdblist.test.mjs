@@ -218,14 +218,16 @@ test('fetchRatings tries /show/ first for a show hint', async () => {
     assert.equal(calls.length, 1);
 });
 
-test('fetchRatings returns null when absent under both types', async () => {
+test('fetchRatings returns {} (definitive absent) when 404 under both types', async () => {
     const http = fakeHttp(() => respond(404, { error: 'Item not found' }));
-    assert.equal(await fetchRatings('tt9999999', 'movie', { http, key: 'K' }), null);
+    assert.deepEqual(await fetchRatings('tt9999999', 'movie', { http, key: 'K' }), {});
 });
 
-test('fetchRatings returns null on a non-ok, non-404 status', async () => {
-    const http = fakeHttp(() => respond(500, 'server error'));
-    assert.equal(await fetchRatings('tt0111161', 'movie', { http, key: 'K' }), null);
+test('fetchRatings returns null (transient) on 429/5xx, not a false absent', async () => {
+    const http429 = fakeHttp(() => respond(429, 'rate limited'));
+    assert.equal(await fetchRatings('tt0111161', 'movie', { http: http429, key: 'K' }), null);
+    const http500 = fakeHttp(() => respond(500, 'server error'));
+    assert.equal(await fetchRatings('tt0111161', 'movie', { http: http500, key: 'K' }), null);
 });
 
 test('fetchRatings never puts the key in the path, only the query', async () => {
@@ -352,6 +354,7 @@ test('enrichPayload fetches tt-backed titles, routes show, and summarizes', asyn
         requests: 4, // hit+hit = 2, miss (movie 404 → show 404) = 2
         withRatings: 2,
         noData: 1,
+        errored: 0,
         skippedByCap: 0,
     });
 });
@@ -390,6 +393,29 @@ test('enrichPayload negative-caches misses so a second run does not refetch them
     });
     assert.equal(second.summary.stale, 0); // sentinel counts as fresh
     assert.equal(calls2.length, 0); // zero network on the re-run
+});
+
+test('enrichPayload does NOT negative-cache a transient (quota/5xx) failure', async () => {
+    const quotaHttp = { fetch: async () => respond(429, 'rate limited') };
+    const json = movieFixture(
+        { 5: [{ source: 'imdb-top250', rank: 1, externalId: 'tt0111161' }] },
+        { sources: { 'imdb-top250': { subCategory: 'movie' } } },
+    );
+    const { payload, summary } = await enrichPayload(json, {
+        http: quotaHttp,
+        key: 'K',
+        ttlMs: 90 * 864e5,
+        now: NOW,
+    });
+    assert.equal(summary.errored, 1);
+    assert.equal(summary.noData, 0);
+    // no entry written → still stale next run (no false sentinel)
+    assert.equal(payload.categories.movie.ratings?.['5'], undefined);
+    const restale = selectStale(collectImdbTargets(payload), payload.categories.movie.ratings ?? {}, {
+        ttlMs: 90 * 864e5,
+        now: NOW,
+    });
+    assert.deepEqual(restale, ['tt0111161']); // retried next run
 });
 
 test('enrichPayload skips titles whose ratings are still fresh', async () => {
