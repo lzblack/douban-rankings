@@ -64,28 +64,45 @@ export function collectImdbTargets(movieJson, category = 'movie') {
     return out;
 }
 
+/** True if this doubanId's cached rating is a negative sentinel (`{at}` only). */
+function isNegativeEntry(prev) {
+    return Object.keys(prev).every(k => k === 'at');
+}
+
+/** Per-doubanId staleness, honoring a shorter TTL for negative sentinels. */
+function entryStale(prev, nowMs, ttlMs, negativeTtlMs) {
+    if (!prev || !prev.at) return true;
+    const ageMs = nowMs - Date.parse(prev.at);
+    if (!(ageMs >= 0)) return true; // NaN or clock-skew → stale
+    return ageMs >= (isNegativeEntry(prev) ? negativeTtlMs : ttlMs);
+}
+
 /**
  * Decide which tts need a (re)fetch: those whose ratings are missing or older
- * than `ttlMs`. Freshness is stored per doubanId (each carries an `at`
+ * than their TTL. Freshness is stored per doubanId (each carries an `at`
  * timestamp); a tt is stale if ANY of its doubanIds lacks a fresh rating, so a
  * newly-expanded version gets backfilled. An unparseable `at` counts as stale.
+ * A negative sentinel (`{at}` with no scores — a MDBList miss) uses
+ * `negativeTtlMs` so absent titles are rechecked sooner than they'd otherwise
+ * be, without churning every run.
  *
  * @param {Map<string, {doubanIds: string[]}>} targets from collectImdbTargets
  * @param {Record<string, {at?: string}>} [prevRatings] existing ratings map (by doubanId)
- * @param {{ ttlMs: number, now?: Date }} opts
+ * @param {{ ttlMs: number, negativeTtlMs?: number, now?: Date }} opts
  * @returns {string[]} sorted stale tts
  */
-export function selectStale(targets, prevRatings = {}, { ttlMs, now = new Date() } = {}) {
+export function selectStale(
+    targets,
+    prevRatings = {},
+    { ttlMs, negativeTtlMs = ttlMs, now = new Date() } = {},
+) {
     if (!(ttlMs > 0)) throw new Error('selectStale: ttlMs must be a positive number');
     const nowMs = now.getTime();
     const stale = [];
     for (const [tt, { doubanIds }] of targets) {
-        const anyStale = doubanIds.some(id => {
-            const prev = prevRatings[id];
-            if (!prev || !prev.at) return true;
-            const ageMs = nowMs - Date.parse(prev.at);
-            return !(ageMs >= 0 && ageMs < ttlMs); // NaN or expired → stale
-        });
+        const anyStale = doubanIds.some(id =>
+            entryStale(prevRatings[id], nowMs, ttlMs, negativeTtlMs),
+        );
         if (anyStale) stale.push(tt);
     }
     stale.sort();
@@ -155,11 +172,13 @@ export async function fetchRatings(tt, kind, { http, key }) {
  * Merge freshly-fetched ratings into a category payload as an additive
  * `categories.<category>.ratings` map keyed by doubanId. Returns a NEW payload
  * (existing `sources`/`items` untouched; prior ratings not in this batch are
- * preserved). Each injected entry is stamped with `at = now`. Empty score
- * objects are skipped.
+ * preserved). Each injected entry is stamped with `at = now`. An empty score
+ * object is written as an `{at}`-only **negative sentinel** (MDBList had no
+ * data) so it is not re-fetched every run — contract-safe since consumers
+ * already treat every platform field as optional.
  *
  * @param {object} movieJson
- * @param {Record<string, Record<string, number>>} ratingsByDoubanId doubanId → {imdb, rt, ...}
+ * @param {Record<string, Record<string, number>>} ratingsByDoubanId doubanId → {imdb, rt, ...} (may be {})
  * @param {{ now?: Date, category?: string }} [opts]
  * @returns {object} new payload
  */
@@ -169,8 +188,7 @@ export function injectRatings(movieJson, ratingsByDoubanId, { now = new Date(), 
     const at = now.toISOString();
     const merged = { ...(cat.ratings ?? {}) };
     for (const [doubanId, scores] of Object.entries(ratingsByDoubanId ?? {})) {
-        if (!scores || Object.keys(scores).length === 0) continue;
-        merged[doubanId] = { ...scores, at };
+        merged[doubanId] = { ...(scores ?? {}), at };
     }
     return {
         ...movieJson,
@@ -211,48 +229,76 @@ export function orderByStaleness(tts, targets, prevRatings) {
 
 /**
  * Orchestrate one enrich pass over a category payload: collect tt targets,
- * pick the stale ones, order most-stale-first, fetch up to `maxRequests` of
- * them, and merge results back. Pure of file/env I/O (the CLI wrapper supplies
- * `http`/`key` and persists the result), so it is fully unit-testable.
+ * pick the stale ones, order most-stale-first, and fetch within a HTTP-request
+ * budget (`maxRequests`) — not a title count, because a MDBList miss costs two
+ * requests (movie then show fallback). Misses are negative-cached so they don't
+ * churn. Pure of file/env I/O (the CLI wrapper supplies `http`/`key` and
+ * persists the result), so it is fully unit-testable.
  *
  * @param {object} movieJson
- * @param {{ http: object, key: string, ttlMs: number, maxRequests?: number,
- *           now?: Date, category?: string, log?: (m: string) => void }} opts
+ * @param {{ http: object, key: string, ttlMs: number, negativeTtlMs?: number,
+ *           maxRequests?: number, now?: Date, category?: string,
+ *           log?: (m: string) => void }} opts
  * @returns {Promise<{ payload: object, summary: object }>}
  */
 export async function enrichPayload(
     movieJson,
-    { http, key, ttlMs, maxRequests = 900, now = new Date(), category = 'movie', log = () => {} },
+    {
+        http,
+        key,
+        ttlMs,
+        negativeTtlMs = ttlMs,
+        maxRequests = 900,
+        now = new Date(),
+        category = 'movie',
+        log = () => {},
+    },
 ) {
     const targets = collectImdbTargets(movieJson, category);
     const prevRatings = movieJson?.categories?.[category]?.ratings ?? {};
-    const stale = selectStale(targets, prevRatings, { ttlMs, now });
+    const stale = selectStale(targets, prevRatings, { ttlMs, negativeTtlMs, now });
     const ordered = orderByStaleness(stale, targets, prevRatings);
-    const toFetch = ordered.slice(0, maxRequests);
-    const skippedByCap = ordered.length - toFetch.length;
 
-    log(`${targets.size} tt targets · ${stale.length} stale · fetching ${toFetch.length}`);
+    // Count actual HTTP requests so the daily quota is truly respected. Each
+    // title costs 1 (hit on first media type) or 2 (fallback / miss); reserve
+    // the worst case before starting a title so we never exceed the budget.
+    let requests = 0;
+    const countingHttp = {
+        fetch: (...args) => {
+            requests++;
+            return http.fetch(...args);
+        },
+    };
 
     const ratingsByDoubanId = {};
     let withRatings = 0;
     let noData = 0;
-    for (const tt of toFetch) {
+    let attempted = 0;
+    for (const tt of ordered) {
+        if (requests + 2 > maxRequests) break;
+        attempted++;
         const { doubanIds, kind } = targets.get(tt);
-        const scores = await fetchRatings(tt, kind, { http, key });
-        if (scores && Object.keys(scores).length > 0) {
-            withRatings++;
-            for (const id of doubanIds) ratingsByDoubanId[id] = scores;
-        } else {
-            noData++;
-        }
+        const scores = await fetchRatings(tt, kind, { http: countingHttp, key });
+        const present = scores && Object.keys(scores).length > 0;
+        if (present) withRatings++;
+        else noData++;
+        // present → scores; miss → {} (injectRatings writes an {at} sentinel)
+        for (const id of doubanIds) ratingsByDoubanId[id] = present ? scores : {};
     }
+    const skippedByCap = ordered.length - attempted;
+
+    log(
+        `${targets.size} tt targets · ${stale.length} stale · attempted ${attempted} ` +
+            `(${requests} requests) · ${skippedByCap} left for next run`,
+    );
 
     const payload = injectRatings(movieJson, ratingsByDoubanId, { now, category });
     const summary = {
         ttTargets: targets.size,
         fresh: targets.size - stale.length,
         stale: stale.length,
-        fetched: toFetch.length,
+        attempted,
+        requests,
         withRatings,
         noData,
         skippedByCap,
