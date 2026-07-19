@@ -74,6 +74,12 @@ async function main() {
     await writeJsonAtomic(path, payload, { secrets: [key] });
 
     console.log('[enrich] done:', JSON.stringify(summary));
+    if (summary.errored > 0) {
+        console.log(
+            `[enrich] ${summary.errored} titles hit a transient error (quota/5xx/network) — ` +
+                'left stale, not negative-cached; they retry on the next run.',
+        );
+    }
     if (summary.skippedByCap > 0) {
         console.log(
             `[enrich] ${summary.skippedByCap} titles left for next run — hit the ` +

@@ -133,9 +133,14 @@ export function normalizeMdblistResponse(json) {
 
 /**
  * Fetch and normalize ratings for one tt. Tries the hinted media type first,
- * falling back to the other on a 404 (wrong type / not found under that type).
- * Returns null on network error, non-ok/non-404 status, or when the title is
- * absent under both types. The ONLY network function in this module.
+ * falling back to the other on a 404. The ONLY network function in this module.
+ *
+ * Return contract distinguishes a DEFINITIVE answer from a TRANSIENT failure so
+ * the caller never negative-caches a title that was merely quota-/error-blocked:
+ *   - `Record<string,number>` (possibly `{}`) — a 200 response, or a genuine
+ *     404-not-found under both types (→ `{}`). Empty = truly no scores.
+ *   - `null` — transient: network error, parse error, or a non-ok/non-404
+ *     status (429 quota, 5xx). Caller should skip and retry next run.
  *
  * @param {string} tt e.g. 'tt0111161'
  * @param {'movie'|'show'} kind hint from collectImdbTargets
@@ -144,6 +149,7 @@ export function normalizeMdblistResponse(json) {
  */
 export async function fetchRatings(tt, kind, { http, key }) {
     const order = kind === 'show' ? ['show', 'movie'] : ['movie', 'show'];
+    let sawNotFound = false;
     for (const k of order) {
         const url =
             `https://api.mdblist.com/imdb/${k}/${tt}` +
@@ -152,20 +158,28 @@ export async function fetchRatings(tt, kind, { http, key }) {
         try {
             res = await http.fetch(url);
         } catch {
-            return null;
+            return null; // network error → transient
         }
-        if (res.status === 404) continue; // wrong media type / not found under it
-        if (!res.ok) return null;
+        if (res.status === 404) {
+            sawNotFound = true;
+            continue; // wrong media type / not found under it → try the other
+        }
+        if (!res.ok) return null; // 429 quota / 5xx → transient, do not cache
         let json;
         try {
             json = await res.json();
         } catch {
-            return null;
+            return null; // malformed body → transient
         }
-        if (json?.error) continue; // 200-with-error guard
-        return normalizeMdblistResponse(json);
+        if (json?.error) {
+            sawNotFound = true;
+            continue; // 200-with-error behaves like not-found under this type
+        }
+        return normalizeMdblistResponse(json); // definitive (may be {})
     }
-    return null;
+    // Resolved under neither type: a clean not-found → sentinel-worthy `{}`;
+    // otherwise treat as transient.
+    return sawNotFound ? {} : null;
 }
 
 /**
@@ -273,17 +287,24 @@ export async function enrichPayload(
     const ratingsByDoubanId = {};
     let withRatings = 0;
     let noData = 0;
+    let errored = 0;
     let attempted = 0;
     for (const tt of ordered) {
         if (requests + 2 > maxRequests) break;
         attempted++;
         const { doubanIds, kind } = targets.get(tt);
         const scores = await fetchRatings(tt, kind, { http: countingHttp, key });
-        const present = scores && Object.keys(scores).length > 0;
+        if (scores === null) {
+            // Transient (quota/5xx/network): leave the title stale, retry next
+            // run — never negative-cache it.
+            errored++;
+            continue;
+        }
+        const present = Object.keys(scores).length > 0;
         if (present) withRatings++;
         else noData++;
-        // present → scores; miss → {} (injectRatings writes an {at} sentinel)
-        for (const id of doubanIds) ratingsByDoubanId[id] = present ? scores : {};
+        // present → scores; genuine miss → {} (injectRatings writes an {at} sentinel)
+        for (const id of doubanIds) ratingsByDoubanId[id] = scores;
     }
     const skippedByCap = ordered.length - attempted;
 
@@ -301,6 +322,7 @@ export async function enrichPayload(
         requests,
         withRatings,
         noData,
+        errored,
         skippedByCap,
     };
     return { payload, summary };
