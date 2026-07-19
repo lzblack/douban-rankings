@@ -86,6 +86,7 @@
 | `items[].externalId` | 原始榜单 id（IMDb tt id、Criterion spine 号等），消费方可安全忽略；主要给 pipeline 增量 resolve 用 |
 | `items[].spineNumber` | 可选辅助标识（如 Criterion 的 spine 编号） |
 | `items[].label` | **推荐字段**：榜单内的 display 文本，由 upstream 决定格式（`"No.1"` / `"#1056"` / `"2024"`）。Consumer 直接显示即可，无需 per-source formatter。老版本 consumer 可回退到 `rank`/`spineNumber` 自行格式化 |
+| `categories.<cat>.ratings[subjectId]` | **可选附加**：跨平台评分（来自 MDBList，按 IMDb id）。键 = 豆瓣 subjectId；值 = `{ imdb, rt, rtAudience, metacritic, letterboxd, tmdb }` 中的子集（均为 0–100 整数）+ `at`（ISO 抓取时间）。整个 `ratings` 映射、单个条目、或某平台字段都**可能缺失**——consumer 必须逐一判空。仅 tt-backed 条目会有；非 IMDb 榜单条目（Criterion/AFI 等）无此数据 |
 
 ---
 

@@ -99,6 +99,12 @@ src/util/http.mjs             所有 fetch 的唯一出口：UA、限速、重�
   - `https://rank.douban.zhili.dev/movie.json`（v1 只 movie）
   - `https://rank.douban.zhili.dev/health.json`
 
+## 评分补全（enrich）
+
+- `pnpm run enrich`：读 `data/movie.json`，按 IMDb id 从 **MDBList** 拉跨平台评分，写回 additive 的 `categories.movie.ratings`（schemaVersion 不变）。**独立于 `update`**——`update` 在 CI 跑但不 commit movie.json；enrich 是本地全量 build 后手动跑，故 key 只在本地/CI secret，永不进 scrape 路径。
+- 覆盖：仅 tt-backed 条目（imdb/letterboxd/bfi/tspdt 源）；movie/show 类型由 `sources[].subCategory` 推出。
+- 配额：MDBList 免费 ~1000 req/天。首次冷启动 ~1500 条分 2 天灌（默认 `MDBLIST_MAX_REQUESTS=900`/run，最旧优先）；稳态只补缺失或 >`MDBLIST_TTL_DAYS`（默认 90）过期的。核心逻辑 `src/enrich/mdblist.mjs`，纯函数全测试覆盖。
+
 ## Timeline 策略
 
 **git 本身即快照存储**：每次 workflow 跑完，`data/` 有变化就自动 commit 到 `main`。
@@ -122,7 +128,7 @@ Bot 身份：`rankings-bot <bot@users.noreply.github.com>`，与人类作者区�
 ## 公共 repo 提醒
 
 - public + MIT：任何 commit / issue / PR 公开可见，注意不要把调试日志、个人路径、非公开链接留在 commit 里
-- v1 **零 API key**；v2+ 引入 key 时必须走 `${{ secrets.* }}`，代码用 `process.env.*` 读；`writer` 层加 sanity check 确保产出 JSON 不含任何 key 字样
+- **密钥政策**：引入 key 时必须走 `${{ secrets.* }}` / 本地 gitignored `.env`，代码统一用 `process.env.*` 读；`writer.writeJsonAtomic` 的 secret-leak guard 确保产出 JSON 不含任何 key 字样。已落地：`MDBLIST_API_KEY`（`pnpm run enrich`，见下）
 - Fork PR 默认拿不到 secrets（GitHub 安全默认），不要依赖此行为做设计
 
 ## 维护任务：snapshot refresh
