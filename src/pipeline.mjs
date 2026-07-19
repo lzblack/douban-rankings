@@ -275,6 +275,26 @@ export async function loadPrevResolved(dataDir = DATA_DIR) {
     return byCategorySource;
 }
 
+/**
+ * Read the previous `<category>.json`'s ratings map (added by `pnpm run
+ * enrich`). Returns {} when the file is absent or on an unknown schema, so a
+ * first run or a contract bump simply carries nothing forward.
+ *
+ * @param {string} category
+ * @param {string} [dataDir]
+ * @returns {Promise<object>} doubanId → ratings (or {})
+ */
+export async function loadPrevRatings(category, dataDir = DATA_DIR) {
+    try {
+        const raw = await readFile(join(dataDir, `${category}.json`), 'utf-8');
+        const json = JSON.parse(raw);
+        if (json?.schemaVersion !== 1) return {};
+        return json?.categories?.[category]?.ratings ?? {};
+    } catch {
+        return {};
+    }
+}
+
 /** Main CLI entry. */
 async function main() {
     const http = createHttpClient({
@@ -290,7 +310,10 @@ async function main() {
     const categoryIds = Object.keys(byCat).sort();
 
     for (const cat of categoryIds) {
-        const payload = buildCategoryPayload(cat, byCat[cat], { now });
+        // Carry the previous run's MDBList ratings forward so `update` doesn't
+        // wipe the enrichment (enrich reads them back as its incremental cache).
+        const prevRatings = await loadPrevRatings(cat);
+        const payload = buildCategoryPayload(cat, byCat[cat], { now, prevRatings });
         await writeJsonAtomic(join(DATA_DIR, `${cat}.json`), payload);
     }
 

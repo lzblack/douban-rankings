@@ -23,14 +23,20 @@ const DEFAULT_BASE_URL = 'https://rank.douban.zhili.dev';
 /**
  * Build the `<category>.json` payload defined by the project JSON contract.
  *
+ * `prevRatings` (the previous run's `categories.<cat>.ratings` map) is carried
+ * forward for every doubanId still present in the new items, so a `pnpm run
+ * update` rebuild does NOT wipe the MDBList enrichment (`pnpm run enrich`).
+ * Ratings for dropped doubanIds are discarded; the pipeline never fetches or
+ * touches an API key — it only preserves data already on disk.
+ *
  * @param {string} categoryId
  * @param {SourceRunResult[]} sourceResults
- * @param {BuildOptions} [options]
+ * @param {BuildOptions & { prevRatings?: object|null }} [options]
  */
 export function buildCategoryPayload(
     categoryId,
     sourceResults,
-    { now = new Date() } = {},
+    { now = new Date(), prevRatings = null } = {},
 ) {
     const sources = {};
     for (const r of sourceResults) {
@@ -46,16 +52,25 @@ export function buildCategoryPayload(
             itemCount: r.itemCount,
         };
     }
+    const items = aggregateItems(sourceResults);
+    const category = { sources, items };
+    const carried = carryForwardRatings(items, prevRatings);
+    if (carried) category.ratings = carried;
     return {
         schemaVersion: 1,
         generatedAt: now.toISOString(),
-        categories: {
-            [categoryId]: {
-                sources,
-                items: aggregateItems(sourceResults),
-            },
-        },
+        categories: { [categoryId]: category },
     };
+}
+
+/** Keep prior ratings only for doubanIds still present in the new items. */
+function carryForwardRatings(items, prevRatings) {
+    if (!prevRatings) return null;
+    const carried = {};
+    for (const doubanId of Object.keys(items)) {
+        if (prevRatings[doubanId]) carried[doubanId] = prevRatings[doubanId];
+    }
+    return Object.keys(carried).length > 0 ? carried : null;
 }
 
 function aggregateItems(sourceResults) {
