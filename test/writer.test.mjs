@@ -7,6 +7,7 @@ import {
     buildCategoryPayload,
     buildManifest,
     writeJsonAtomic,
+    assertNoSecrets,
 } from '../src/writer.mjs';
 
 const fakeSource = {
@@ -122,6 +123,38 @@ test('writeJsonAtomic writes pretty JSON and creates parent dirs', async () => {
             content,
             '{\n  "a": 1,\n  "b": [\n    2,\n    3\n  ]\n}\n',
         );
+    } finally {
+        await rm(dir, { recursive: true, force: true });
+    }
+});
+
+test('assertNoSecrets throws when a secret appears, ignores empty/absent ones', () => {
+    assert.throws(
+        () => assertNoSecrets('{"key":"SECRET123"}', ['SECRET123']),
+        /leak guard/,
+    );
+    // never echo the secret in the message
+    try {
+        assertNoSecrets('SECRET123', ['SECRET123']);
+        assert.fail('should have thrown');
+    } catch (e) {
+        assert.equal(e.message.includes('SECRET123'), false);
+    }
+    assert.doesNotThrow(() => assertNoSecrets('{"a":1}', ['SECRET123']));
+    assert.doesNotThrow(() => assertNoSecrets('{"a":1}', ['', undefined]));
+});
+
+test('writeJsonAtomic aborts the write when output would leak a secret', async () => {
+    const dir = await mkdtemp(join(tmpdir(), 'writer-test-'));
+    try {
+        const path = join(dir, 'leak.json');
+        await assert.rejects(
+            writeJsonAtomic(path, { token: 'S:kkey123' }, { secrets: ['S:kkey123'] }),
+            /leak guard/,
+        );
+        // nothing published, not even the tmp file
+        await assert.rejects(readFile(path, 'utf-8'), /ENOENT/);
+        await assert.rejects(readFile(`${path}.tmp`, 'utf-8'), /ENOENT/);
     } finally {
         await rm(dir, { recursive: true, force: true });
     }

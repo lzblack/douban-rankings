@@ -105,16 +105,51 @@ export function buildManifest(
 }
 
 /**
+ * Secret-leak guard: throw if the serialized output contains any of the given
+ * secret strings. Per project policy (CLAUDE.md §密钥): the writer layer is the
+ * last line of defense ensuring no API key ever lands in a published JSON.
+ * The thrown message deliberately never echoes the secret value.
+ *
+ * @param {string} serialized
+ * @param {string[]} secrets
+ */
+export function assertNoSecrets(serialized, secrets = []) {
+    for (const secret of secrets) {
+        if (secret && serialized.includes(secret)) {
+            throw new Error(
+                'writeJsonAtomic: refusing to write — output contains a secret ' +
+                    'value (API-key leak guard). Check the enrich step.',
+            );
+        }
+    }
+}
+
+/**
+ * Secrets pulled from the environment that must never appear in output.
+ * Reading here means every write (pipeline + enrich) is protected once the key
+ * is set, without callers having to opt in.
+ */
+function defaultSecrets() {
+    const out = [];
+    if (process.env.MDBLIST_API_KEY) out.push(process.env.MDBLIST_API_KEY);
+    return out;
+}
+
+/**
  * Write JSON atomically: write to `<path>.tmp`, then rename over `<path>`.
  * Rename is atomic on POSIX and on NTFS for same-volume renames, so readers
- * never see a half-written file.
+ * never see a half-written file. Runs the secret-leak guard before touching
+ * disk, so a leak aborts the write instead of publishing.
  *
  * @param {string} path
  * @param {unknown} data
+ * @param {{ secrets?: string[] }} [opts]
  */
-export async function writeJsonAtomic(path, data) {
+export async function writeJsonAtomic(path, data, { secrets = defaultSecrets() } = {}) {
+    const serialized = JSON.stringify(data, null, 2) + '\n';
+    assertNoSecrets(serialized, secrets);
     await mkdir(dirname(path), { recursive: true });
     const tmp = `${path}.tmp`;
-    await writeFile(tmp, JSON.stringify(data, null, 2) + '\n', 'utf-8');
+    await writeFile(tmp, serialized, 'utf-8');
     await rename(tmp, path);
 }
