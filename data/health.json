@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-23T03:41:16.383Z",
+  "generatedAt": "2026-08-30T08:39:12.178Z",
   "overall": "ok",
   "sources": [
     {
@@ -8,17 +8,17 @@
       "itemCountDelta": 0,
       "message": null,
       "status": "ok",
-      "lastSuccessAt": "2026-08-23T03:40:28.426Z",
+      "lastSuccessAt": "2026-08-30T08:38:16.024Z",
       "lastFailureAt": null,
       "consecutiveFailures": 0
     },
     {
       "id": "imdb-top250-tv",
       "itemCount": 245,
-      "itemCountDelta": 1,
+      "itemCountDelta": 0,
       "message": null,
       "status": "ok",
-      "lastSuccessAt": "2026-08-23T03:40:47.811Z",
+      "lastSuccessAt": "2026-08-30T08:38:41.041Z",
       "lastFailureAt": null,
       "consecutiveFailures": 0
     },
@@ -38,7 +38,7 @@
       "itemCountDelta": 0,
       "message": null,
       "status": "ok",
-      "lastSuccessAt": "2026-08-23T03:41:16.044Z",
+      "lastSuccessAt": "2026-08-30T08:39:11.897Z",
       "lastFailureAt": null,
       "consecutiveFailures": 0
     },
