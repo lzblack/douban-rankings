@@ -1,24 +1,24 @@
 {
-  "generatedAt": "2026-09-07T07:39:47.443Z",
+  "generatedAt": "2026-09-13T07:44:49.543Z",
   "overall": "ok",
   "sources": [
     {
       "id": "imdb-top250",
       "itemCount": 249,
-      "itemCountDelta": 1,
+      "itemCountDelta": 0,
       "message": null,
       "status": "ok",
-      "lastSuccessAt": "2026-09-07T07:38:50.636Z",
+      "lastSuccessAt": "2026-09-13T07:43:52.910Z",
       "lastFailureAt": null,
       "consecutiveFailures": 0
     },
     {
       "id": "imdb-top250-tv",
       "itemCount": 245,
-      "itemCountDelta": 1,
+      "itemCountDelta": 0,
       "message": null,
       "status": "ok",
-      "lastSuccessAt": "2026-09-07T07:39:18.061Z",
+      "lastSuccessAt": "2026-09-13T07:44:19.942Z",
       "lastFailureAt": null,
       "consecutiveFailures": 0
     },
@@ -38,7 +38,7 @@
       "itemCountDelta": 0,
       "message": null,
       "status": "ok",
-      "lastSuccessAt": "2026-09-07T07:39:47.292Z",
+      "lastSuccessAt": "2026-09-13T07:44:49.345Z",
       "lastFailureAt": null,
       "consecutiveFailures": 0
     },
