@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-10-07T09:30:19.330Z",
-  "overall": "ok",
+  "generatedAt": "2026-10-10T22:59:16.777Z",
+  "overall": "degraded",
   "sources": [
     {
       "id": "imdb-top250",
@@ -8,9 +8,10 @@
       "itemCountDelta": 0,
       "message": null,
       "status": "ok",
-      "lastSuccessAt": "2026-10-07T09:29:20.785Z",
+      "lastSuccessAt": "2026-10-10T22:58:28.477Z",
       "lastFailureAt": null,
-      "consecutiveFailures": 0
+      "consecutiveFailures": 0,
+      "stale": false
     },
     {
       "id": "imdb-top250-tv",
@@ -18,9 +19,10 @@
       "itemCountDelta": 0,
       "message": null,
       "status": "ok",
-      "lastSuccessAt": "2026-10-07T09:29:50.227Z",
+      "lastSuccessAt": "2026-10-10T22:58:45.388Z",
       "lastFailureAt": null,
-      "consecutiveFailures": 0
+      "consecutiveFailures": 0,
+      "stale": false
     },
     {
       "id": "criterion",
@@ -30,7 +32,8 @@
       "status": "skipped",
       "lastSuccessAt": "2026-04-20T03:15:36.050Z",
       "lastFailureAt": "2026-04-18T23:36:48.793Z",
-      "consecutiveFailures": 0
+      "consecutiveFailures": 0,
+      "stale": true
     },
     {
       "id": "afi-top100",
@@ -38,9 +41,10 @@
       "itemCountDelta": 0,
       "message": null,
       "status": "ok",
-      "lastSuccessAt": "2026-10-07T09:30:19.164Z",
+      "lastSuccessAt": "2026-10-10T22:59:16.616Z",
       "lastFailureAt": null,
-      "consecutiveFailures": 0
+      "consecutiveFailures": 0,
+      "stale": false
     },
     {
       "id": "bfi-ss-2022",
@@ -50,7 +54,8 @@
       "status": "skipped",
       "lastSuccessAt": "2026-04-20T03:15:37.138Z",
       "lastFailureAt": null,
-      "consecutiveFailures": 0
+      "consecutiveFailures": 0,
+      "stale": false
     },
     {
       "id": "letterboxd-top250",
@@ -60,7 +65,8 @@
       "status": "skipped",
       "lastSuccessAt": "2026-04-20T03:15:41.594Z",
       "lastFailureAt": null,
-      "consecutiveFailures": 0
+      "consecutiveFailures": 0,
+      "stale": true
     },
     {
       "id": "tspdt-1000",
@@ -70,7 +76,8 @@
       "status": "skipped",
       "lastSuccessAt": "2026-04-20T03:15:46.518Z",
       "lastFailureAt": "2026-04-19T01:20:56.085Z",
-      "consecutiveFailures": 0
+      "consecutiveFailures": 0,
+      "stale": false
     },
     {
       "id": "bangumi-top250",
@@ -80,7 +87,8 @@
       "status": "skipped",
       "lastSuccessAt": "2026-04-20T03:16:44.353Z",
       "lastFailureAt": "2026-04-19T01:20:56.085Z",
-      "consecutiveFailures": 0
+      "consecutiveFailures": 0,
+      "stale": true
     },
     {
       "id": "grammy-aoty",
@@ -90,7 +98,8 @@
       "status": "skipped",
       "lastSuccessAt": "2026-04-20T03:16:44.354Z",
       "lastFailureAt": null,
-      "consecutiveFailures": 0
+      "consecutiveFailures": 0,
+      "stale": false
     },
     {
       "id": "bbc-21c-tv-100",
@@ -100,7 +109,8 @@
       "status": "skipped",
       "lastSuccessAt": "2026-04-20T03:16:44.355Z",
       "lastFailureAt": null,
-      "consecutiveFailures": 0
+      "consecutiveFailures": 0,
+      "stale": false
     },
     {
       "id": "rolling-stone-tv-100",
@@ -110,7 +120,8 @@
       "status": "skipped",
       "lastSuccessAt": "2026-04-20T03:16:44.355Z",
       "lastFailureAt": null,
-      "consecutiveFailures": 0
+      "consecutiveFailures": 0,
+      "stale": false
     }
   ]
 }
