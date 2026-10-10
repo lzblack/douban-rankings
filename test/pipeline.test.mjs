@@ -9,7 +9,10 @@ import {
     groupByCategory,
     loadPrevResolved,
     loadPrevRatings,
+    loadPrevCategory,
+    carryForwardResults,
 } from '../src/pipeline.mjs';
+import { buildCategoryPayload } from '../src/writer.mjs';
 
 const fakeHttp = { fetch: async () => new Response('') };
 
@@ -268,6 +271,113 @@ test('loadPrevRatings returns the prior ratings map, {} when absent', async () =
         assert.deepEqual(await loadPrevRatings('movie', dir), {
             '1292052': { imdb: 93, at: '2026-07-19T00:00:00.000Z' },
         });
+    } finally {
+        await rm(dir, { recursive: true, force: true });
+    }
+});
+
+const PREV_UPDATED = '2026-04-20T03:15:41.594Z';
+
+function prevMoviePayload() {
+    return {
+        schemaVersion: 1,
+        categories: {
+            movie: {
+                sources: {
+                    lb: { title: 'old title', updatedAt: PREV_UPDATED, itemCount: 2 },
+                    cc: { title: 'cc', updatedAt: PREV_UPDATED, itemCount: 1 },
+                },
+                items: {
+                    '100': [
+                        { source: 'lb', rank: 1, externalId: 'tt1', label: 'No.1' },
+                        { source: 'cc', rank: null, externalId: '482', spineNumber: '482', label: '#482' },
+                    ],
+                    '200': [{ source: 'lb', rank: 2, externalId: 'tt2', label: 'No.2' }],
+                },
+            },
+        },
+    };
+}
+
+function resultFor(id, status, { category = 'movie', items = [], formatLabel } = {}) {
+    return {
+        id,
+        status,
+        itemCount: items.length,
+        scrapedCount: items.length,
+        items,
+        updatedAt: new Date('2026-11-01T03:00:00Z'),
+        message: status === 'ok' ? null : 'x',
+        sourceDef: {
+            ...makeSource({ id, category }),
+            meta: { title: `${id} now`, titleZh: id, url: `https://${id}.example/` },
+            formatLabel,
+        },
+    };
+}
+
+test('carryForwardResults restores skipped and failed sources from the previous payload', () => {
+    const ok = resultFor('imdb', 'ok', {
+        items: [{ doubanId: '300', rank: 1, externalId: 'tt3' }],
+    });
+    const out = carryForwardResults(
+        [ok, resultFor('lb', 'skipped'), resultFor('cc', 'failed')],
+        { movie: prevMoviePayload() },
+    );
+    assert.equal(out[0], ok);
+    assert.equal(out[1].status, 'carried');
+    assert.deepEqual(
+        out[1].items.map(i => [i.doubanId, i.rank, i.externalId]),
+        [['100', 1, 'tt1'], ['200', 2, 'tt2']],
+    );
+    assert.equal(out[1].itemCount, 2);
+    assert.equal(out[1].updatedAt.toISOString(), PREV_UPDATED);
+    assert.equal(out[2].status, 'carried');
+    assert.deepEqual(out[2].items, [
+        { doubanId: '100', rank: null, externalId: '482', spineNumber: '482' },
+    ]);
+});
+
+test('carryForwardResults leaves a source alone when the previous payload lacks it', () => {
+    const fresh = resultFor('new-src', 'skipped');
+    const noPrev = resultFor('lb', 'skipped', { category: 'music' });
+    const out = carryForwardResults([fresh, noPrev], { movie: prevMoviePayload(), music: null });
+    assert.equal(out[0], fresh);
+    assert.equal(out[1], noPrev);
+});
+
+test('groupByCategory publishes carried sources, so an all-carried category survives', () => {
+    const grouped = groupByCategory([
+        { status: 'carried', sourceDef: { category: 'music' } },
+        { status: 'skipped', sourceDef: { category: 'movie' } },
+    ]);
+    assert.equal(grouped.music.length, 1);
+    assert.equal(grouped.movie, undefined);
+});
+
+test('carried source publishes current metadata, previous updatedAt, regenerated labels', () => {
+    const [carried] = carryForwardResults(
+        [resultFor('lb', 'skipped', { formatLabel: it => `No.${it.rank}` })],
+        { movie: prevMoviePayload() },
+    );
+    const payload = buildCategoryPayload('movie', [carried]);
+    const cat = payload.categories.movie;
+    assert.equal(cat.sources.lb.title, 'lb now');
+    assert.equal(cat.sources.lb.updatedAt, PREV_UPDATED);
+    assert.equal(cat.sources.lb.itemCount, 2);
+    assert.deepEqual(cat.items['100'], [
+        { source: 'lb', rank: 1, externalId: 'tt1', label: 'No.1' },
+    ]);
+});
+
+test('loadPrevCategory returns the payload, null when absent or on another schema', async () => {
+    const dir = await mkdtemp(join(tmpdir(), 'pipeline-prevcat-'));
+    try {
+        assert.equal(await loadPrevCategory('movie', dir), null);
+        await writeFile(join(dir, 'movie.json'), JSON.stringify(prevMoviePayload()));
+        assert.equal((await loadPrevCategory('movie', dir)).schemaVersion, 1);
+        await writeFile(join(dir, 'movie.json'), JSON.stringify({ schemaVersion: 2 }));
+        assert.equal(await loadPrevCategory('movie', dir), null);
     } finally {
         await rm(dir, { recursive: true, force: true });
     }
