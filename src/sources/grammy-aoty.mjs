@@ -34,6 +34,8 @@ export default {
     category: 'music',
     subCategory: 'album',
     kind: 'yearly',
+    // health marks the snapshot stale past this age (yearly refresh).
+    snapshotMaxAgeDays: 400,
     priority: 1,
     externalIdKind: 'pre-resolved',
     meta: {

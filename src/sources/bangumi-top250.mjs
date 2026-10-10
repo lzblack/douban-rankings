@@ -42,6 +42,8 @@ export default {
     category: 'movie',
     subCategory: 'anime',
     kind: 'yearly',
+    // health marks the snapshot stale past this age (quarterly refresh).
+    snapshotMaxAgeDays: 100,
     priority: 7,
     externalIdKind: 'pre-resolved',
     meta: {

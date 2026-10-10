@@ -69,7 +69,7 @@ src/matchers/                 外部 ID 反查豆瓣 subject id
 src/pipeline.mjs              编排 source → matcher → aggregator
       ↓
 src/writer.mjs                产出 data/<category>.json + manifest.json
-src/health.mjs                产出 data/health.json + 失败 ≥ 3 次开 GH issue
+src/health.mjs                产出 data/health.json；连续失败 ≥ 3 次或 snapshot 过期 → GH issue
 src/util/http.mjs             所有 fetch 的唯一出口：UA、限速、重试、指数退避
 ```
 
@@ -157,7 +157,9 @@ git push
 
 **CI 不能跑 pipeline**（Actions runner 没有 snapshot 文件）——`.github/workflows/update.yml` 的 schedule 应保持禁用，refresh 完全手动：本地跑 fetcher → 本地跑 pipeline → push `data/`。
 
-Snapshot 文件不在或过期不阻塞其他 source：缺 snapshot 的 source 标 failed，overall=degraded，其余照跑（所以就算本地忘跑某个 fetcher 也不会全盘 stuck）。
+Snapshot 文件不在或过期不阻塞其他 source：CI 里缺 snapshot 的 source 标 `skipped`，其余照跑（所以就算本地忘跑某个 fetcher 也不会全盘 stuck）。
+
+**过期提醒**：source 定义里的 `snapshotMaxAgeDays`（季度源 100、年度源 400；BFI / BBC / Rolling Stone 这类定版榜单不设）超过后，`health.json` 该条 `stale: true`、overall=degraded，health-alert 开 `[health] <id> snapshot is stale` issue。本地刷新并跑 `update` 后 `stale` 自动清除，issue 需手动关闭。
 
 ## 姐妹项目
 

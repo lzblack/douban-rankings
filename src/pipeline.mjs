@@ -329,6 +329,7 @@ async function main() {
             itemCount: r.itemCount,
             message: r.message,
             runAt: r.updatedAt,
+            maxAgeDays: r.sourceDef.snapshotMaxAgeDays,
         })),
         { now },
     );
