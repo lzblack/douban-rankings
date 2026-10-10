@@ -38,23 +38,19 @@ jobs:
       - name: Run pipeline
         run: pnpm run update
 
-      - name: Commit health report
+      - name: Commit data
         run: |
           git config user.name "rankings-bot"
           git config user.email "bot@users.noreply.github.com"
           # In CI, snapshot-dependent sources report status=skipped (their
-          # config/*-snapshot.json is gitignored and absent from the runner),
-          # and writer still rebuilds data/movie.json + data/music.json from
-          # whatever did run — i.e. only the live-scrape sources (IMDb, AFI).
-          # Committing that would shrink the published data from ~2,200
-          # dbids to a few hundred. So: only the health report ships from
-          # CI. It carries the monitoring signal (consecutiveFailures for
-          # live sources → alerts via health-alert workflow) without
-          # touching data/movie.json or data/music.json.
-          git add data/health.json
+          # config/*-snapshot.json is gitignored and absent from the runner).
+          # The pipeline carries their items forward from the previous
+          # data/*.json, so only the live-scrape sources (IMDb, AFI) change
+          # and the published data never shrinks to what CI could scrape.
+          git add data/
           if git diff --cached --quiet; then
-            echo "No health changes."
+            echo "No data changes."
             exit 0
           fi
-          git commit -m "health: scheduled check"
+          git commit -m "data: scheduled update"
           git push

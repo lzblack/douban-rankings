@@ -101,7 +101,7 @@ src/util/http.mjs             所有 fetch 的唯一出口：UA、限速、重�
 
 ## 评分补全（enrich）
 
-- `pnpm run enrich`：读 `data/movie.json`，按 IMDb id 从 **MDBList** 拉跨平台评分，写回 additive 的 `categories.movie.ratings`（schemaVersion 不变）。**独立于 `update`**——`update` 在 CI 跑但不 commit movie.json；enrich 是本地全量 build 后手动跑，故 key 只在本地/CI secret，永不进 scrape 路径。
+- `pnpm run enrich`：读 `data/movie.json`，按 IMDb id 从 **MDBList** 拉跨平台评分，写回 additive 的 `categories.movie.ratings`（schemaVersion 不变）。**独立于 `update`**——`update` 只沿用已有 ratings、从不调 MDBList；enrich 由 `enrich.yml` 每月定时跑，也可本地手动跑，key 只在本地 `.env` / CI secret，永不进 scrape 路径。
 - 覆盖：仅 tt-backed 条目（imdb/letterboxd/bfi/tspdt 源）；movie/show 类型由 `sources[].subCategory` 推出。
 - 配额：MDBList 免费 ~1000 req/天。`MDBLIST_MAX_REQUESTS`（默认 900）是**每次运行的 HTTP 请求预算**（非标题数——一次 miss 会因 movie→show fallback 花 2 请求），保证单跑不越日限。首次冷启动 ~1500 条分 2 天灌（最旧优先）；稳态只补缺失或 >`MDBLIST_TTL_DAYS`（默认 90）过期的。
 - 负缓存：MDBList 查无的条目写 `{at}` 哨兵，按更短的 `MDBLIST_NEGATIVE_TTL_DAYS`（默认 30）重查，避免每次 churn。核心逻辑 `src/enrich/mdblist.mjs`，纯函数全测试覆盖。
@@ -155,9 +155,9 @@ git commit -m "data: refresh <source>"
 git push
 ```
 
-**CI 不能跑 pipeline**（Actions runner 没有 snapshot 文件）——`.github/workflows/update.yml` 的 schedule 应保持禁用，refresh 完全手动：本地跑 fetcher → 本地跑 pipeline → push `data/`。
+**CI 只刷新 live source**：Actions runner 没有 snapshot 文件，snapshot source 标 `skipped`；pipeline 对 `skipped` / `failed` 的 source 沿用上次 `data/*.json` 里的条目（`updatedAt` 保持旧值），所以 `update.yml` 每月 commit 整个 `data/`，只有 IMDb / AFI 的排名真正更新，数据不会缩水。snapshot source 的刷新仍然完全手动：本地跑 fetcher → 本地跑 pipeline → push `data/`。
 
-Snapshot 文件不在或过期不阻塞其他 source：CI 里缺 snapshot 的 source 标 `skipped`，其余照跑（所以就算本地忘跑某个 fetcher 也不会全盘 stuck）。
+Snapshot 文件不在或过期不阻塞其他 source：缺 snapshot 的 source 标 `skipped` 并沿用旧条目，其余照跑（所以就算本地忘跑某个 fetcher 也不会全盘 stuck）。
 
 **过期提醒**：source 定义里的 `snapshotMaxAgeDays`（季度源 100、年度源 400；BFI / BBC / Rolling Stone 这类定版榜单不设）超过后，`health.json` 该条 `stale: true`、overall=degraded，health-alert 开 `[health] <id> snapshot is stale` issue。本地刷新并跑 `update` 后 `stale` 自动清除，issue 需手动关闭。
 

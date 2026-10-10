@@ -2,9 +2,8 @@ name: Enrich ratings
 
 # Standalone from `update`: reads the committed data/movie.json, tops up
 # MDBList cross-platform ratings (incremental — only missing/stale titles), and
-# commits just the ratings change. Independent of the scrape pipeline, so it is
-# unaffected by the snapshot-source limitation that keeps `update` from
-# committing movie.json in CI.
+# commits just the ratings change. Independent of the scrape pipeline, which
+# carries the ratings forward on its own runs.
 
 on:
   schedule:
