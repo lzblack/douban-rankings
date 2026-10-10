@@ -8,7 +8,7 @@ name: Enrich ratings
 
 on:
   schedule:
-    - cron: '0 4 8-14 * 0' # second Sunday each month, 04:00 UTC (offset from update)
+    - cron: '0 4 8 * *' # 8th of each month, 04:00 UTC (a week after update)
   workflow_dispatch:
 
 permissions:
