@@ -211,13 +211,14 @@ export async function runAll(sources, http, deps = {}) {
 }
 
 /**
- * Group only successful source results by category. Failed sources are
- * excluded from published JSON but still recorded in the health report.
+ * Group publishable source results (ok, or carried forward from the previous
+ * run) by category. Sources with nothing to publish are excluded from the
+ * JSON but still recorded in the health report.
  */
 export function groupByCategory(results) {
     const byCat = {};
     for (const r of results) {
-        if (r.status !== 'ok') continue;
+        if (r.status !== 'ok' && r.status !== 'carried') continue;
         const cat = r.sourceDef.category;
         (byCat[cat] ??= []).push(r);
     }
@@ -276,23 +277,78 @@ export async function loadPrevResolved(dataDir = DATA_DIR) {
 }
 
 /**
+ * Read the previous `<category>.json`. Returns null when the file is absent,
+ * unparseable, or on an unknown schema, so a first run or a contract bump
+ * simply carries nothing forward.
+ *
+ * @param {string} category
+ * @param {string} [dataDir]
+ * @returns {Promise<object|null>}
+ */
+export async function loadPrevCategory(category, dataDir = DATA_DIR) {
+    try {
+        const raw = await readFile(join(dataDir, `${category}.json`), 'utf-8');
+        const json = JSON.parse(raw);
+        return json?.schemaVersion === 1 ? json : null;
+    } catch {
+        return null;
+    }
+}
+
+/**
  * Read the previous `<category>.json`'s ratings map (added by `pnpm run
- * enrich`). Returns {} when the file is absent or on an unknown schema, so a
- * first run or a contract bump simply carries nothing forward.
+ * enrich`). Returns {} when there is no usable previous payload.
  *
  * @param {string} category
  * @param {string} [dataDir]
  * @returns {Promise<object>} doubanId → ratings (or {})
  */
 export async function loadPrevRatings(category, dataDir = DATA_DIR) {
-    try {
-        const raw = await readFile(join(dataDir, `${category}.json`), 'utf-8');
-        const json = JSON.parse(raw);
-        if (json?.schemaVersion !== 1) return {};
-        return json?.categories?.[category]?.ratings ?? {};
-    } catch {
-        return {};
-    }
+    const prev = await loadPrevCategory(category, dataDir);
+    return prev?.categories?.[category]?.ratings ?? {};
+}
+
+/**
+ * Replace each skipped/failed result with the items that source had in the
+ * previous published payload (status 'carried'), so a source that didn't run
+ * — snapshot sources in CI, a transient scrape failure locally — keeps its
+ * published rankings instead of vanishing. updatedAt/itemCount come from the
+ * previous payload so the JSON still says when the data was scraped. Health
+ * is built from the original results and is unaffected.
+ *
+ * @param {Object[]} results           runAll output
+ * @param {Record<string, object|null>} prevByCategory  category → previous payload
+ * @returns {Object[]}
+ */
+export function carryForwardResults(results, prevByCategory) {
+    return results.map(r => {
+        if (r.status === 'ok') return r;
+        const cat = r.sourceDef.category;
+        const prevCat = prevByCategory[cat]?.categories?.[cat];
+        const prevSource = prevCat?.sources?.[r.id];
+        if (!prevSource) return r;
+        const items = [];
+        for (const [doubanId, entries] of Object.entries(prevCat.items ?? {})) {
+            for (const e of entries) {
+                if (e?.source !== r.id) continue;
+                const item = {
+                    doubanId,
+                    rank: e.rank ?? null,
+                    externalId: e.externalId,
+                };
+                if (e.spineNumber != null) item.spineNumber = e.spineNumber;
+                items.push(item);
+            }
+        }
+        if (items.length === 0) return r;
+        return {
+            ...r,
+            status: 'carried',
+            items,
+            itemCount: prevSource.itemCount ?? items.length,
+            updatedAt: new Date(prevSource.updatedAt ?? r.updatedAt),
+        };
+    });
 }
 
 /** Main CLI entry. */
@@ -306,7 +362,11 @@ async function main() {
     const results = await runAll(DEFAULT_SOURCES, http, { ctx });
     const now = new Date();
 
-    const byCat = groupByCategory(results);
+    const prevByCategory = {};
+    for (const cat of new Set(DEFAULT_SOURCES.map(s => s.category))) {
+        prevByCategory[cat] = await loadPrevCategory(cat);
+    }
+    const byCat = groupByCategory(carryForwardResults(results, prevByCategory));
     const categoryIds = Object.keys(byCat).sort();
 
     for (const cat of categoryIds) {
