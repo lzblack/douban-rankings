@@ -214,7 +214,7 @@ function insertRankLabel({ text, href, sourceId, kind }) {
 
 ## 缓存策略建议
 
-- **TTL 24h** 够用：本 repo 数据每月更新一次（cron 每月第一个周日），consumer 比那更短刷新无意义
+- **TTL 24h** 够用：本 repo 数据每月更新一次（cron 每月 1 号），consumer 比那更短刷新无意义
 - **按 `schemaVersion` 命名 cache key**：`rank_douban_movie_v1`；未来 v2 不兼容时老 cache 自然过期
 - **manifest.json 可以更短 TTL**（6-12h）以便早点发现新 category 上线
 - **health.json 不用 cache**：consumer 一般不读它
