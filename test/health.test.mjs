@@ -129,3 +129,77 @@ test('readPrevHealth parses existing file', async () => {
         await rm(dir, { recursive: true, force: true });
     }
 });
+
+const DAY_MS = 24 * 60 * 60 * 1000;
+const daysAgo = n => new Date(NOW.getTime() - n * DAY_MS).toISOString();
+
+function prevWithSuccess(id, lastSuccessAt) {
+    return {
+        sources: [
+            {
+                id,
+                status: 'skipped',
+                itemCount: 100,
+                lastSuccessAt,
+                lastFailureAt: null,
+                consecutiveFailures: 0,
+            },
+        ],
+    };
+}
+
+test('skipped snapshot source past maxAgeDays is stale and degrades overall', () => {
+    const report = buildHealthReport(
+        prevWithSuccess('cc', daysAgo(101)),
+        [
+            { id: 'imdb', status: 'ok', itemCount: 250 },
+            { id: 'cc', status: 'skipped', itemCount: 0, maxAgeDays: 100 },
+        ],
+        { now: NOW },
+    );
+    assert.equal(report.sources[1].stale, true);
+    assert.equal(report.sources[0].stale, false);
+    assert.equal(report.overall, 'degraded');
+});
+
+test('skipped snapshot source within maxAgeDays is not stale', () => {
+    const report = buildHealthReport(
+        prevWithSuccess('cc', daysAgo(99)),
+        [{ id: 'cc', status: 'skipped', itemCount: 0, maxAgeDays: 100 }],
+        { now: NOW },
+    );
+    assert.equal(report.sources[0].stale, false);
+    assert.equal(report.overall, 'ok');
+});
+
+test('source without maxAgeDays (fixed one-off list) is never stale', () => {
+    const report = buildHealthReport(
+        prevWithSuccess('bfi', daysAgo(3000)),
+        [{ id: 'bfi', status: 'skipped', itemCount: 0 }],
+        { now: NOW },
+    );
+    assert.equal(report.sources[0].stale, false);
+    assert.equal(report.overall, 'ok');
+});
+
+test('source with maxAgeDays that never succeeded is stale', () => {
+    const report = buildHealthReport(
+        {},
+        [{ id: 'cc', status: 'skipped', itemCount: 0, maxAgeDays: 100 }],
+        { now: NOW },
+    );
+    assert.equal(report.sources[0].stale, true);
+    assert.equal(report.overall, 'degraded');
+});
+
+test('staleness does not soften overall=failed', () => {
+    const report = buildHealthReport(
+        prevWithSuccess('cc', daysAgo(500)),
+        [
+            { id: 'imdb', status: 'failed', itemCount: 0, message: 'x' },
+            { id: 'cc', status: 'skipped', itemCount: 0, maxAgeDays: 100 },
+        ],
+        { now: NOW },
+    );
+    assert.equal(report.overall, 'failed');
+});

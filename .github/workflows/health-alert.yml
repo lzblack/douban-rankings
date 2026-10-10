@@ -25,7 +25,7 @@ jobs:
             --color "d73a4a" \
             --force
 
-      - name: Open issues for sources failing 3+ times in a row
+      - name: Open issues for failing or stale sources
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -34,21 +34,27 @@ jobs:
             exit 0
           fi
 
-          # Pull the ids of every source that has hit the failure threshold.
-          failing_ids=$(jq -r '
+          # One "<id> <kind>" line per alert: kind=failing when a source hit
+          # the failure threshold, kind=stale when a snapshot source's
+          # lastSuccessAt is past its snapshotMaxAgeDays.
+          alerts=$(jq -r '
             .sources[]?
-            | select((.consecutiveFailures // 0) >= 3)
-            | .id
+            | (select((.consecutiveFailures // 0) >= 3) | "\(.id) failing"),
+              (select(.stale == true) | "\(.id) stale")
           ' data/health.json)
 
-          if [ -z "$failing_ids" ]; then
+          if [ -z "$alerts" ]; then
             echo "All sources healthy."
             exit 0
           fi
 
-          echo "$failing_ids" | while IFS= read -r id; do
+          echo "$alerts" | while read -r id kind; do
             [ -z "$id" ] && continue
-            title="[health] ${id} failed 3+ runs in a row"
+            if [ "$kind" = stale ]; then
+              title="[health] ${id} snapshot is stale"
+            else
+              title="[health] ${id} failed 3+ runs in a row"
+            fi
 
             # Dedupe: skip if an open issue with the exact title exists.
             existing=$(gh issue list \
@@ -60,18 +66,22 @@ jobs:
               | head -1)
 
             if [ -n "$existing" ]; then
-              echo "Open issue already exists for $id, skipping."
+              echo "Open issue already exists for $id ($kind), skipping."
               continue
             fi
 
-            body=$(jq -r --arg id "$id" '
+            body=$(jq -r --arg id "$id" --arg kind "$kind" '
               .sources[]? | select(.id == $id)
-              | "Source `\($id)` has failed \(.consecutiveFailures) runs in a row.\n\nLast success: \(.lastSuccessAt // "never")\nLast failure: \(.lastFailureAt // "unknown")\nLast message: \(.message // "(none)")\n\nSee `data/health.json` on `main` for the current report."
+              | if $kind == "stale" then
+                  "Snapshot source `\($id)` last refreshed \(.lastSuccessAt // "never"), past its max age.\n\nRefresh from a residential IP: run its `pnpm run fetch:*-snapshot` script, then `pnpm run update` and push `data/`.\n\nSee `data/health.json` on `main` for the current report."
+                else
+                  "Source `\($id)` has failed \(.consecutiveFailures) runs in a row.\n\nLast success: \(.lastSuccessAt // "never")\nLast failure: \(.lastFailureAt // "unknown")\nLast message: \(.message // "(none)")\n\nSee `data/health.json` on `main` for the current report."
+                end
             ' data/health.json)
 
             gh issue create \
               --title "$title" \
               --label health-alert \
               --body "$body"
-            echo "Opened issue for $id"
+            echo "Opened $kind issue for $id"
           done

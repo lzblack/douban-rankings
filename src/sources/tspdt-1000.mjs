@@ -37,6 +37,8 @@ export default {
     category: 'movie',
     subCategory: 'movie',
     kind: 'yearly',
+    // health marks the snapshot stale past this age (yearly refresh).
+    snapshotMaxAgeDays: 400,
     priority: 6,
     externalIdKind: 'imdb',
     meta: {

@@ -49,6 +49,8 @@ export default {
     category: 'movie',
     subCategory: 'movie',
     kind: 'permanent',
+    // health marks the snapshot stale past this age (quarterly refresh).
+    snapshotMaxAgeDays: 100,
     priority: 2,
     externalIdKind: 'title-year',
     meta: {
