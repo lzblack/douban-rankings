@@ -31,10 +31,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## 技术栈约束
 
-- Node 20+，ESM（`"type": "module"`）
+- Node 22+，ESM（`"type": "module"`）
 - pnpm（`corepack enable`），锁文件提交
 - **Runtime 依赖白名单**：`cheerio`、`yaml`。加依赖前说明理由
-- 测试框架：Node 20 内置 `node --test`，**不**引入 jest / vitest
+- 测试框架：Node 内置 `node --test`，**不**引入 jest / vitest
 - 类型：JS + JSDoc，**不**用 TS（避免 tsc build step）
 - 代码风格：prettier 默认 + 4 空格缩进
 
@@ -44,7 +44,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 |---|---|
 | `pnpm install --frozen-lockfile` | 装依赖 |
 | `pnpm run update` | 跑 pipeline，产出 `data/*.json` |
-| `pnpm test` | `node --test test/**/*.test.mjs` |
+| `pnpm test` | `node --test "test/**/*.test.mjs"`（glob 必须加引号，由 node 展开）|
 | `pnpm run health` | 产出/检查 `data/health.json` |
 | `pnpm run format` | prettier 格式化 `src/**/*.mjs` |
 

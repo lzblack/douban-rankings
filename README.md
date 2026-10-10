@@ -59,7 +59,7 @@ https://rank.douban.zhili.dev/health.json       最近一次抓取的健康状�
 
 ## 开发
 
-- Node 20+，ESM，pnpm（通过 `corepack enable`）
+- Node 22+，ESM，pnpm（通过 `corepack enable`）
 - `pnpm install`
 - `pnpm run update` — 跑 pipeline，刷新 `data/*.json`
 - `pnpm run enrich` — 用 MDBList 给 `movie.json` 补跨平台评分（需本地 `.env` 里的 `MDBLIST_API_KEY`；无 key 时静默跳过）。见 [`.env.example`](.env.example)
