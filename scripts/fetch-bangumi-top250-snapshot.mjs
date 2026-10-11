@@ -31,7 +31,7 @@
  *   pnpm run fetch:bangumi-top250-snapshot
  */
 
-import { writeFile, readFile } from 'node:fs/promises';
+import { mkdir, writeFile, readFile } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parseList } from '../src/sources/bangumi-top250.mjs';
@@ -186,6 +186,7 @@ async function main() {
         resolvedCount: resolved,
         items,
     };
+    await mkdir(dirname(SNAPSHOT_PATH), { recursive: true });
     await writeFile(
         SNAPSHOT_PATH,
         JSON.stringify(payload, null, 2) + '\n',
