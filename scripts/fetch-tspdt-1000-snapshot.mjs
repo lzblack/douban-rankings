@@ -183,7 +183,7 @@ async function main() {
     console.log(
         `\nWrote ${items.length} entries to ${SNAPSHOT_PATH}` +
             (failed.length ? `\n(${failed.length} slugs failed to enrich)` : '') +
-            `\nNext: git add config/tspdt-1000-snapshot.json && git commit && git push`,
+            `\nNext: pnpm run update`,
     );
 }
 

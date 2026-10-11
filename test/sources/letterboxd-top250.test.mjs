@@ -45,7 +45,7 @@ test('scrape() throws helpful message when snapshot missing', async () => {
         const http = { fetch: () => { throw new Error('unused'); } };
         await assert.rejects(
             () => source.scrape(http, { snapshotPath }),
-            /not found.*fetch:letterboxd-top250-snapshot/,
+            /not found.*fetch:letterboxd-top250-snapshot.*carried forward/,
         );
     } finally {
         await rm(dir, { recursive: true, force: true });

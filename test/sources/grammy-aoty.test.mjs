@@ -83,7 +83,7 @@ test('scrape() throws helpful message when snapshot missing', async () => {
         const http = { fetch: () => { throw new Error('unused'); } };
         await assert.rejects(
             () => source.scrape(http, { snapshotPath }),
-            /not found.*fetch:grammy-aoty-snapshot/,
+            /not found.*fetch:grammy-aoty-snapshot.*carried forward/,
         );
     } finally {
         await rm(dir, { recursive: true, force: true });

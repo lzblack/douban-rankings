@@ -108,7 +108,7 @@ test('scrape() throws with helpful instructions when snapshot missing', async ()
         const http = { fetch: () => { throw new Error('unused'); } };
         await assert.rejects(
             () => source.scrape(http, { snapshotPath }),
-            /not found.*fetch:criterion-snapshot/,
+            /not found.*fetch:criterion-snapshot.*carried forward/,
         );
     } finally {
         await rm(dir, { recursive: true, force: true });

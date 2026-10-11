@@ -68,7 +68,7 @@ export default {
                 const e = new Error(
                     'bfi-ss-2022: ' +
                         snapshotPath +
-                        ' not found (snapshots are gitignored — refresh is maintainer-local: pnpm run fetch:bfi-ss-snapshot).',
+                        ' not found (generate it with: pnpm run fetch:bfi-ss-snapshot; until then the published items are carried forward).',
                 );
                 e.code = 'SNAPSHOT_MISSING';
                 throw e;

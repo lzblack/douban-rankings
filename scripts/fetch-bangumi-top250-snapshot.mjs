@@ -197,7 +197,7 @@ async function main() {
             `  matched via doulist: ${viaDoulist}\n` +
             `  fallback to prev: ${viaFallback}\n` +
             `  unresolved: ${unresolved}\n` +
-            `Next: git add config/bangumi-top250-snapshot.json && git commit && git push`,
+            `Next: pnpm run update`,
     );
 }
 

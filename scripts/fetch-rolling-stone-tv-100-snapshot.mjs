@@ -103,7 +103,7 @@ async function main() {
     );
     console.log(
         `\nWrote ${items.length} entries to ${SNAPSHOT_PATH}\n` +
-            `Next: git add config/rolling-stone-tv-100-snapshot.json && git commit && git push`,
+            `Next: pnpm run update`,
     );
 }
 

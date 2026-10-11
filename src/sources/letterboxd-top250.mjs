@@ -60,7 +60,7 @@ export default {
                 const e = new Error(
                     'letterboxd-top250: ' +
                         snapshotPath +
-                        ' not found (snapshots are gitignored — refresh is maintainer-local: pnpm run fetch:letterboxd-top250-snapshot).',
+                        ' not found (generate it with: pnpm run fetch:letterboxd-top250-snapshot; until then the published items are carried forward).',
                 );
                 e.code = 'SNAPSHOT_MISSING';
                 throw e;

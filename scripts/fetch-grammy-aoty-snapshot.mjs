@@ -220,7 +220,7 @@ async function main() {
             `  matched via doulist: ${matched}\n` +
             `  fallback to previous: ${fallback}\n` +
             `  unresolved: ${unresolved}\n` +
-            `Next: git add config/grammy-aoty-snapshot.json && git commit && git push`,
+            `Next: pnpm run update`,
     );
 }
 

@@ -61,7 +61,7 @@ export default {
                 const e = new Error(
                     'bbc-21c-tv-100: ' +
                         snapshotPath +
-                        ' not found (snapshots are gitignored — refresh is maintainer-local: pnpm run fetch:bbc-21c-tv-100-snapshot).',
+                        ' not found (generate it with: pnpm run fetch:bbc-21c-tv-100-snapshot; until then the published items are carried forward).',
                 );
                 e.code = 'SNAPSHOT_MISSING';
                 throw e;
