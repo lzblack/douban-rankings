@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-10T23:43:31.569Z",
+  "generatedAt": "2026-10-11T01:32:14.763Z",
   "categories": {
     "music": {
       "sources": {
@@ -11,8 +11,8 @@
           "kind": "yearly",
           "subCategory": "album",
           "priority": 1,
-          "updatedAt": "2026-10-10T23:43:31.562Z",
-          "itemCount": 67
+          "updatedAt": "2026-10-11T01:32:14.763Z",
+          "itemCount": 68
         }
       },
       "items": {
@@ -470,6 +470,14 @@
             "rank": null,
             "externalId": "grammy-aoty-2015",
             "label": "2015"
+          }
+        ],
+        "25961712": [
+          {
+            "source": "grammy-aoty",
+            "rank": null,
+            "externalId": "grammy-aoty-2016",
+            "label": "2016"
           }
         ],
         "26647907": [

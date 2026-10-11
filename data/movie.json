@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-10T23:43:31.569Z",
+  "generatedAt": "2026-10-11T01:32:14.763Z",
   "categories": {
     "movie": {
       "sources": {
@@ -11,7 +11,7 @@
           "kind": "permanent",
           "subCategory": "movie",
           "priority": 1,
-          "updatedAt": "2026-10-10T23:41:42.720Z",
+          "updatedAt": "2026-10-11T01:30:31.478Z",
           "itemCount": 249
         },
         "imdb-top250-tv": {
@@ -21,7 +21,7 @@
           "kind": "permanent",
           "subCategory": "tv",
           "priority": 8,
-          "updatedAt": "2026-10-10T23:42:01.569Z",
+          "updatedAt": "2026-10-11T01:30:50.262Z",
           "itemCount": 245
         },
         "criterion": {
@@ -31,8 +31,8 @@
           "kind": "permanent",
           "subCategory": "movie",
           "priority": 2,
-          "updatedAt": "2026-10-10T23:42:26.551Z",
-          "itemCount": 1174
+          "updatedAt": "2026-10-11T01:31:14.364Z",
+          "itemCount": 1195
         },
         "afi-top100": {
           "title": "AFI's 100 Years…100 Movies",
@@ -41,7 +41,7 @@
           "kind": "permanent",
           "subCategory": "movie",
           "priority": 3,
-          "updatedAt": "2026-10-10T23:42:27.484Z",
+          "updatedAt": "2026-10-11T01:31:15.067Z",
           "itemCount": 100
         },
         "bfi-ss-2022": {
@@ -61,7 +61,7 @@
           "kind": "permanent",
           "subCategory": "movie",
           "priority": 5,
-          "updatedAt": "2026-10-10T23:42:31.527Z",
+          "updatedAt": "2026-10-11T01:31:15.230Z",
           "itemCount": 248
         },
         "tspdt-1000": {
@@ -71,8 +71,8 @@
           "kind": "yearly",
           "subCategory": "movie",
           "priority": 6,
-          "updatedAt": "2026-10-10T23:42:41.357Z",
-          "itemCount": 990
+          "updatedAt": "2026-10-11T01:31:24.471Z",
+          "itemCount": 991
         },
         "bangumi-top250": {
           "title": "Bangumi Anime Top 250",
@@ -81,7 +81,7 @@
           "kind": "yearly",
           "subCategory": "anime",
           "priority": 7,
-          "updatedAt": "2026-10-10T23:43:31.560Z",
+          "updatedAt": "2026-10-11T01:32:14.762Z",
           "itemCount": 189
         },
         "bbc-21c-tv-100": {
@@ -632,6 +632,15 @@
             "rank": 485,
             "externalId": "tt0258885",
             "label": "No.485"
+          }
+        ],
+        "1291853": [
+          {
+            "source": "criterion",
+            "rank": null,
+            "externalId": "1338",
+            "spineNumber": "1338",
+            "label": "#1338"
           }
         ],
         "1291857": [
@@ -3697,6 +3706,13 @@
         ],
         "1293371": [
           {
+            "source": "criterion",
+            "rank": null,
+            "externalId": "1337",
+            "spineNumber": "1337",
+            "label": "#1337"
+          },
+          {
             "source": "tspdt-1000",
             "rank": 855,
             "externalId": "tt0086197",
@@ -6047,6 +6063,15 @@
             "label": "No.622"
           }
         ],
+        "1295183": [
+          {
+            "source": "criterion",
+            "rank": null,
+            "externalId": "1323",
+            "spineNumber": "1323",
+            "label": "#1323"
+          }
+        ],
         "1295184": [
           {
             "source": "criterion",
@@ -6170,6 +6195,15 @@
             "externalId": "1297",
             "spineNumber": "1297",
             "label": "#1297"
+          }
+        ],
+        "1295377": [
+          {
+            "source": "criterion",
+            "rank": null,
+            "externalId": "1331",
+            "spineNumber": "1331",
+            "label": "#1331"
           }
         ],
         "1295384": [
@@ -8031,6 +8065,15 @@
             "label": "No.897"
           }
         ],
+        "1297331": [
+          {
+            "source": "criterion",
+            "rank": null,
+            "externalId": "239",
+            "spineNumber": "239",
+            "label": "#239"
+          }
+        ],
         "1297344": [
           {
             "source": "criterion",
@@ -8754,13 +8797,6 @@
             "label": "#88"
           },
           {
-            "source": "criterion",
-            "rank": null,
-            "externalId": "88",
-            "spineNumber": "88",
-            "label": "#88"
-          },
-          {
             "source": "tspdt-1000",
             "rank": 247,
             "externalId": "tt0037824",
@@ -9335,6 +9371,13 @@
         ],
         "1298974": [
           {
+            "source": "criterion",
+            "rank": null,
+            "externalId": "1334",
+            "spineNumber": "1334",
+            "label": "#1334"
+          },
+          {
             "source": "tspdt-1000",
             "rank": 682,
             "externalId": "tt0100935",
@@ -9450,6 +9493,13 @@
         ],
         "1299112": [
           {
+            "source": "criterion",
+            "rank": null,
+            "externalId": "842",
+            "spineNumber": "842",
+            "label": "#842"
+          },
+          {
             "source": "tspdt-1000",
             "rank": 890,
             "externalId": "tt0100998",
@@ -9483,6 +9533,13 @@
           }
         ],
         "1299166": [
+          {
+            "source": "criterion",
+            "rank": null,
+            "externalId": "1340",
+            "spineNumber": "1340",
+            "label": "#1340"
+          },
           {
             "source": "tspdt-1000",
             "rank": 281,
@@ -12966,6 +13023,15 @@
             "label": "No.32"
           }
         ],
+        "1303567": [
+          {
+            "source": "criterion",
+            "rank": null,
+            "externalId": "322",
+            "spineNumber": "322",
+            "label": "#322"
+          }
+        ],
         "1303568": [
           {
             "source": "tspdt-1000",
@@ -13292,6 +13358,15 @@
             "externalId": "415",
             "spineNumber": "415",
             "label": "#415"
+          }
+        ],
+        "1304239": [
+          {
+            "source": "criterion",
+            "rank": null,
+            "externalId": "1330",
+            "spineNumber": "1330",
+            "label": "#1330"
           }
         ],
         "1304256": [
@@ -15718,6 +15793,15 @@
             "label": "#333"
           }
         ],
+        "1401623": [
+          {
+            "source": "criterion",
+            "rank": null,
+            "externalId": "180",
+            "spineNumber": "180",
+            "label": "#180"
+          }
+        ],
         "1401756": [
           {
             "source": "tspdt-1000",
@@ -16416,6 +16500,15 @@
             "label": "No.736"
           }
         ],
+        "1421858": [
+          {
+            "source": "criterion",
+            "rank": null,
+            "externalId": "1324",
+            "spineNumber": "1324",
+            "label": "#1324"
+          }
+        ],
         "1421933": [
           {
             "source": "criterion",
@@ -16533,6 +16626,13 @@
           }
         ],
         "1422951": [
+          {
+            "source": "criterion",
+            "rank": null,
+            "externalId": "1339",
+            "spineNumber": "1339",
+            "label": "#1339"
+          },
           {
             "source": "tspdt-1000",
             "rank": 826,
@@ -17250,6 +17350,13 @@
         ],
         "1440106": [
           {
+            "source": "criterion",
+            "rank": null,
+            "externalId": "1336",
+            "spineNumber": "1336",
+            "label": "#1336"
+          },
+          {
             "source": "tspdt-1000",
             "rank": 434,
             "externalId": "tt0058642",
@@ -17485,6 +17592,15 @@
             "rank": 11,
             "externalId": "bangumi-321",
             "label": "No.11"
+          }
+        ],
+        "1449340": [
+          {
+            "source": "criterion",
+            "rank": null,
+            "externalId": "176",
+            "spineNumber": "176",
+            "label": "#176"
           }
         ],
         "1449471": [
@@ -17912,6 +18028,15 @@
             "externalId": "427",
             "spineNumber": "427",
             "label": "#427"
+          }
+        ],
+        "1476023": [
+          {
+            "source": "criterion",
+            "rank": null,
+            "externalId": "1335",
+            "spineNumber": "1335",
+            "label": "#1335"
           }
         ],
         "1476254": [
@@ -21382,6 +21507,15 @@
             "label": "#502"
           }
         ],
+        "3067215": [
+          {
+            "source": "criterion",
+            "rank": null,
+            "externalId": "1329",
+            "spineNumber": "1329",
+            "label": "#1329"
+          }
+        ],
         "3068614": [
           {
             "source": "rolling-stone-tv-100",
@@ -21635,6 +21769,13 @@
           }
         ],
         "3262044": [
+          {
+            "source": "criterion",
+            "rank": null,
+            "externalId": "1332",
+            "spineNumber": "1332",
+            "label": "#1332"
+          },
           {
             "source": "letterboxd-top250",
             "rank": 215,
@@ -23437,6 +23578,14 @@
             "rank": 97,
             "externalId": "bbc-21c-tv-97",
             "label": "No.97"
+          }
+        ],
+        "10552811": [
+          {
+            "source": "tspdt-1000",
+            "rank": 995,
+            "externalId": "tt0251113",
+            "label": "No.995"
           }
         ],
         "10567034": [
@@ -26563,6 +26712,15 @@
             "label": "No.73"
           }
         ],
+        "35391124": [
+          {
+            "source": "criterion",
+            "rank": null,
+            "externalId": "1333",
+            "spineNumber": "1333",
+            "label": "#1333"
+          }
+        ],
         "35406658": [
           {
             "source": "bangumi-top250",
@@ -27019,6 +27177,15 @@
             "label": "No.15"
           }
         ],
+        "36697078": [
+          {
+            "source": "criterion",
+            "rank": null,
+            "externalId": "1325",
+            "spineNumber": "1325",
+            "label": "#1325"
+          }
+        ],
         "36727419": [
           {
             "source": "criterion",
@@ -27026,6 +27193,15 @@
             "externalId": "1291",
             "spineNumber": "1291",
             "label": "#1291"
+          }
+        ],
+        "36742578": [
+          {
+            "source": "criterion",
+            "rank": null,
+            "externalId": "1327",
+            "spineNumber": "1327",
+            "label": "#1327"
           }
         ],
         "36742579": [
