@@ -16,9 +16,9 @@ concurrency:
 jobs:
   update:
     runs-on: ubuntu-latest
-    # Cold-start Criterion resolution can hit Douban search for ~100-300
-    # titles @ 5s/req; 240 min buffer covers that. Incremental monthly
-    # runs finish in <10 min once data/movie.json has the resolved cache.
+    # Snapshot fetchers take ~45 min (TSPDT's 1000 Letterboxd pages are
+    # most of it); the pipeline itself is <10 min once data/movie.json holds
+    # the resolved cache. 240 min leaves room for a cold-start resolution.
     timeout-minutes: 240
     steps:
       - uses: actions/checkout@v5
@@ -35,6 +35,42 @@ jobs:
       - name: Install deps
         run: pnpm install --frozen-lockfile
 
+      - name: Restore manual mapping
+        env:
+          MANUAL_MAPPING_YAML: ${{ secrets.MANUAL_MAPPING_YAML }}
+        run: |
+          mkdir -p config
+          if [ -n "$MANUAL_MAPPING_YAML" ]; then
+            printf '%s\n' "$MANUAL_MAPPING_YAML" > config/manual-mapping.yaml
+          else
+            echo "::warning::MANUAL_MAPPING_YAML secret is not set; matching runs without manual overrides"
+          fi
+
+      # Snapshot fetchers. A fetcher that fails leaves its snapshot absent,
+      # so the pipeline marks that source skipped and carries its published
+      # items forward; health's snapshotMaxAgeDays alert fires if it keeps
+      # failing. BFI / BBC / Rolling Stone are fixed one-off lists and are
+      # never refetched.
+      - name: Fetch Criterion snapshot
+        continue-on-error: true
+        run: pnpm run fetch:criterion-snapshot
+
+      - name: Fetch Letterboxd Top 250 snapshot
+        continue-on-error: true
+        run: pnpm run fetch:letterboxd-top250-snapshot
+
+      - name: Fetch Bangumi Top 250 snapshot
+        continue-on-error: true
+        run: pnpm run fetch:bangumi-top250-snapshot
+
+      - name: Fetch Grammy AOTY snapshot
+        continue-on-error: true
+        run: pnpm run fetch:grammy-aoty-snapshot
+
+      - name: Fetch TSPDT 1000 snapshot
+        continue-on-error: true
+        run: pnpm run fetch:tspdt-1000-snapshot
+
       - name: Run pipeline
         run: pnpm run update
 
@@ -42,11 +78,8 @@ jobs:
         run: |
           git config user.name "rankings-bot"
           git config user.email "bot@users.noreply.github.com"
-          # In CI, snapshot-dependent sources report status=skipped (their
-          # config/*-snapshot.json is gitignored and absent from the runner).
-          # The pipeline carries their items forward from the previous
-          # data/*.json, so only the live-scrape sources (IMDb, AFI) change
-          # and the published data never shrinks to what CI could scrape.
+          # config/ (snapshots, manual mapping) is gitignored, so only the
+          # published output under data/ is committed.
           git add data/
           if git diff --cached --quiet; then
             echo "No data changes."

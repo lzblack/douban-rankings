@@ -134,32 +134,28 @@ Bot 身份：`rankings-bot <bot@users.noreply.github.com>`，与人类作者区�
 
 ## 维护任务：snapshot refresh
 
-多个 source 的源站对 Actions runner IP 返 403 或没提供干净 list HTML，因此 pipeline 读 `config/*-snapshot.json`——由维护者在家用命令生成并 commit：
+快照源的列表来自 `config/*-snapshot.json`（gitignored，不进 public repo）。**`update.yml` 每月在 CI 里自动生成它们**：先从 secret `MANUAL_MAPPING_YAML` 写回 `config/manual-mapping.yaml`，再依次跑 fetcher，然后跑 pipeline、commit `data/`。快照只是 runner 上的临时文件，用完即丢。
 
-| Source | 命令 | 建议频率 |
+| Source | Fetcher（CI 每月跑） | 列表来源 |
 |---|---|---|
-| Criterion Collection | `pnpm run fetch:criterion-snapshot` | 季度 |
-| BFI Sight & Sound | `pnpm run fetch:bfi-ss-snapshot` | 2032 年下届前不必 |
-| Letterboxd Top 250 | `pnpm run fetch:letterboxd-top250-snapshot` | 季度 |
-| TSPDT 1000 | `pnpm run fetch:tspdt-1000-snapshot` | 年度 |
-| Bangumi Top 250 | `pnpm run fetch:bangumi-top250-snapshot` | 季度 |
-| Grammy AOTY | `pnpm run fetch:grammy-aoty-snapshot` | 年度（2 月典礼后）|
+| Criterion Collection | `pnpm run fetch:criterion-snapshot` | Wikipedia "List of films in the Criterion Collection" + 豆瓣豆列 |
+| Letterboxd Top 250 | `pnpm run fetch:letterboxd-top250-snapshot` | letterboxd.com |
+| Bangumi Top 250 | `pnpm run fetch:bangumi-top250-snapshot` | bgm.tv + 豆瓣豆列 |
+| TSPDT 1000 | `pnpm run fetch:tspdt-1000-snapshot` | letterboxd.com 上的 TSPDT 列表 |
+| Grammy AOTY | `pnpm run fetch:grammy-aoty-snapshot` | Wikipedia + 豆瓣豆列 |
+| BFI / BBC / Rolling Stone | 不跑 | 定版榜单，靠 carry-forward 永久沿用 |
 
-所有 fetcher 都通过 system `curl`（Node fetch 的 TLS 指纹可能被识别）。必须从 residential IP 跑（云 IP 普遍被拦）。
-
-`config/*-snapshot.json` 和 `config/manual-mapping.yaml` **gitignored，仅本地**——这些是维护者的 curation 成果 + 反爬侧信道，不进 public repo。生成或更新 snapshot 后无需 commit；直接：
+- **可达性（2026-10-10 实测）**：criterion.com 对机房 IP（Actions、Cloudflare Worker、devbox）一律返回 Cloudflare challenge，所以 Criterion 的列表改走 Wikipedia；其余源站在 Actions 上都能正常访问。Wikipedia 上缺的 spine（页面笔误）由已发布数据补回，解析结果少于已发布数的 90% 时 fetcher 判定失败。
+- **失败兜底**：每个 fetcher 都是 `continue-on-error`。失败 → 快照不存在 → source 标 `skipped` → 沿用已发布条目（`updatedAt` 保持旧值）；连续失败超过 `snapshotMaxAgeDays` 会触发过期 issue。
+- **改人工映射**：编辑本地 `config/manual-mapping.yaml` 后同步 secret——bash：`gh secret set MANUAL_MAPPING_YAML < config/manual-mapping.yaml`；PowerShell：`Get-Content config/manual-mapping.yaml -Raw | gh secret set MANUAL_MAPPING_YAML`。
+- **本地手动刷新（备用）**：fetcher 都通过 system `curl`，本地照样能跑：
 ```
-pnpm run update          # 跑 pipeline，产出 data/*.json
-git add data/            # 只 commit 公开的产出
-git commit -m "data: refresh <source>"
-git push
+pnpm run fetch:<source>-snapshot
+pnpm run update          # 产出 data/*.json；缺快照的 source 沿用已发布条目
+git add data/ && git commit -m "data: refresh <source>" && git push
 ```
 
-**CI 只刷新 live source**：Actions runner 没有 snapshot 文件，snapshot source 标 `skipped`；pipeline 对 `skipped` / `failed` 的 source 沿用上次 `data/*.json` 里的条目（`updatedAt` 保持旧值），所以 `update.yml` 每月 commit 整个 `data/`，只有 IMDb / AFI 的排名真正更新，数据不会缩水。snapshot source 的刷新仍然完全手动：本地跑 fetcher → 本地跑 pipeline → push `data/`。
-
-Snapshot 文件不在或过期不阻塞其他 source：缺 snapshot 的 source 标 `skipped` 并沿用旧条目，其余照跑（所以就算本地忘跑某个 fetcher 也不会全盘 stuck）。
-
-**过期提醒**：source 定义里的 `snapshotMaxAgeDays`（季度源 100、年度源 400；BFI / BBC / Rolling Stone 这类定版榜单不设）超过后，`health.json` 该条 `stale: true`、overall=degraded，health-alert 开 `[health] <id> snapshot is stale` issue。本地刷新并跑 `update` 后 `stale` 自动清除，issue 需手动关闭。
+**过期提醒**：source 定义里的 `snapshotMaxAgeDays`（季度源 100、年度源 400；BFI / BBC / Rolling Stone 这类定版榜单不设）超过后，`health.json` 该条 `stale: true`、overall=degraded，health-alert 开 `[health] <id> snapshot is stale` issue。下一次成功刷新后 `stale` 自动清除，issue 需手动关闭。
 
 ## 姐妹项目
 

@@ -9,12 +9,12 @@
 | Source | 来源 | 规模 | 更新节奏 |
 |---|---|---|---|
 | `imdb-top250` | IMDb Top 250 Movies | 250 | 月度自动（IMDb Datasets）|
-| `criterion` | The Criterion Collection | ~1300 | 季度手工 snapshot |
+| `criterion` | The Criterion Collection | ~1300 | 月度自动（Wikipedia + 豆瓣豆列）|
 | `afi-top100` | AFI's 100 Years...100 Movies (10th ed.) | 100 | 冻结（2007 版）|
 | `bfi-ss-2022` | BFI Sight & Sound 2022 Critics' Poll | 100 | 冻结（2032 前）|
-| `letterboxd-top250` | Letterboxd Top 250 Films by Most Fans | 250 | 季度手工 snapshot |
-| `tspdt-1000` | They Shoot Pictures, Don't They? 1000 Greatest | 1000 | 年度手工 snapshot |
-| `bangumi-top250` | Bangumi 动画 Top 250 | 250 | 季度手工 snapshot |
+| `letterboxd-top250` | Letterboxd Top 250 Films by Most Fans | 250 | 月度自动 |
+| `tspdt-1000` | They Shoot Pictures, Don't They? 1000 Greatest | 1000 | 月度自动 |
+| `bangumi-top250` | Bangumi 动画 Top 250 | 250 | 月度自动 |
 
 **本仓库不含 UI**。
 
