@@ -1,16 +1,18 @@
 #!/usr/bin/env node
 /**
- * Maintainer utility: fetch the Criterion Collection browse/list page
- * and produce `config/criterion-snapshot.json`.
+ * Snapshot fetcher: build `config/criterion-snapshot.json`. Runs in CI
+ * (update workflow) and locally.
  *
- * Run this from a residential IP (home / office). criterion.com
- * returns HTTP 403 for GitHub Actions runners and other cloud
- * providers, so the pipeline can't fetch it directly — instead it
- * reads the committed snapshot this script produces.
+ * criterion.com serves a Cloudflare challenge to every non-residential
+ * IP, so the canonical spine list comes from Wikipedia instead.
  *
  * Two-phase fetch:
- *   1. Scrape criterion.com/shop/browse/list → canonical CC spine list
- *      (~1,300 entries: spine number, title, year, slug).
+ *   1. Parse Wikipedia's "List of films in the Criterion Collection"
+ *      → canonical CC spine list (~1,300 entries: spine, title, year),
+ *      plus any previously published spine the page lacks (spines are
+ *      permanent; a gap is a page typo). Fails when the parse yields
+ *      fewer than 90% of the published spines, so a reshaped page makes
+ *      the pipeline carry the published list forward instead.
  *   2. Scrape Douban doulist 123607960 ("标准收藏 CC 電影全集",
  *      ~1,530 entries, hand-curated) → for each of our CC entries that
  *      matches by year + title overlap, write the curator-picked
@@ -23,17 +25,24 @@
  * Usage:
  *   pnpm run fetch:criterion-snapshot
  *
- * Cadence: quarterly is plenty (Criterion adds ~5-10 spines/month).
+ * Cadence: runs with every monthly update in CI (Criterion adds ~5-10
+ * spines/month).
  */
 
-import { writeFile, readFile } from 'node:fs/promises';
+import { mkdir, writeFile, readFile } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { parseList, CRITERION_LIST_URL } from '../src/sources/criterion.mjs';
+import {
+    parseWikipediaList,
+    addPublishedSpines,
+    CRITERION_WIKIPEDIA_LIST_URL,
+} from '../src/sources/criterion.mjs';
 import { fetchViaCurl, scrapeDoulistAll, normalizeForMatch } from './lib/doulist.mjs';
 
 const PROJECT_ROOT = dirname(dirname(fileURLToPath(import.meta.url)));
 const SNAPSHOT_PATH = join(PROJECT_ROOT, 'config', 'criterion-snapshot.json');
+const PUBLISHED_MOVIE_PATH = join(PROJECT_ROOT, 'data', 'movie.json');
+const MIN_PARSED_RATIO = 0.9;
 
 const DOULIST_ID = '123607960';
 const DOULIST_DELAY_MS = 2500;
@@ -83,24 +92,40 @@ async function loadExistingCcList() {
     return null;
 }
 
+async function loadPublishedMovie() {
+    try {
+        const json = JSON.parse(await readFile(PUBLISHED_MOVIE_PATH, 'utf-8'));
+        return json?.schemaVersion === 1 ? json : null;
+    } catch {
+        return null;
+    }
+}
+
 async function main() {
-    console.log(`Fetching ${CRITERION_LIST_URL} (via system curl)`);
-    const { status, body } = await fetchViaCurl(CRITERION_LIST_URL);
+    console.log(`Fetching ${CRITERION_WIKIPEDIA_LIST_URL} (via system curl)`);
+    const { status, body } = await fetchViaCurl(CRITERION_WIKIPEDIA_LIST_URL);
     let items;
     if (status === 200) {
-        items = parseList(body);
-        if (items.length === 0) {
+        const parsed = parseWikipediaList(body);
+        const published = await loadPublishedMovie();
+        const publishedCount =
+            published?.categories?.movie?.sources?.criterion?.itemCount ?? 0;
+        const floor = Math.floor(publishedCount * MIN_PARSED_RATIO);
+        if (parsed.length < floor) {
             console.error(
-                'Parsed zero entries — the page may have changed structure. Inspect the HTML manually.',
+                `Parsed only ${parsed.length} spines (expected ≥ ${floor}) — the Wikipedia page may have changed structure.`,
             );
             process.exit(1);
         }
-        console.log(`Parsed ${items.length} CC spines from criterion.com`);
+        items = addPublishedSpines(parsed, published);
+        console.log(
+            `Parsed ${parsed.length} CC spines from Wikipedia; kept ${items.length - parsed.length} published spines missing from it`,
+        );
     } else {
-        console.warn(`criterion.com HTTP ${status} — using existing snapshot as CC list.`);
+        console.warn(`Wikipedia HTTP ${status} — using existing snapshot as CC list.`);
         const existing = await loadExistingCcList();
         if (!existing) {
-            console.error('No existing snapshot to fall back on. Retry from a residential IP.');
+            console.error('No existing snapshot to fall back on. Retry later.');
             process.exit(1);
         }
         // Strip any prior doubanId — we'll re-derive from this run's doulist.
@@ -133,19 +158,19 @@ async function main() {
 
     const payload = {
         generatedAt: new Date().toISOString(),
-        source: CRITERION_LIST_URL,
+        source: CRITERION_WIKIPEDIA_LIST_URL,
         count: enriched.length,
         doulistSource: `https://www.douban.com/doulist/${DOULIST_ID}/`,
         doulistMatched: matched,
         items: enriched,
     };
+    await mkdir(dirname(SNAPSHOT_PATH), { recursive: true });
     await writeFile(
         SNAPSHOT_PATH,
         JSON.stringify(payload, null, 2) + '\n',
         'utf-8',
     );
     console.log(`Wrote ${enriched.length} entries to ${SNAPSHOT_PATH}`);
-    console.log('Next: git add config/criterion-snapshot.json && git commit && git push');
 }
 
 main().catch(err => {
