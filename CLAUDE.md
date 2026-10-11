@@ -145,7 +145,7 @@ Bot 身份：`rankings-bot <bot@users.noreply.github.com>`，与人类作者区�
 | Grammy AOTY | `pnpm run fetch:grammy-aoty-snapshot` | Wikipedia + 豆瓣豆列 |
 | BFI / BBC / Rolling Stone | 不跑 | 定版榜单，靠 carry-forward 永久沿用 |
 
-- **可达性（2026-10-10 实测）**：criterion.com 对机房 IP（Actions、Cloudflare Worker、devbox）一律返回 Cloudflare challenge，所以 Criterion 的列表改走 Wikipedia；其余源站在 Actions 上都能正常访问。Wikipedia 上缺的 spine（页面笔误）由已发布数据补回，解析结果少于已发布数的 90% 时 fetcher 判定失败。
+- **可达性（2026-10-10 实测）**：criterion.com 对机房 IP（GitHub Actions、Cloudflare Worker 等）一律返回 Cloudflare challenge，所以 Criterion 的列表改走 Wikipedia；其余源站在 Actions 上都能正常访问。Wikipedia 上缺的 spine（页面笔误）由已发布数据补回，解析结果少于已发布数的 90% 时 fetcher 判定失败。
 - **失败兜底**：每个 fetcher 都是 `continue-on-error`。失败 → 快照不存在 → source 标 `skipped` → 沿用已发布条目（`updatedAt` 保持旧值）；连续失败超过 `snapshotMaxAgeDays` 会触发过期 issue。
 - **改人工映射**：编辑本地 `config/manual-mapping.yaml` 后同步 secret——bash：`gh secret set MANUAL_MAPPING_YAML < config/manual-mapping.yaml`；PowerShell：`Get-Content config/manual-mapping.yaml -Raw | gh secret set MANUAL_MAPPING_YAML`。
 - **本地手动刷新（备用）**：fetcher 都通过 system `curl`，本地照样能跑：
