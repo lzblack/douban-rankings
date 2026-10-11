@@ -14,7 +14,7 @@
  *   pnpm run fetch:rolling-stone-tv-100-snapshot
  */
 
-import { writeFile } from 'node:fs/promises';
+import { mkdir, writeFile } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import * as cheerio from 'cheerio';
@@ -95,6 +95,7 @@ async function main() {
         resolvedCount: items.filter(it => it.doubanId).length,
         items,
     };
+    await mkdir(dirname(SNAPSHOT_PATH), { recursive: true });
     await writeFile(
         SNAPSHOT_PATH,
         JSON.stringify(payload, null, 2) + '\n',

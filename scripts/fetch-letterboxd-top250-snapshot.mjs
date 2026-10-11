@@ -13,7 +13,7 @@
  * to accumulate), quarterly refresh is plenty.
  */
 
-import { writeFile } from 'node:fs/promises';
+import { mkdir, writeFile } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { execFile } from 'node:child_process';
@@ -163,6 +163,7 @@ async function main() {
         count: items.length,
         items,
     };
+    await mkdir(dirname(SNAPSHOT_PATH), { recursive: true });
     await writeFile(
         SNAPSHOT_PATH,
         JSON.stringify(payload, null, 2) + '\n',
