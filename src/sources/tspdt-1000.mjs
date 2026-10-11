@@ -63,7 +63,7 @@ export default {
                 const e = new Error(
                     'tspdt-1000: ' +
                         snapshotPath +
-                        ' not found (snapshots are gitignored — refresh is maintainer-local: pnpm run fetch:tspdt-1000-snapshot).',
+                        ' not found (generate it with: pnpm run fetch:tspdt-1000-snapshot; until then the published items are carried forward).',
                 );
                 e.code = 'SNAPSHOT_MISSING';
                 throw e;

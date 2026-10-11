@@ -89,7 +89,7 @@ export default {
                 const e = new Error(
                     'criterion: ' +
                         snapshotPath +
-                        ' not found (snapshots are gitignored — refresh is maintainer-local: pnpm run fetch:criterion-snapshot).',
+                        ' not found (generate it with: pnpm run fetch:criterion-snapshot; until then the published items are carried forward).',
                 );
                 e.code = 'SNAPSHOT_MISSING';
                 throw e;

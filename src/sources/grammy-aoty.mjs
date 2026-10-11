@@ -65,7 +65,7 @@ export default {
                 const e = new Error(
                     'grammy-aoty: ' +
                         snapshotPath +
-                        ' not found (snapshots are gitignored — refresh is maintainer-local: pnpm run fetch:grammy-aoty-snapshot).',
+                        ' not found (generate it with: pnpm run fetch:grammy-aoty-snapshot; until then the published items are carried forward).',
                 );
                 e.code = 'SNAPSHOT_MISSING';
                 throw e;
